@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8150" systemVersion="15A204g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,8 +18,42 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ព័ត៌មានសំរាប់អ្នក" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tzi-Vb-Ei5">
+                                <rect key="frame" x="20" y="316" width="560" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="news.khmeracademy.org" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7R-mg-S04">
+                                <rect key="frame" x="20" y="366" width="560" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ct1-az-wXJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="121" placeholderIntrinsicHeight="121" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="n88-Z3-91q">
+                                <rect key="frame" x="208" y="124" width="184" height="184"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="n88-Z3-91q" secondAttribute="height" multiplier="1:1" id="A56-PA-D8K"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Tzi-Vb-Ei5" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="2ua-sb-AKS"/>
+                            <constraint firstItem="n88-Z3-91q" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="104" id="9NW-qL-tHo"/>
+                            <constraint firstItem="Y7R-mg-S04" firstAttribute="trailing" secondItem="Tzi-Vb-Ei5" secondAttribute="trailing" id="DsK-fY-prb"/>
+                            <constraint firstItem="n88-Z3-91q" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-84" id="Jeo-my-iKh"/>
+                            <constraint firstItem="Tzi-Vb-Ei5" firstAttribute="top" secondItem="n88-Z3-91q" secondAttribute="bottom" constant="8" id="Lxd-jc-wyZ"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Y7R-mg-S04" secondAttribute="bottom" constant="213" id="N34-2j-qQa"/>
+                            <constraint firstItem="Y7R-mg-S04" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="Neu-5B-E2w"/>
+                            <constraint firstItem="Y7R-mg-S04" firstAttribute="top" secondItem="Tzi-Vb-Ei5" secondAttribute="bottom" constant="8" symbolic="YES" id="X45-P9-mP1"/>
+                            <constraint firstItem="Tzi-Vb-Ei5" firstAttribute="leading" secondItem="Y7R-mg-S04" secondAttribute="leading" id="aVy-LT-vZH"/>
+                            <constraint firstItem="Tzi-Vb-Ei5" firstAttribute="centerX" secondItem="n88-Z3-91q" secondAttribute="centerX" constant="-0.5" id="cMN-GM-ibg"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +61,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LaunchScreen" width="1024" height="1024"/>
+    </resources>
 </document>

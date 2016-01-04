@@ -207,6 +207,7 @@
 				TargetAttributes = {
 					A5C6C3411C36B15D0003AA80 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = ZU4ZU97GEC;
 					};
 					A5C6C35A1C36B15D0003AA80 = {
 						CreatedOnToolsVersion = 7.2;
@@ -413,10 +414,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AKN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kshrd.AKN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -424,10 +428,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AKN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kshrd.AKN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -498,6 +505,7 @@
 				A5C6C3711C36B15D0003AA80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A5C6C3721C36B15D0003AA80 /* Build configuration list for PBXNativeTarget "AKNTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +514,7 @@
 				A5C6C3741C36B15D0003AA80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A5C6C3751C36B15D0003AA80 /* Build configuration list for PBXNativeTarget "AKNUITests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +523,7 @@
 				A5C6C3771C36B15D0003AA80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
