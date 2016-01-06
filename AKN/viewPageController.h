@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  viewPageController.h
 //  PagingMenu
 //
 //  Created by Chum Ratha on 1/4/16.
@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CAPSPageMenu.h"
-@interface ViewController : UIViewController
 
+@interface viewPageController : UIViewController
 
 @end
-

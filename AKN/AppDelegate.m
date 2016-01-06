@@ -17,7 +17,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	[NSThread sleepForTimeInterval:3.0];
+	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+	
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+	
+	// determine the initial view controller here and instantiate it with
+	UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+	
+	self.window.rootViewController = viewController;
+	[self.window makeKeyAndVisible];
+	
+	// Override point for customization after application launch.
+	UIPageControl *pageControl = [UIPageControl appearance];
+	pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+	pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+	pageControl.backgroundColor = [UIColor whiteColor];
+	
 	
 	return YES;
 }
