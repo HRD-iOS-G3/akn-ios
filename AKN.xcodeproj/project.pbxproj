@@ -54,6 +54,9 @@
 		A5C6C3551C36B15D0003AA80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5C6C3531C36B15D0003AA80 /* LaunchScreen.storyboard */; };
 		A5C6C3601C36B15D0003AA80 /* AKNTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6C35F1C36B15D0003AA80 /* AKNTests.m */; };
 		A5C6C36B1C36B15D0003AA80 /* AKNUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6C36A1C36B15D0003AA80 /* AKNUITests.m */; };
+		A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */; };
+		A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */; };
+		A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +144,11 @@
 		A5C6C3661C36B15D0003AA80 /* AKNUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AKNUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C6C36A1C36B15D0003AA80 /* AKNUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKNUITests.m; sourceTree = "<group>"; };
 		A5C6C36C1C36B15D0003AA80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
+		A5E53B741C3EC90700DD32FA /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
+		A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
+		A5E53B761C3EC90700DD32FA /* SignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpTableViewController.h; sourceTree = "<group>"; };
+		A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +292,7 @@
 		A5C6C3441C36B15D0003AA80 /* AKN */ = {
 			isa = PBXGroup;
 			children = (
+				A5E53B731C3EC8F900DD32FA /* LoginSignup */,
 				A5BE5FF71C3D0B77007025AC /* PageMenu */,
 				A5BE5FF31C3D0B57007025AC /* CAPAGEMenu */,
 				A5BE5FB91C3D0917007025AC /* SWRevealViewController */,
@@ -292,10 +301,11 @@
 				A5C6C3481C36B15D0003AA80 /* AppDelegate.h */,
 				A5C6C3491C36B15D0003AA80 /* AppDelegate.m */,
 				A5C6C34E1C36B15D0003AA80 /* Main.storyboard */,
-				A5C6C3511C36B15D0003AA80 /* Assets.xcassets */,
+				A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */,
 				A5C6C3531C36B15D0003AA80 /* LaunchScreen.storyboard */,
 				A5BE5FA61C3D08C2007025AC /* Sidebar.storyboard */,
 				A5BE5FE11C3D0AA0007025AC /* PageMenu.storyboard */,
+				A5C6C3511C36B15D0003AA80 /* Assets.xcassets */,
 				A5C6C3561C36B15D0003AA80 /* Info.plist */,
 				A5C6C3451C36B15D0003AA80 /* Supporting Files */,
 			);
@@ -327,6 +337,17 @@
 				A5C6C36C1C36B15D0003AA80 /* Info.plist */,
 			);
 			path = AKNUITests;
+			sourceTree = "<group>";
+		};
+		A5E53B731C3EC8F900DD32FA /* LoginSignup */ = {
+			isa = PBXGroup;
+			children = (
+				A5E53B741C3EC90700DD32FA /* LoginTableViewController.h */,
+				A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */,
+				A5E53B761C3EC90700DD32FA /* SignUpTableViewController.h */,
+				A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */,
+			);
+			name = LoginSignup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,6 +457,7 @@
 				A5BE5FF21C3D0B47007025AC /* khmeracademy.jpg in Resources */,
 				A5BE5FDE1C3D094F007025AC /* passkey1.png in Resources */,
 				A5C6C3551C36B15D0003AA80 /* LaunchScreen.storyboard in Resources */,
+				A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */,
 				A5BE5FF11C3D0B47007025AC /* sabay.png in Resources */,
 				A5BE5FD01C3D094F007025AC /* login.png in Resources */,
 				A5BE5FEF1C3D0B47007025AC /* slider.jpg in Resources */,
@@ -492,6 +514,7 @@
 				A5BE5FB71C3D0906007025AC /* SidebarMenuViewController.m in Sources */,
 				A5BE5FFA1C3D0B82007025AC /* ViewSourceController.m in Sources */,
 				A5BE5FB61C3D0906007025AC /* MainViewController.m in Sources */,
+				A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */,
 				A5BE5FAD1C3D08EB007025AC /* UserProfileViewController.m in Sources */,
 				A5C6C34A1C36B15D0003AA80 /* AppDelegate.m in Sources */,
 				A5BE5FFD1C3D0B9C007025AC /* ViewController.m in Sources */,
@@ -499,6 +522,7 @@
 				A5BE60091C3D0BAF007025AC /* TableSourceViewController.m in Sources */,
 				A5BE5FAE1C3D08EB007025AC /* ChangePasswordTableViewController.m in Sources */,
 				A5C6C3471C36B15D0003AA80 /* main.m in Sources */,
+				A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */,
 				A5BE60081C3D0BAF007025AC /* HomeViewCell.m in Sources */,
 				A5BE5FF61C3D0B5E007025AC /* CAPSPageMenu.m in Sources */,
 				A5BE5FB81C3D0906007025AC /* SidebarMenuTableViewCell.m in Sources */,

@@ -80,11 +80,11 @@
     self.revealViewController.bounceBackOnOverdraw = NO; // If YES the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth' (default YES)
     
     // TOGGLING MENU DISPLACEMENT: how much displacement is applied to the menu when animating or dragging the content
-    self.revealViewController.rearViewRevealDisplacement = 20.0f; // (default 40.0)
+    self.revealViewController.rearViewRevealDisplacement = 40.0f; // (default 40.0)
     
     // TOGGLING ANIMATION: Configure the animation while the menu gets hidden
     self.revealViewController.toggleAnimationType = SWRevealToggleAnimationTypeSpring; // Animation type (SWRevealToggleAnimationTypeEaseOut or SWRevealToggleAnimationTypeSpring)
-    self.revealViewController.toggleAnimationDuration = 1.0f; // Duration for the revealToggle animation (default 0.25)
+    self.revealViewController.toggleAnimationDuration = 0.25f; // Duration for the revealToggle animation (default 0.25)
     self.revealViewController.springDampingRatio = 1.0f; // damping ratio if SWRevealToggleAnimationTypeSpring (default 1.0)
     
     // SHADOW: Configure the shadow that appears between the menu and content views
