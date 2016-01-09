@@ -8,12 +8,14 @@
 
 #import "TablePageViewController.h"
 #import "HomeViewCell.h"
-@interface TablePageViewController ()<UICollectionViewDataSource>{
+@interface TablePageViewController ()<UICollectionViewDataSource,UIScrollViewDelegate>{
     UICollectionViewFlowLayout *coll;
-     NSArray *arr;
+    NSArray *arr;
     __weak IBOutlet UICollectionView *collectionViewNews;
     
     __weak IBOutlet UICollectionViewFlowLayout *collection;
+    CGFloat kTableHeaderHeight;
+    UIView *headerView;
 }
 
 @end
@@ -25,7 +27,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    kTableHeaderHeight=175.0;
+    headerView=[[UIView alloc]init];
+    headerView=self.tableView.tableHeaderView;
+    self.tableView.tableHeaderView=nil;
+    [self.tableView addSubview:headerView];
+    self.tableView.contentInset=UIEdgeInsetsMake(kTableHeaderHeight, 0.0, 0.0, 0.0);
+    self.tableView.contentOffset=CGPointMake(0.0, -kTableHeaderHeight);
+    [self updateHeaderView];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -35,13 +44,23 @@
     collectionViewNews.dataSource=self;
     //collectionView.delegate=self;
     [coll setItemSize:CGSizeMake(self->collectionViewNews.frame.size.width, self->collectionViewNews.frame.size.height)];
-    arr=@[@1,@2,@3];
-
+    arr=@[@1,@2,@3,@4];
+    
     //[headerView addSubview:collectionView];
     //self.tableView.tableHeaderView = headerView;
     collectionViewNews.dataSource=self;
 }
-
+-(void)updateHeaderView{
+    CGRect headerRect=CGRectMake(0.0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight);
+    if (self.tableView.contentOffset.y < -kTableHeaderHeight) {
+        headerRect.origin.y=self.tableView.contentOffset.y;
+        headerRect.size.height= -self.tableView.contentOffset.y;
+    }
+    headerView.frame=headerRect;
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self updateHeaderView];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -50,7 +69,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 10;
 }
 
 
@@ -62,6 +81,15 @@
     cell.newsView.text=@"300";
     cell.newsDate.text=@"12-Dec-2015";
     return cell;
+}
+- (UICollectionViewLayoutAttributes*)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
+{
+    UICollectionViewLayoutAttributes *attr = [self->collectionViewNews layoutAttributesForItemAtIndexPath:itemIndexPath];
+    
+    attr.transform = CGAffineTransformRotate(CGAffineTransformMakeScale(0.2, 0.2), M_PI);
+    attr.center = CGPointMake(CGRectGetMidX(self->collectionViewNews.bounds), CGRectGetMaxY(self->collectionViewNews.bounds));
+    
+    return attr;
 }
 //-(void)viewDidLayoutSubviews
 //{
@@ -80,7 +108,7 @@
 //}
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -88,8 +116,7 @@
     UIImageView *img=(UIImageView*)[cell viewWithTag:20];
     img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg",(indexPath.row+1)]];
     return cell;
-}
-/*
+}/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.

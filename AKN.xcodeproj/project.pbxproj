@@ -57,6 +57,7 @@
 		A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */; };
 		A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */; };
 		A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */; };
+		D3AAE8371C40F31900739089 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3AAE8361C40F31900739089 /* 4.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
 		A5E53B761C3EC90700DD32FA /* SignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpTableViewController.h; sourceTree = "<group>"; };
 		A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpTableViewController.m; sourceTree = "<group>"; };
+		D3AAE8361C40F31900739089 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 				A5BE5FE31C3D0B47007025AC /* 1.jpg */,
 				A5BE5FE41C3D0B47007025AC /* 2.jpg */,
 				A5BE5FE51C3D0B47007025AC /* 3.jpg */,
+				D3AAE8361C40F31900739089 /* 4.jpg */,
 				A5BE5FE61C3D0B47007025AC /* calendar.png */,
 				A5BE5FE71C3D0B47007025AC /* slider.jpg */,
 				A5BE5FE81C3D0B47007025AC /* view.png */,
@@ -462,6 +465,7 @@
 				A5BE5FD01C3D094F007025AC /* login.png in Resources */,
 				A5BE5FEF1C3D0B47007025AC /* slider.jpg in Resources */,
 				A5BE5FDC1C3D094F007025AC /* menu.png in Resources */,
+				D3AAE8371C40F31900739089 /* 4.jpg in Resources */,
 				A5C6C3521C36B15D0003AA80 /* Assets.xcassets in Resources */,
 				A5BE5FEE1C3D0B47007025AC /* calendar.png in Resources */,
 				A5BE5FED1C3D0B47007025AC /* 3.jpg in Resources */,
