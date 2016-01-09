@@ -22,10 +22,18 @@
     [super viewDidLoad];
     self.sidebarMenuTableView.delegate=self;
     self.sidebarMenuTableView.dataSource=self;
+    
     menuItems = @[@"home", @"saveList", @"setting", @"logout", @"aboutUs"];
     menuTitle = @[@"Home", @"Save List", @"Setting", @"Logout", @"About us"];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+    
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
