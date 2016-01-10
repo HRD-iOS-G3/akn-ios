@@ -1,24 +1,26 @@
 //
-//  TableSourceViewController.m
-//  PagingMenu
+//  CategoryTableViewController.m
+//  AKN
 //
-//  Created by Po Dara on 1/6/16.
-//  Copyright © 2016 Chum Ratha. All rights reserved.
+//  Created by Ponnreay on 1/11/16.
+//  Copyright © 2016 kshrd. All rights reserved.
 //
 
-#import "TableSourceViewController.h"
+#import "CategoryTableViewController.h"
 
-@interface TableSourceViewController ()
+@interface CategoryTableViewController ()
 {
-	NSMutableArray *sources;
+	NSMutableArray *categories;
 }
 @end
 
-@implementation TableSourceViewController
+@implementation CategoryTableViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	sources = [[NSMutableArray alloc]initWithArray:@[@"Sabay",@"Khmer Note", @"RFA", @"Cambo Report", @"The BNews", @"Koh Sontepheap"]];
+	categories = [[NSMutableArray alloc]initWithArray:@[@"ពាណិជ្ជកម្ម", @"ពត៌មានពិភពលោក", @"សហក្រិនភាព",@"ថ្មីហើយប្លែក", @"ស៊ីវីល័យ", @"ជីវិតនិងសង្គម", @"កម្សាន្ត", @"កីឡា", @"អចលនទ្រព្យ", @"បច្ចេកវិទ្យា"]];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -31,25 +33,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma mark - Collection view datasource
-
-
-
-
 #pragma mark - Table view data source
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sources.count;
+    return categories.count;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
     
     // Configure the cell...
-	cell.textLabel.text = sources[indexPath.row];
-	
-	
+	cell.textLabel.text = categories[indexPath.row];
+    
     return cell;
 }
 /*
