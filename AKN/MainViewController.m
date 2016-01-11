@@ -76,7 +76,7 @@
 -(void) customizeSlideOutMenu{
     // INITIAL APPEARANCE: Configure the initial position of the menu and content views
     self.revealViewController.frontViewPosition = FrontViewPositionLeft; // FrontViewPositionLeft (only content), FrontViewPositionRight(menu and content), FrontViewPositionRightMost(only menu), see others at library documentation...
-    self.revealViewController.rearViewRevealWidth = 300.0f; // how much of the menu is shown (default 260.0)
+    self.revealViewController.rearViewRevealWidth = self.view.frame.size.width * 0.8; // how much of the menu is shown (default 260.0)
     
     // TOGGLING OVERDRAW: Configure the overdraw appearance of the content view while dragging it
     self.revealViewController.rearViewRevealOverdraw = 0.0f; // how much of an overdraw can occur when dragging further than 'rearViewRevealWidth' (default 60.0)

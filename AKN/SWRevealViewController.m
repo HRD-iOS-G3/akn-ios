@@ -542,7 +542,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-@interface SWRevealViewControllerPanGestureRecognizer : UIScreenEdgePanGestureRecognizer
+@interface SWRevealViewControllerPanGestureRecognizer : UIPanGestureRecognizer
 @end
 
 @implementation SWRevealViewControllerPanGestureRecognizer
@@ -585,7 +585,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 @interface SWRevealViewController()<UIGestureRecognizerDelegate>
 {
     SWRevealView *_contentView;
-    UIScreenEdgePanGestureRecognizer *_panGestureRecognizer;
+    UIPanGestureRecognizer *_panGestureRecognizer;
     UITapGestureRecognizer *_tapGestureRecognizer;
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
@@ -907,13 +907,12 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (UIScreenEdgePanGestureRecognizer*)panGestureRecognizer
+- (UIPanGestureRecognizer*)panGestureRecognizer
 {
     if ( _panGestureRecognizer == nil )
     {
         _panGestureRecognizer = [[SWRevealViewControllerPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
         _panGestureRecognizer.delegate = self;
-        _panGestureRecognizer.edges = UIRectEdgeLeft;
         [_contentView.frontView addGestureRecognizer:_panGestureRecognizer];
     }
     return _panGestureRecognizer;
@@ -1196,7 +1195,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGesture:(UIScreenEdgePanGestureRecognizer *)recognizer
+- (void)_handleRevealGesture:(UIPanGestureRecognizer *)recognizer
 {
     switch ( recognizer.state )
     {
@@ -1223,7 +1222,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateBeganWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
     // we know that we will not get here unless the animationQueue is empty because the recognizer
     // delegate prevents it, however we do not want any forthcoming programatic actions to disturb
@@ -1241,7 +1240,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateChangedWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateChangedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
     CGFloat translation = [recognizer translationInView:_contentView].x;
     
@@ -1267,7 +1266,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateEndedWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateEndedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
     UIView *frontView = _contentView.frontView;
     
@@ -1344,7 +1343,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateCancelledWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateCancelledWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
     [self _restoreUserInteraction];
     [self _notifyPanGestureEnded];
