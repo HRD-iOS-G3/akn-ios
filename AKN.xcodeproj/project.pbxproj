@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */; };
 		A56D0E5C1C42C6CA00C8435B /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */; };
+		A578E55A1C43FD060053DC8B /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A578E5591C43FD060053DC8B /* Detail.storyboard */; };
+		A578E55C1C43FD8D0053DC8B /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A578E55B1C43FD8D0053DC8B /* left.png */; };
+		A578E5601C43FE8A0053DC8B /* DetailNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A578E55F1C43FE8A0053DC8B /* DetailNewsTableViewController.m */; };
 		A5BE5FA71C3D08C2007025AC /* Sidebar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FA61C3D08C2007025AC /* Sidebar.storyboard */; };
 		A5BE5FAD1C3D08EB007025AC /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BE5FAA1C3D08EB007025AC /* UserProfileViewController.m */; };
 		A5BE5FAE1C3D08EB007025AC /* ChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BE5FAC1C3D08EB007025AC /* ChangePasswordTableViewController.m */; };
@@ -83,6 +86,10 @@
 		145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsByCategoryTableViewController.m; sourceTree = "<group>"; };
 		A56D0E5A1C42C6CA00C8435B /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
 		A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
+		A578E5591C43FD060053DC8B /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
+		A578E55B1C43FD8D0053DC8B /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
+		A578E55E1C43FE8A0053DC8B /* DetailNewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNewsTableViewController.h; sourceTree = "<group>"; };
+		A578E55F1C43FE8A0053DC8B /* DetailNewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNewsTableViewController.m; sourceTree = "<group>"; };
 		A5BE5FA61C3D08C2007025AC /* Sidebar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sidebar.storyboard; sourceTree = "<group>"; };
 		A5BE5FA91C3D08EB007025AC /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		A5BE5FAA1C3D08EB007025AC /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
@@ -182,6 +189,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A578E55D1C43FE7B0053DC8B /* Detail News */ = {
+			isa = PBXGroup;
+			children = (
+				A578E55E1C43FE8A0053DC8B /* DetailNewsTableViewController.h */,
+				A578E55F1C43FE8A0053DC8B /* DetailNewsTableViewController.m */,
+			);
+			name = "Detail News";
+			sourceTree = "<group>";
+		};
 		A5BE5FA81C3D08E0007025AC /* User Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +237,7 @@
 				A5BE5FE31C3D0B47007025AC /* 1.jpg */,
 				A5BE5FE41C3D0B47007025AC /* 2.jpg */,
 				A5BE5FE51C3D0B47007025AC /* 3.jpg */,
+				A578E55B1C43FD8D0053DC8B /* left.png */,
 				D3AAE8361C40F31900739089 /* 4.jpg */,
 				A5BE5FE61C3D0B47007025AC /* calendar.png */,
 				A5BE5FE71C3D0B47007025AC /* slider.jpg */,
@@ -302,6 +319,7 @@
 		A5C6C3441C36B15D0003AA80 /* AKN */ = {
 			isa = PBXGroup;
 			children = (
+				A578E55D1C43FE7B0053DC8B /* Detail News */,
 				A5E53B731C3EC8F900DD32FA /* LoginSignup */,
 				A5BE5FF71C3D0B77007025AC /* PageMenu */,
 				A5BE5FF31C3D0B57007025AC /* CAPAGEMenu */,
@@ -310,6 +328,7 @@
 				A5BE5FA81C3D08E0007025AC /* User Profile */,
 				A5C6C3481C36B15D0003AA80 /* AppDelegate.h */,
 				A5C6C3491C36B15D0003AA80 /* AppDelegate.m */,
+				A578E5591C43FD060053DC8B /* Detail.storyboard */,
 				A5C6C34E1C36B15D0003AA80 /* Main.storyboard */,
 				A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */,
 				A5C6C3531C36B15D0003AA80 /* LaunchScreen.storyboard */,
@@ -475,6 +494,7 @@
 				D3AAE8371C40F31900739089 /* 4.jpg in Resources */,
 				A5C6C3521C36B15D0003AA80 /* Assets.xcassets in Resources */,
 				A5BE5FEE1C3D0B47007025AC /* calendar.png in Resources */,
+				A578E55C1C43FD8D0053DC8B /* left.png in Resources */,
 				A5BE5FED1C3D0B47007025AC /* 3.jpg in Resources */,
 				A5BE5FEC1C3D0B47007025AC /* 2.jpg in Resources */,
 				A5BE5FD41C3D094F007025AC /* add99.png in Resources */,
@@ -491,6 +511,7 @@
 				A5BE5FD51C3D094F007025AC /* akn-logo.png in Resources */,
 				A5BE5FD61C3D094F007025AC /* email.png in Resources */,
 				A5BE5FD11C3D094F007025AC /* menuBackgroup.png in Resources */,
+				A578E55A1C43FD060053DC8B /* Detail.storyboard in Resources */,
 				A5BE5FE21C3D0AA0007025AC /* PageMenu.storyboard in Resources */,
 				A5BE5FDB1C3D094F007025AC /* saveList.png in Resources */,
 				A5BE5FD21C3D094F007025AC /* profile.png in Resources */,
@@ -524,6 +545,7 @@
 				A5BE5FB71C3D0906007025AC /* SidebarMenuViewController.m in Sources */,
 				A5BE5FFA1C3D0B82007025AC /* ViewSourceController.m in Sources */,
 				A5BE5FB61C3D0906007025AC /* MainViewController.m in Sources */,
+				A578E5601C43FE8A0053DC8B /* DetailNewsTableViewController.m in Sources */,
 				A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */,
 				A5BE5FAD1C3D08EB007025AC /* UserProfileViewController.m in Sources */,
 				145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */,
