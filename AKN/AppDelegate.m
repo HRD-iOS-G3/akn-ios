@@ -19,10 +19,11 @@
 	
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
 	
-	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LoginSignup" bundle:nil];
 	
 	// determine the initial view controller here and instantiate it with
-	UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+//	UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+	UIViewController *viewController = [storyboard instantiateInitialViewController];
 	
 	self.window.rootViewController = viewController;
 	[self.window makeKeyAndVisible];

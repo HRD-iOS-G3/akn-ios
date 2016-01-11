@@ -114,7 +114,7 @@
 {
     UICollectionViewCell *cell=[collectionViewNews dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
     UIImageView *img=(UIImageView*)[cell viewWithTag:20];
-    img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%d.jpg",(indexPath.row+1)]];
+    img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg",(indexPath.row+1)]];
     return cell;
 }/*
 // Override to support conditional editing of the table view.
