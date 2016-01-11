@@ -44,7 +44,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QaF-1h-0v8">
                                 <rect key="frame" x="-8" y="0.0" width="391" height="152"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="redBackground.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="1Hx-eq-sYD">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="1Hx-eq-sYD">
                                         <rect key="frame" x="4" y="0.0" width="391" height="152"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4s-ZG-fLE">
@@ -85,7 +85,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmy-IX-CAy">
                                 <rect key="frame" x="-4" y="152" width="383" height="515"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="4oV-sB-Viz">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guestBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="4oV-sB-Viz">
                                         <rect key="frame" x="-4" y="0.0" width="383" height="515"/>
                                     </imageView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9bZ-Hf-wXC">
@@ -737,13 +737,12 @@
     </scenes>
     <resources>
         <image name="akn-logo white.png" width="1024" height="1024"/>
-        <image name="blackBackground.png" width="1920" height="1080"/>
         <image name="email.png" width="64" height="64"/>
         <image name="guestBackground.png" width="519" height="1136"/>
         <image name="login.png" width="64" height="64"/>
         <image name="menu.png" width="28" height="20"/>
         <image name="profile.png" width="130" height="130"/>
-        <image name="redBackground.jpg" width="1024" height="1024"/>
+        <image name="profileBackground.png" width="518" height="289"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7XM-cd-SwB"/>

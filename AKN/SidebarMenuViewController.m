@@ -30,6 +30,19 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
+    [self.revealViewController.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.revealViewController.frontViewController.view setUserInteractionEnabled:YES];
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
