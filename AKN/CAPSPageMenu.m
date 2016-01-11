@@ -864,6 +864,10 @@ NSString * const CAPSPageMenuOptionHideTopMenuBar                       = @"hide
     //
     // Given the SO answer and caveats presented there, we'll call layoutIfNeeded() instead.
     [self.view layoutIfNeeded];
+    
+    
+    
+    [self addPageAtIndex:0];
 }
 
 

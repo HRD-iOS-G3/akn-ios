@@ -16,6 +16,8 @@
     __weak IBOutlet UICollectionViewFlowLayout *collection;
     CGFloat kTableHeaderHeight;
     UIView *headerView;
+    
+    UIView *viewIndicator;
 }
 
 @end
@@ -23,17 +25,20 @@
 @implementation TablePageViewController
 -(void)viewDidLayoutSubviews
 {
-    collection.itemSize=CGSizeMake(collectionViewNews.frame.size.width,collectionViewNews.frame.size.height);
+    [coll setItemSize:CGSizeMake(collectionViewNews.frame.size.width, collectionViewNews.frame.size.height)];
+    //viewIndicator.layer.zPosition=1;
+    //[viewIndicator setFrame:CGRectMake(viewIndicator.frame.origin.x,0, viewIndicator.frame.size.width, 35)];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     kTableHeaderHeight=175.0;
     headerView=[[UIView alloc]init];
+   
     headerView=self.tableView.tableHeaderView;
     self.tableView.tableHeaderView=nil;
     [self.tableView addSubview:headerView];
-    self.tableView.contentInset=UIEdgeInsetsMake(kTableHeaderHeight, 0.0, 0.0, 0.0);
-    self.tableView.contentOffset=CGPointMake(0.0, -kTableHeaderHeight);
+    self.tableView.contentInset=UIEdgeInsetsMake(kTableHeaderHeight-1, 0.0, 0.0, 0.0);
+    self.tableView.contentOffset=CGPointMake(0.0, -kTableHeaderHeight-0.5);
     [self updateHeaderView];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -43,18 +48,15 @@
     //UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x,self.tableView.frame.origin.y,self.tableView.frame.size.width,150.0)];
     collectionViewNews.dataSource=self;
     //collectionView.delegate=self;
-    [coll setItemSize:CGSizeMake(self->collectionViewNews.frame.size.width, self->collectionViewNews.frame.size.height)];
+    
     arr=@[@1,@2,@3,@4];
     
-    //[headerView addSubview:collectionView];
-    //self.tableView.tableHeaderView = headerView;
-    collectionViewNews.dataSource=self;
 }
 -(void)updateHeaderView{
-    CGRect headerRect=CGRectMake(0.0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight);
+    CGRect headerRect=CGRectMake(0.0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight+2);
     if (self.tableView.contentOffset.y < -kTableHeaderHeight) {
-        headerRect.origin.y=self.tableView.contentOffset.y;
-        headerRect.size.height= -self.tableView.contentOffset.y;
+        headerRect.origin.y=self.tableView.contentOffset.y+1;
+        headerRect.size.height= -self.tableView.contentOffset.y-1;
     }
     headerView.frame=headerRect;
 }
@@ -82,15 +84,7 @@
     cell.newsDate.text=@"02-April-2015";
     return cell;
 }
-- (UICollectionViewLayoutAttributes*)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-{
-    UICollectionViewLayoutAttributes *attr = [self->collectionViewNews layoutAttributesForItemAtIndexPath:itemIndexPath];
-    
-    attr.transform = CGAffineTransformRotate(CGAffineTransformMakeScale(0.2, 0.2), M_PI);
-    attr.center = CGPointMake(CGRectGetMidX(self->collectionViewNews.bounds), CGRectGetMaxY(self->collectionViewNews.bounds));
-    
-    return attr;
-}
+
 //-(void)viewDidLayoutSubviews
 //{
 //    [coll setItemSize:CGSizeMake(self->collectionView.frame.size.width, self->collectionView.frame.size.height)];
@@ -116,7 +110,10 @@
     UIImageView *img=(UIImageView*)[cell viewWithTag:20];
     img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg",(indexPath.row+1)]];
     return cell;
-}/*
+}
+
+
+/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
