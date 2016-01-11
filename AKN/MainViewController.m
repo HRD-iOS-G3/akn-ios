@@ -61,14 +61,14 @@
 	TableSourceViewController *controller3=[pageMenuStoryboard instantiateViewControllerWithIdentifier:@"source"];
 	controller3.title=@"Source";
 	NSArray *controllerArray = @[controller1, controller2,controller3];
-	NSDictionary *parameters = @{CAPSPageMenuOptionMenuItemSeparatorWidth: @(0.20),
+	NSDictionary *parameters = @{CAPSPageMenuOptionMenuItemSeparatorWidth: @(0.0),
 								 CAPSPageMenuOptionUseMenuLikeSegmentedControl: @(YES),
-								 CAPSPageMenuOptionMenuItemSeparatorPercentageHeight: @(0.1),
+								 CAPSPageMenuOptionMenuItemSeparatorPercentageHeight: @(0.0),
 								 CAPSPageMenuOptionScrollMenuBackgroundColor: [UIColor blackColor],
 								 CAPSPageMenuOptionSelectionIndicatorColor: [UIColor redColor],
 								 CAPSPageMenuOptionMenuItemSeparatorRoundEdges:@YES,
 								 };
-	_pageMenu = [[CAPSPageMenu alloc] initWithViewControllers:controllerArray frame:CGRectMake(0.0,64, self.view.frame.size.width, self.view.frame.size.height) options:parameters];
+	_pageMenu = [[CAPSPageMenu alloc] initWithViewControllers:controllerArray frame:CGRectMake(0.0,64, self.view.frame.size.width, self.view.frame.size.height-64) options:parameters];
 	[self.view addSubview:_pageMenu.view];
 
 }

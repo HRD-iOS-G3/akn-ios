@@ -1,25 +1,22 @@
 //
-//  CategoryTableViewController.m
+//  NewsByCategoryTableViewController.m
 //  AKN
 //
-//  Created by Ponnreay on 1/11/16.
+//  Created by Korea Software HRD Center on 1/11/16.
 //  Copyright © 2016 kshrd. All rights reserved.
 //
 
-#import "CategoryTableViewController.h"
 #import "NewsByCategoryTableViewController.h"
-@interface CategoryTableViewController ()
-{
-	NSMutableArray *categories;
-}
+
+@interface NewsByCategoryTableViewController ()
+
 @end
 
-@implementation CategoryTableViewController
+@implementation NewsByCategoryTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	categories = [[NSMutableArray alloc]initWithArray:@[@"ពាណិជ្ជកម្ម", @"ពត៌មានពិភពលោក", @"សហក្រិនភាព",@"ថ្មីហើយប្លែក", @"ស៊ីវីល័យ", @"ជីវិតនិងសង្គម", @"កម្សាន្ត", @"កីឡា", @"អចលនទ្រព្យ", @"បច្ចេកវិទ្យា"]];
+    self.title = _pageTitle;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -35,27 +32,20 @@
 
 #pragma mark - Table view data source
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return categories.count;
+    return 10;
 }
 
-
+/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
     // Configure the cell...
-	cell.textLabel.text = categories[indexPath.row];
     
     return cell;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    UIViewController *view=[self.storyboard instantiateViewControllerWithIdentifier:@"newsByCategory"];
-    
-    [self presentViewController:view animated:YES completion:nil];
-    
-}
+*/
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,16 +80,14 @@
 }
 */
 
-
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.identifier isEqualToString:@"newsByCategorySegue"]) {
-//        NewsByCategoryTableViewController *vc = [segue destinationViewController];
-//      vc.pageTitle = sender;
-//    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
-
+*/
 
 @end
