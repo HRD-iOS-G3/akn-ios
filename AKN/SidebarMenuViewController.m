@@ -68,18 +68,23 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.imageView.image = [UIImage imageNamed:[menuItems objectAtIndex:indexPath.row]];
-
+    cell.imageView.highlightedImage = [UIImage imageNamed:  [NSString stringWithFormat:@"%@White", [menuItems objectAtIndex:indexPath.row]]];
+    
     cell.textLabel.text = [menuTitle objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+    
+    cell.tag = indexPath.row;
     
       // This is how you change the background color
       cell.selectionStyle = UITableViewCellSelectionStyleDefault;
       UIView *bgColorView = [[UIView alloc] init];
-      bgColorView.backgroundColor = [UIColor colorWithRed:(55/255.0) green:(109/255.0) blue:(103/255.0) alpha:1] ;
+      bgColorView.backgroundColor = [UIColor colorWithRed:(202/255.0) green:(38/255.0) blue:(38/255.0) alpha:1] ;
       [cell setSelectedBackgroundView:bgColorView];
+    
       
     return cell;
 }
+
 
 // set cell height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
