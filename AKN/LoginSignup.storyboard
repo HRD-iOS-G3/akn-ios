@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="odN-r9-tHa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="odN-r9-tHa">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -12,7 +12,6 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bNe-q2-TnC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <sections>
@@ -27,20 +26,17 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="12r-oN-Csm">
                                                     <rect key="frame" x="40" y="27" width="240" height="198"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="HgA-Pr-RbC"/>
                                                         <constraint firstAttribute="height" constant="198" id="M3v-zy-0IJ"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="12r-oN-Csm" firstAttribute="centerX" secondItem="pt4-fd-Jf3" secondAttribute="centerX" id="XyC-4i-ZVH"/>
                                                 <constraint firstItem="12r-oN-Csm" firstAttribute="top" secondItem="pt4-fd-Jf3" secondAttribute="topMargin" constant="19" id="r4I-im-JWc"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="vMG-E9-DbC">
                                         <rect key="frame" x="0.0" y="252" width="320" height="44"/>
@@ -51,7 +47,6 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rgi-Gf-BIu">
                                                     <rect key="frame" x="31" y="7" width="257" height="30"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="257" id="Ql6-yw-DER"/>
                                                         <constraint firstAttribute="height" constant="30" id="sie-8C-SGA"/>
@@ -60,13 +55,11 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="rgi-Gf-BIu" firstAttribute="top" secondItem="bBJ-5D-Agn" secondAttribute="topMargin" constant="-1" id="96h-LH-dXr"/>
                                                 <constraint firstItem="rgi-Gf-BIu" firstAttribute="centerX" secondItem="bBJ-5D-Agn" secondAttribute="centerX" id="hmm-Rt-eBT"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Iwm-M2-V2z">
                                         <rect key="frame" x="0.0" y="296" width="320" height="44"/>
@@ -77,7 +70,6 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wii-wZ-t9L">
                                                     <rect key="frame" x="31" y="7" width="257" height="30"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="BmX-VG-kkf"/>
                                                         <constraint firstAttribute="width" constant="257" id="iyR-Iq-VLe"/>
@@ -86,13 +78,11 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="wii-wZ-t9L" firstAttribute="centerX" secondItem="zdR-EL-Sqi" secondAttribute="centerX" id="2yt-dB-2dr"/>
                                                 <constraint firstItem="wii-wZ-t9L" firstAttribute="top" secondItem="zdR-EL-Sqi" secondAttribute="topMargin" constant="-1" id="5Bd-3K-42f"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="kWT-gj-sNy">
                                         <rect key="frame" x="0.0" y="340" width="320" height="44"/>
@@ -103,7 +93,6 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5jc-jE-6HF">
                                                     <rect key="frame" x="31" y="7" width="257" height="30"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Cok-4s-oKH"/>
                                                         <constraint firstAttribute="width" constant="257" id="Qh7-Cg-YlF"/>
@@ -112,13 +101,11 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="5jc-jE-6HF" firstAttribute="top" secondItem="xdI-pw-lNz" secondAttribute="topMargin" constant="-1" id="JjR-ZS-Iu5"/>
                                                 <constraint firstItem="5jc-jE-6HF" firstAttribute="centerX" secondItem="xdI-pw-lNz" secondAttribute="centerX" id="oAW-fL-Ehm"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="z6R-hF-RGf">
                                         <rect key="frame" x="0.0" y="384" width="320" height="44"/>
@@ -129,7 +116,6 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vt6-Pv-c7k">
                                                     <rect key="frame" x="31" y="6" width="257" height="33"/>
-                                                    <animations/>
                                                     <color key="backgroundColor" red="0.30757004310000002" green="0.72475814819999995" blue="0.41272231939999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="33" id="83p-HI-vUL"/>
@@ -140,13 +126,11 @@
                                                     </state>
                                                 </button>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="Vt6-Pv-c7k" firstAttribute="top" secondItem="VvC-uf-Jfh" secondAttribute="topMargin" constant="-2" id="pjC-E7-E5a"/>
                                                 <constraint firstItem="Vt6-Pv-c7k" firstAttribute="centerX" secondItem="VvC-uf-Jfh" secondAttribute="centerX" id="yi2-05-D21"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Rue-5X-NQr">
                                         <rect key="frame" x="0.0" y="428" width="320" height="44"/>
@@ -157,7 +141,6 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jx7-mx-W50">
                                                     <rect key="frame" x="91" y="9" width="139" height="27"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Already have an account">
                                                         <color key="titleColor" red="0.30757004310000002" green="0.72475814819999995" blue="0.41272231939999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -167,13 +150,11 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="jx7-mx-W50" firstAttribute="centerX" secondItem="G07-F4-IFR" secondAttribute="centerX" id="2eJ-vX-mM7"/>
                                                 <constraint firstItem="jx7-mx-W50" firstAttribute="centerY" secondItem="G07-F4-IFR" secondAttribute="centerY" id="yoo-TZ-1ts"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -209,7 +190,6 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="SeT-DA-t5b">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="QSE-Hs-Jvs">
@@ -223,20 +203,17 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="6tM-eV-3KE">
                                                     <rect key="frame" x="40" y="37" width="240" height="198"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="f3b-Nu-G6d"/>
                                                         <constraint firstAttribute="height" constant="198" id="zx2-bA-EX1"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="6tM-eV-3KE" firstAttribute="top" secondItem="6cJ-aW-u3B" secondAttribute="topMargin" constant="29" id="LLh-kL-tby"/>
                                                 <constraint firstItem="6tM-eV-3KE" firstAttribute="centerX" secondItem="6cJ-aW-u3B" secondAttribute="centerX" id="RkX-2U-2bD"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="42" id="0mS-zd-WcU">
                                         <rect key="frame" x="0.0" y="252" width="320" height="42"/>
@@ -247,7 +224,6 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Ma-iE-d30">
                                                     <rect key="frame" x="32" y="6" width="257" height="30"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="257" id="66a-4c-MGK"/>
                                                         <constraint firstAttribute="height" constant="30" id="qHR-oy-weF"/>
@@ -256,13 +232,11 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="0Ma-iE-d30" firstAttribute="top" secondItem="Ory-yJ-qKe" secondAttribute="topMargin" constant="-2" id="JdG-qS-qMU"/>
                                                 <constraint firstItem="0Ma-iE-d30" firstAttribute="centerX" secondItem="Ory-yJ-qKe" secondAttribute="centerX" id="x3z-tI-sCx"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="42" id="Itz-PP-Q4r">
                                         <rect key="frame" x="0.0" y="294" width="320" height="42"/>
@@ -273,7 +247,6 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hIl-3G-zcb">
                                                     <rect key="frame" x="31" y="6" width="257" height="30"/>
-                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="ZrU-48-UTD"/>
                                                         <constraint firstAttribute="width" constant="257" id="tVS-qM-0lv"/>
@@ -282,13 +255,11 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="hIl-3G-zcb" firstAttribute="top" secondItem="5WH-zx-8ie" secondAttribute="topMargin" constant="-2" id="0vj-nj-yY3"/>
                                                 <constraint firstItem="hIl-3G-zcb" firstAttribute="centerX" secondItem="5WH-zx-8ie" secondAttribute="centerX" id="OHr-MY-BAA"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="42" id="RcJ-TB-8Pw">
                                         <rect key="frame" x="0.0" y="336" width="320" height="42"/>
@@ -299,7 +270,6 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LK8-Qx-yCd">
                                                     <rect key="frame" x="32" y="4" width="257" height="38"/>
-                                                    <animations/>
                                                     <color key="backgroundColor" red="0.30757004310344827" green="0.72475814819999995" blue="0.41272231939999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="38" id="SZP-hT-opS"/>
@@ -313,13 +283,11 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="LK8-Qx-yCd" firstAttribute="centerX" secondItem="qkI-SE-E8H" secondAttribute="centerX" id="PNL-EU-AF3"/>
                                                 <constraint firstItem="LK8-Qx-yCd" firstAttribute="top" secondItem="qkI-SE-E8H" secondAttribute="topMargin" constant="-4" id="xYo-gU-LAk"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="42" id="Lq3-rz-nVB">
                                         <rect key="frame" x="0.0" y="378" width="320" height="42"/>
@@ -330,19 +298,16 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGs-sx-mA7">
                                                     <rect key="frame" x="150" y="12" width="20" height="17"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="PGs-sx-mA7" firstAttribute="centerY" secondItem="PIG-vv-bSB" secondAttribute="centerY" id="HJ9-Xq-tCz"/>
                                                 <constraint firstItem="PGs-sx-mA7" firstAttribute="centerX" secondItem="PIG-vv-bSB" secondAttribute="centerX" id="hSH-kd-d9O"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="42" id="gVC-VB-b8w">
                                         <rect key="frame" x="0.0" y="420" width="320" height="42"/>
@@ -351,9 +316,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h50-DX-XaQ">
-                                                    <rect key="frame" x="133" y="6" width="56" height="29"/>
-                                                    <animations/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h50-DX-XaQ">
+                                                    <rect key="frame" x="132" y="6" width="56" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <state key="normal" title="SIGN UP">
                                                         <color key="titleColor" red="0.30757004310000002" green="0.72475814819999995" blue="0.41272231939999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -363,13 +327,11 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="h50-DX-XaQ" firstAttribute="centerY" secondItem="b49-jH-aR4" secondAttribute="centerY" id="FM0-w2-VpT"/>
                                                 <constraint firstItem="h50-DX-XaQ" firstAttribute="centerX" secondItem="b49-jH-aR4" secondAttribute="centerX" id="KGr-eD-jjP"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="42" id="uDt-8S-cJL">
                                         <rect key="frame" x="0.0" y="462" width="320" height="42"/>
@@ -380,20 +342,17 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QME-NU-c0f">
                                                     <rect key="frame" x="110" y="7" width="101" height="27"/>
-                                                    <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Forget Password?">
                                                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
                                             </subviews>
-                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="QME-NU-c0f" firstAttribute="centerY" secondItem="zW4-D3-Qry" secondAttribute="centerY" id="Rsr-Yl-JtJ"/>
                                                 <constraint firstItem="QME-NU-c0f" firstAttribute="centerX" secondItem="zW4-D3-Qry" secondAttribute="centerX" id="tl7-sW-ZQT"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <animations/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
