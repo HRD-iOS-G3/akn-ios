@@ -28,6 +28,15 @@
     
     [self setNeedsStatusBarAppearanceUpdate];
     
+    //Set color for button login
+    CAGradientLayer *gradient1 = [CAGradientLayer layer];
+    gradient1.frame = self.profileBackgroundView.bounds;
+    gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    
+    gradient1.startPoint = CGPointMake(0, 0);
+    gradient1.endPoint = CGPointMake(0, 1);
+    [self.profileBackgroundView.layer insertSublayer:gradient1 atIndex:0];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -78,7 +87,7 @@
       // This is how you change the background color
       cell.selectionStyle = UITableViewCellSelectionStyleDefault;
       UIView *bgColorView = [[UIView alloc] init];
-      bgColorView.backgroundColor = [UIColor colorWithRed:(202/255.0) green:(38/255.0) blue:(38/255.0) alpha:1] ;
+    bgColorView.backgroundColor = [UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00];
       [cell setSelectedBackgroundView:bgColorView];
     
       
