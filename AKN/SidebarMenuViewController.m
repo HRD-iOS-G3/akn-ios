@@ -9,6 +9,7 @@
 #import "SidebarMenuViewController.h"
 #import "SWRevealViewController.h"
 #import "UserProfileViewController.h"
+#import "BButton.h"
 
 @interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *menuItems, *menuTitle;
@@ -36,8 +37,54 @@
     gradient1.startPoint = CGPointMake(0, 0);
     gradient1.endPoint = CGPointMake(0, 1);
     [self.profileBackgroundView.layer insertSublayer:gradient1 atIndex:0];
+}
+
+- (void)buttonPressed:(UIButton *)sender
+{
+    NSLog(@"Good jorb, you pressed a button: %@", sender.titleLabel.text);
     
 }
+
+- (NSString *)titleForType:(BButtonType)type
+{
+    switch (type) {
+        case BButtonTypePrimary:
+            return @"Primary";
+            
+        case BButtonTypeInfo:
+            return @"Info";
+            
+        case BButtonTypeSuccess:
+            return @"Success";
+            
+        case BButtonTypeWarning:
+            return @"Warning";
+            
+        case BButtonTypeDanger:
+            return @"Danger";
+            
+        case BButtonTypeInverse:
+            return @"Inverse";
+            
+        case BButtonTypeTwitter:
+            return @"Twitter";
+            
+        case BButtonTypeFacebook:
+            return @"Facebook";
+            
+        case BButtonTypePurple:
+            return @"Purple";
+            
+        case BButtonTypeGray:
+            return @"Gray";
+            
+        case BButtonTypeDefault:
+        default:
+            return @"Default";
+    }
+}
+
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -73,24 +120,37 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSString *CellIdentifier = [menuItems objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    cell.imageView.image = [UIImage imageNamed:[menuItems objectAtIndex:indexPath.row]];
-    cell.imageView.highlightedImage = [UIImage imageNamed:  [NSString stringWithFormat:@"%@White", [menuItems objectAtIndex:indexPath.row]]];
-    
-    cell.textLabel.text = [menuTitle objectAtIndex:indexPath.row];
-    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
-    
-    cell.tag = indexPath.row;
     
       // This is how you change the background color
       cell.selectionStyle = UITableViewCellSelectionStyleDefault;
       UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00];
+
       [cell setSelectedBackgroundView:bgColorView];
     
-      
+   [[BButton appearance] setButtonCornerRadius:@0.0f];
+    
+    BButtonType type = 0;
+
+    CGRect frame = CGRectMake(0.0f, 0.0f, cell.frame.size.width, cell.frame.size.height);
+
+   BButton *btn = [[BButton alloc] initWithFrame:frame type:type style:BButtonStyleBootstrapV3];
+
+     [btn setTitle:[NSString stringWithFormat:@" %@",[menuTitle objectAtIndex:indexPath.row]] forState:UIControlStateNormal];
+    
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] forState:UIControlStateHighlighted];
+     [btn addAwesomeIcon:FAIconFacebook beforeTitle:YES];
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    btn.contentEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
+    
+    [btn addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+     btn.enabled = YES;
+    
+     [cell addSubview:btn];
+    
     return cell;
 }
 
@@ -98,7 +158,7 @@
 // set cell height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 45;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
