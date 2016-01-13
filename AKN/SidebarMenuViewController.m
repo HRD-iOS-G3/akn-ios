@@ -9,7 +9,6 @@
 #import "SidebarMenuViewController.h"
 #import "SWRevealViewController.h"
 #import "UserProfileViewController.h"
-#import "BButton.h"
 
 @interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *menuItems, *menuTitle;
@@ -37,54 +36,8 @@
     gradient1.startPoint = CGPointMake(0, 0);
     gradient1.endPoint = CGPointMake(0, 1);
     [self.profileBackgroundView.layer insertSublayer:gradient1 atIndex:0];
-}
-
-- (void)buttonPressed:(UIButton *)sender
-{
-    NSLog(@"Good jorb, you pressed a button: %@", sender.titleLabel.text);
     
 }
-
-- (NSString *)titleForType:(BButtonType)type
-{
-    switch (type) {
-        case BButtonTypePrimary:
-            return @"Primary";
-            
-        case BButtonTypeInfo:
-            return @"Info";
-            
-        case BButtonTypeSuccess:
-            return @"Success";
-            
-        case BButtonTypeWarning:
-            return @"Warning";
-            
-        case BButtonTypeDanger:
-            return @"Danger";
-            
-        case BButtonTypeInverse:
-            return @"Inverse";
-            
-        case BButtonTypeTwitter:
-            return @"Twitter";
-            
-        case BButtonTypeFacebook:
-            return @"Facebook";
-            
-        case BButtonTypePurple:
-            return @"Purple";
-            
-        case BButtonTypeGray:
-            return @"Gray";
-            
-        case BButtonTypeDefault:
-        default:
-            return @"Default";
-    }
-}
-
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -120,36 +73,23 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     NSString *CellIdentifier = [menuItems objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-      // This is how you change the background color
-      cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-      UIView *bgColorView = [[UIView alloc] init];
-
-      [cell setSelectedBackgroundView:bgColorView];
+    cell.imageView.image = [UIImage imageNamed:[menuItems objectAtIndex:indexPath.row]];
+    cell.imageView.highlightedImage = [UIImage imageNamed:  [NSString stringWithFormat:@"%@White", [menuItems objectAtIndex:indexPath.row]]];
     
-   [[BButton appearance] setButtonCornerRadius:@0.0f];
+    cell.textLabel.text = [menuTitle objectAtIndex:indexPath.row];
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     
-    BButtonType type = 0;
-
-    CGRect frame = CGRectMake(0.0f, 0.0f, cell.frame.size.width, cell.frame.size.height);
-
-   BButton *btn = [[BButton alloc] initWithFrame:frame type:type style:BButtonStyleBootstrapV3];
-
-     [btn setTitle:[NSString stringWithFormat:@" %@",[menuTitle objectAtIndex:indexPath.row]] forState:UIControlStateNormal];
+    cell.tag = indexPath.row;
     
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] forState:UIControlStateHighlighted];
-     [btn addAwesomeIcon:FAIconFacebook beforeTitle:YES];
-    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    btn.contentEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
+    // This is how you change the background color
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00];
+    [cell setSelectedBackgroundView:bgColorView];
     
-    [btn addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-     btn.enabled = YES;
-    
-     [cell addSubview:btn];
     
     return cell;
 }
@@ -158,7 +98,7 @@
 // set cell height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45;
+    return 40;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -170,21 +110,21 @@
     
     // Set the photo if it navigates to the PhotoView
     if ([segue.identifier isEqualToString:@"showSetting"]) {
-//        UINavigationController *navController = segue.destinationViewController;
-//        UserProfileViewController *UserProfileController = [navController childViewControllers].firstObject;
-//        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];
-//        UserProfileController.photoFilename = photoFilename;
+        //        UINavigationController *navController = segue.destinationViewController;
+        //        UserProfileViewController *UserProfileController = [navController childViewControllers].firstObject;
+        //        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];
+        //        UserProfileController.photoFilename = photoFilename;
     }
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
