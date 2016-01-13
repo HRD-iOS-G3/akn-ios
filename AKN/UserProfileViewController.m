@@ -27,13 +27,13 @@
     self.changePasswordButton.clipsToBounds = YES;
     
     
-    //Set color for button login
+       //Set GradienColor for control
     NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
-    
     [self setGradientColor:self.updateButton NSArrayColor:gradientColor];
     [self setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
     [self setGradientColor:self.profileBackgroundImageView NSArrayColor:gradientColor];
     
+    //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
@@ -49,7 +49,7 @@
 }
 
 -(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
-    //Set color for button login
+    //Set GradienColor for control
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = control.bounds;
     gradient.colors = arrayColor;
