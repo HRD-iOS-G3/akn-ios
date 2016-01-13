@@ -24,7 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	
+	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
+	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
 	
 	title = @"3th Generation Orientation at CKCC";
 	date = @"2-April-2015";
@@ -45,6 +46,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)backAction:(id)sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 #pragma mark - Table view data source
 
