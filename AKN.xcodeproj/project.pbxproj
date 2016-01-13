@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */; };
+		9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618A1C4634D400C3EE40 /* akn-logo white.png */; };
+		9AB961921C46358500C3EE40 /* aboutUsWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */; };
+		9AB961931C46358500C3EE40 /* add99White.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618D1C46358500C3EE40 /* add99White.png */; };
+		9AB961941C46358500C3EE40 /* homeWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618E1C46358500C3EE40 /* homeWhite.png */; };
+		9AB961951C46358500C3EE40 /* logoutWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618F1C46358500C3EE40 /* logoutWhite.png */; };
+		9AB961961C46358500C3EE40 /* saveListWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB961901C46358500C3EE40 /* saveListWhite.png */; };
+		9AB961971C46358500C3EE40 /* settingWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB961911C46358500C3EE40 /* settingWhite.png */; };
 		A56D0E5C1C42C6CA00C8435B /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */; };
 		A578E55A1C43FD060053DC8B /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A578E5591C43FD060053DC8B /* Detail.storyboard */; };
 		A578E55C1C43FD8D0053DC8B /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A578E55B1C43FD8D0053DC8B /* left.png */; };
@@ -84,6 +91,13 @@
 /* Begin PBXFileReference section */
 		145749F81C434E0700D2FFC0 /* NewsByCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsByCategoryTableViewController.h; sourceTree = "<group>"; };
 		145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsByCategoryTableViewController.m; sourceTree = "<group>"; };
+		9AB9618A1C4634D400C3EE40 /* akn-logo white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo white.png"; sourceTree = "<group>"; };
+		9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutUsWhite.png; sourceTree = "<group>"; };
+		9AB9618D1C46358500C3EE40 /* add99White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add99White.png; sourceTree = "<group>"; };
+		9AB9618E1C46358500C3EE40 /* homeWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeWhite.png; sourceTree = "<group>"; };
+		9AB9618F1C46358500C3EE40 /* logoutWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoutWhite.png; sourceTree = "<group>"; };
+		9AB961901C46358500C3EE40 /* saveListWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saveListWhite.png; sourceTree = "<group>"; };
+		9AB961911C46358500C3EE40 /* settingWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingWhite.png; sourceTree = "<group>"; };
 		A56D0E5A1C42C6CA00C8435B /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
 		A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
 		A578E5591C43FD060053DC8B /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
@@ -240,10 +254,17 @@
 				A578E55B1C43FD8D0053DC8B /* left.png */,
 				D3AAE8361C40F31900739089 /* 4.jpg */,
 				A5BE5FE61C3D0B47007025AC /* calendar.png */,
+				9AB9618A1C4634D400C3EE40 /* akn-logo white.png */,
 				A5BE5FE71C3D0B47007025AC /* slider.jpg */,
 				A5BE5FE81C3D0B47007025AC /* view.png */,
 				A5BE5FE91C3D0B47007025AC /* sabay.png */,
 				A5BE5FEA1C3D0B47007025AC /* khmeracademy.jpg */,
+				9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */,
+				9AB9618D1C46358500C3EE40 /* add99White.png */,
+				9AB9618E1C46358500C3EE40 /* homeWhite.png */,
+				9AB9618F1C46358500C3EE40 /* logoutWhite.png */,
+				9AB961901C46358500C3EE40 /* saveListWhite.png */,
+				9AB961911C46358500C3EE40 /* settingWhite.png */,
 				A5BE5FBE1C3D094F007025AC /* profileBackground.png */,
 				A5BE5FBF1C3D094F007025AC /* login.png */,
 				A5BE5FC01C3D094F007025AC /* menuBackgroup.png */,
@@ -485,8 +506,10 @@
 			files = (
 				A5BE5FF21C3D0B47007025AC /* khmeracademy.jpg in Resources */,
 				A5BE5FDE1C3D094F007025AC /* passkey1.png in Resources */,
+				9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */,
 				A5C6C3551C36B15D0003AA80 /* LaunchScreen.storyboard in Resources */,
 				A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */,
+				9AB961931C46358500C3EE40 /* add99White.png in Resources */,
 				A5BE5FF11C3D0B47007025AC /* sabay.png in Resources */,
 				A5BE5FD01C3D094F007025AC /* login.png in Resources */,
 				A5BE5FEF1C3D0B47007025AC /* slider.jpg in Resources */,
@@ -498,8 +521,11 @@
 				A5BE5FED1C3D0B47007025AC /* 3.jpg in Resources */,
 				A5BE5FEC1C3D0B47007025AC /* 2.jpg in Resources */,
 				A5BE5FD41C3D094F007025AC /* add99.png in Resources */,
+				9AB961951C46358500C3EE40 /* logoutWhite.png in Resources */,
+				9AB961971C46358500C3EE40 /* settingWhite.png in Resources */,
 				A5BE5FDF1C3D094F007025AC /* password13.png in Resources */,
 				A5BE5FDA1C3D094F007025AC /* home.png in Resources */,
+				9AB961961C46358500C3EE40 /* saveListWhite.png in Resources */,
 				A5BE5FCF1C3D094F007025AC /* profileBackground.png in Resources */,
 				A5BE5FF01C3D0B47007025AC /* view.png in Resources */,
 				A5C6C3501C36B15D0003AA80 /* Main.storyboard in Resources */,
@@ -515,7 +541,9 @@
 				A5BE5FE21C3D0AA0007025AC /* PageMenu.storyboard in Resources */,
 				A5BE5FDB1C3D094F007025AC /* saveList.png in Resources */,
 				A5BE5FD21C3D094F007025AC /* profile.png in Resources */,
+				9AB961921C46358500C3EE40 /* aboutUsWhite.png in Resources */,
 				A5BE5FD31C3D094F007025AC /* guestBackground.png in Resources */,
+				9AB961941C46358500C3EE40 /* homeWhite.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
