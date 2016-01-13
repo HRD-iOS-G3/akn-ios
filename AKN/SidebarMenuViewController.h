@@ -10,6 +10,7 @@
 
 @interface SidebarMenuViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *sidebarMenuTableView;
+@property (weak, nonatomic) IBOutlet UIView *profileBackgroundView;
 
 
 @end

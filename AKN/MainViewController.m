@@ -30,15 +30,16 @@
     [self customizeSlideOutMenu];
 	
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
-	
-   // self.revealViewController.rightViewRevealOverdraw = 0.0f;
-   // self.revealViewController.rearViewRevealOverdraw = 260.0f;
     
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    SWRevealViewController *revealController = [self revealViewController];
+    [revealController panGestureRecognizer];
+    [revealController tapGestureRecognizer];
     
 }
+
 
 -(void)customizePageMenu{
 	self.title = @"ALL KHMER NEWS";

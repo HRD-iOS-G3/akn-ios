@@ -28,6 +28,28 @@
     
     [self setNeedsStatusBarAppearanceUpdate];
     
+    //Set color for button login
+    CAGradientLayer *gradient1 = [CAGradientLayer layer];
+    gradient1.frame = self.profileBackgroundView.bounds;
+    gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    
+    gradient1.startPoint = CGPointMake(0, 0);
+    gradient1.endPoint = CGPointMake(0, 1);
+    [self.profileBackgroundView.layer insertSublayer:gradient1 atIndex:0];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
+    [self.revealViewController.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.revealViewController.frontViewController.view setUserInteractionEnabled:YES];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -55,18 +77,23 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.imageView.image = [UIImage imageNamed:[menuItems objectAtIndex:indexPath.row]];
-
-    cell.textLabel.text = [menuTitle objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.imageView.highlightedImage = [UIImage imageNamed:  [NSString stringWithFormat:@"%@White", [menuItems objectAtIndex:indexPath.row]]];
     
-      // This is how you change the background color
-      cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-      UIView *bgColorView = [[UIView alloc] init];
-      bgColorView.backgroundColor = [UIColor colorWithRed:(55/255.0) green:(109/255.0) blue:(103/255.0) alpha:1] ;
-      [cell setSelectedBackgroundView:bgColorView];
-      
+    cell.textLabel.text = [menuTitle objectAtIndex:indexPath.row];
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+    
+    cell.tag = indexPath.row;
+    
+    // This is how you change the background color
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00];
+    [cell setSelectedBackgroundView:bgColorView];
+    
+    
     return cell;
 }
+
 
 // set cell height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,21 +110,21 @@
     
     // Set the photo if it navigates to the PhotoView
     if ([segue.identifier isEqualToString:@"showSetting"]) {
-//        UINavigationController *navController = segue.destinationViewController;
-//        UserProfileViewController *UserProfileController = [navController childViewControllers].firstObject;
-//        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];
-//        UserProfileController.photoFilename = photoFilename;
+        //        UINavigationController *navController = segue.destinationViewController;
+        //        UserProfileViewController *UserProfileController = [navController childViewControllers].firstObject;
+        //        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];
+        //        UserProfileController.photoFilename = photoFilename;
     }
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
