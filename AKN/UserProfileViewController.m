@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self customizePageMenu];
+ 
     
     // border radius
     [self.updateButton.layer setCornerRadius:self.updateButton.bounds.size.height/2];
@@ -43,6 +44,22 @@
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];;
+
+}
+
+
+#pragma mark - Keyboard Did Show and Hide
+
+- (void)keyboardDidShow:(NSNotification *)sender {
+    self.profileTableView.scrollEnabled = YES;
+    [self.profileTableView setContentOffset:CGPointMake(0, self.profileTableView.bounds.size.height * 0.1) animated:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification *)sender {
+    self.profileTableView.scrollEnabled = NO;
 }
 
 -(void)customizePageMenu{

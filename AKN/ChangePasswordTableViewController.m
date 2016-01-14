@@ -24,7 +24,20 @@
     //Set GradienColor for control
     NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
     [self setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];;
 
+}
+
+#pragma mark - Keyboard Did Show and Hide
+
+- (void)keyboardDidShow:(NSNotification *)sender {
+    self.changePasswordTableView.scrollEnabled = YES;
+}
+
+- (void)keyboardWillHide:(NSNotification *)sender {
+    self.changePasswordTableView.scrollEnabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {
