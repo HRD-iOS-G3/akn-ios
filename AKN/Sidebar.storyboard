@@ -407,7 +407,7 @@
         <scene sceneID="CCe-J6-5pc">
             <objects>
                 <tableViewController id="efB-We-NXY" customClass="UserProfileViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="DrS-RL-rsh">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="DrS-RL-rsh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -607,6 +607,7 @@
                         <outlet property="changePasswordButton" destination="rHg-6J-VmE" id="wgD-a2-SXH"/>
                         <outlet property="profileBackgroundImageView" destination="IOe-bT-Sfw" id="Ike-2n-tIU"/>
                         <outlet property="profileImageView" destination="zNH-ih-VP5" id="nim-TZ-Qst"/>
+                        <outlet property="profileTableView" destination="DrS-RL-rsh" id="5cL-qh-Yaf"/>
                         <outlet property="sidebarButton" destination="BOQ-FZ-cEH" id="uED-gP-tcG"/>
                         <outlet property="updateButton" destination="SSj-OX-adg" id="BYT-7s-IVz"/>
                     </connections>
@@ -758,6 +759,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="changePasswordButton" destination="tGu-ML-rH4" id="P6j-iT-c6G"/>
+                        <outlet property="changePasswordTableView" destination="LFT-Yy-vOt" id="CDM-TT-xFh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="91A-9a-urI" userLabel="First Responder" sceneMemberID="firstResponder"/>

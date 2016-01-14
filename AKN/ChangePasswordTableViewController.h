@@ -10,5 +10,6 @@
 
 @interface ChangePasswordTableViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIButton *changePasswordButton;
+@property (strong, nonatomic) IBOutlet UITableView *changePasswordTableView;
 
 @end
