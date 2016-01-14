@@ -8,6 +8,8 @@
 
 #import "CategoryTableViewController.h"
 #import "NewsByCategoryTableViewController.h"
+#import "MainViewController.h"
+
 @interface CategoryTableViewController ()
 {
 	NSMutableArray *categories;
@@ -15,6 +17,7 @@
 @end
 
 @implementation CategoryTableViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,11 +52,15 @@
     
     return cell;
 }
+
+#pragma mark - Table view delegate
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    UIViewController *view=[self.storyboard instantiateViewControllerWithIdentifier:@"newsByCategory"];
-    
-    [self presentViewController:view animated:YES completion:nil];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	MainViewController *mvc = [MainViewController getInstance];
+    NewsByCategoryTableViewController *view=[self.storyboard instantiateViewControllerWithIdentifier:@"listNews"];
+	view.pageTitle = categories[indexPath.row];	[mvc.navigationController pushViewController:view animated:YES];
     
 }
 /*

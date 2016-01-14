@@ -8,6 +8,9 @@
 
 #import "TablePageViewController.h"
 #import "HomeViewCell.h"
+#import "MainViewController.h"
+#import "DetailNewsTableViewController.h"
+
 @interface TablePageViewController ()<UICollectionViewDataSource,UIScrollViewDelegate>{
     UICollectionViewFlowLayout *coll;
     NSArray *arr;
@@ -31,14 +34,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    kTableHeaderHeight=175.0;
+    kTableHeaderHeight=200.0;
     headerView=[[UIView alloc]init];
    
     headerView=self.tableView.tableHeaderView;
     self.tableView.tableHeaderView=nil;
     [self.tableView addSubview:headerView];
-    self.tableView.contentInset=UIEdgeInsetsMake(kTableHeaderHeight-1, 0.0, 0.0, 0.0);
-    self.tableView.contentOffset=CGPointMake(0.0, -kTableHeaderHeight-0.5);
+    self.tableView.contentInset=UIEdgeInsetsMake(kTableHeaderHeight, 0.0, 0.0, 0.0);
+    self.tableView.contentOffset=CGPointMake(0.0, -kTableHeaderHeight);
     [self updateHeaderView];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -46,18 +49,17 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     //UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x,self.tableView.frame.origin.y,self.tableView.frame.size.width,150.0)];
-    collectionViewNews.dataSource=self;
-    //collectionView.delegate=self;
     
     arr=@[@1,@2,@3,@4];
     
 }
 -(void)updateHeaderView{
-    CGRect headerRect=CGRectMake(0.0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight+2);
+    CGRect headerRect=CGRectMake(0.0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight);
     if (self.tableView.contentOffset.y < -kTableHeaderHeight) {
-        headerRect.origin.y=self.tableView.contentOffset.y+1;
-        headerRect.size.height= -self.tableView.contentOffset.y-1;
+        headerRect.origin.y=self.tableView.contentOffset.y;
+        headerRect.size.height= -self.tableView.contentOffset.y;
     }
+	[coll setItemSize:CGSizeMake(collectionViewNews.frame.size.width, headerRect.size.height)];
     headerView.frame=headerRect;
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -85,6 +87,16 @@
     return cell;
 }
 
+#pragma mark - Table view delegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	MainViewController *mvc = [MainViewController getInstance];
+	DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
+	
+	[mvc.navigationController pushViewController:dvc animated:YES];
+}
+
 //-(void)viewDidLayoutSubviews
 //{
 //    [coll setItemSize:CGSizeMake(self->collectionView.frame.size.width, self->collectionView.frame.size.height)];
@@ -95,11 +107,19 @@
 //{
 //    NSLog(@"%ld",(long)indexPath.row);
 //}
-//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSLog(@"%ld",(long)indexPath.row);
-//    //page.currentPage=indexPath.row;
-//}
+
+
+#pragma mark - Collection View
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	[collectionView deselectItemAtIndexPath:indexPath animated:YES];
+	
+	MainViewController *mvc = [MainViewController getInstance];
+	DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
+	dvc.pageTitle = @"Popular News";
+	[mvc.navigationController pushViewController:dvc animated:YES];
+}
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return 4;
@@ -108,7 +128,7 @@
 {
     UICollectionViewCell *cell=[collectionViewNews dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
     UIImageView *img=(UIImageView*)[cell viewWithTag:20];
-    img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg",(indexPath.row+1)]];
+    img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%d.jpg",(indexPath.row+1)]];
     return cell;
 }
 

@@ -23,9 +23,14 @@
 
 @implementation MainViewController
 
+static MainViewController *this;
++(MainViewController *)getInstance{
+	return this;
+}
+
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+	this = self;
 	[self customizePageMenu];
     [self customizeSlideOutMenu];
 	
@@ -44,7 +49,7 @@
 -(void)customizePageMenu{
 	self.title = @"ALL KHMER NEWS";
 	//self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:30.0/255.0 green:30.0/255.0 blue:30.0/255.0 alpha:1.0];
-	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
+	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];
 	self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 	//[self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
 	//self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;

@@ -263,7 +263,7 @@ NSString * const CAPSPageMenuOptionHideTopMenuBar                       = @"hide
         [self.view addSubview:menuBottomHairline];
         
         NSArray *menuBottomHairline_constraint_H = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[menuBottomHairline]|" options:0 metrics:nil views:@{@"menuBottomHairline":menuBottomHairline}];
-        NSString *menuBottomHairline_constraint_V_Format = [NSString stringWithFormat:@"V:|-%f-[menuBottomHairline(0.5)]",_menuHeight];
+        NSString *menuBottomHairline_constraint_V_Format = [NSString stringWithFormat:@"V:|-%f-[menuBottomHairline(0.0)]",_menuHeight];
         NSArray *menuBottomHairline_constraint_V = [NSLayoutConstraint constraintsWithVisualFormat:menuBottomHairline_constraint_V_Format options:0 metrics:nil views:@{@"menuBottomHairline":menuBottomHairline}];
         
         [self.view addConstraints:menuBottomHairline_constraint_H];
@@ -404,7 +404,6 @@ NSString * const CAPSPageMenuOptionHideTopMenuBar                       = @"hide
     
     // Configure selection indicator view
     CGRect selectionIndicatorFrame;
-    
     if (_useMenuLikeSegmentedControl) {
         selectionIndicatorFrame = CGRectMake(0.0, _menuHeight - _selectionIndicatorHeight, self.view.frame.size.width / (CGFloat)_controllerArray.count, _selectionIndicatorHeight);
     } else if (_menuItemWidthBasedOnTitleTextWidth) {
