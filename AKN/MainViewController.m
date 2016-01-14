@@ -37,9 +37,8 @@
     SWRevealViewController *revealController = [self revealViewController];
     [revealController panGestureRecognizer];
     [revealController tapGestureRecognizer];
-    
+   
 }
-
 
 -(void)customizePageMenu{
 	self.title = @"ALL KHMER NEWS";

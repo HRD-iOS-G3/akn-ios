@@ -10,5 +10,6 @@
 
 @interface MainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectView;
 
 @end
