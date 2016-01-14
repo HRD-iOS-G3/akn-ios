@@ -16,6 +16,7 @@
 		9AB961961C46358500C3EE40 /* saveListWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB961901C46358500C3EE40 /* saveListWhite.png */; };
 		9AB961971C46358500C3EE40 /* settingWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB961911C46358500C3EE40 /* settingWhite.png */; };
 		A50231931C4828E0001F6407 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A50231921C4828E0001F6407 /* search-icon.png */; };
+		A50231951C482DCE001F6407 /* akn-logo red.png in Resources */ = {isa = PBXBuildFile; fileRef = A50231941C482DCE001F6407 /* akn-logo red.png */; };
 		A56D0E5C1C42C6CA00C8435B /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */; };
 		A578E55A1C43FD060053DC8B /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A578E5591C43FD060053DC8B /* Detail.storyboard */; };
 		A578E55C1C43FD8D0053DC8B /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A578E55B1C43FD8D0053DC8B /* left.png */; };
@@ -100,6 +101,7 @@
 		9AB961901C46358500C3EE40 /* saveListWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saveListWhite.png; sourceTree = "<group>"; };
 		9AB961911C46358500C3EE40 /* settingWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingWhite.png; sourceTree = "<group>"; };
 		A50231921C4828E0001F6407 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
+		A50231941C482DCE001F6407 /* akn-logo red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo red.png"; sourceTree = "<group>"; };
 		A56D0E5A1C42C6CA00C8435B /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
 		A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
 		A578E5591C43FD060053DC8B /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 		A5BE5FBD1C3D0945007025AC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A50231941C482DCE001F6407 /* akn-logo red.png */,
 				A5BE5FE31C3D0B47007025AC /* 1.jpg */,
 				A5BE5FE41C3D0B47007025AC /* 2.jpg */,
 				A5BE5FE51C3D0B47007025AC /* 3.jpg */,
@@ -535,6 +538,7 @@
 				A5BE5FD71C3D094F007025AC /* logout.png in Resources */,
 				A5BE5FD81C3D094F007025AC /* aboutUs.png in Resources */,
 				A5BE5FD91C3D094F007025AC /* setting.png in Resources */,
+				A50231951C482DCE001F6407 /* akn-logo red.png in Resources */,
 				A5BE5FEB1C3D0B47007025AC /* 1.jpg in Resources */,
 				A5BE5FA71C3D08C2007025AC /* Sidebar.storyboard in Resources */,
 				A5BE5FD51C3D094F007025AC /* akn-logo.png in Resources */,
