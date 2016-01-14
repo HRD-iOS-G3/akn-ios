@@ -8,6 +8,7 @@
 
 #import "UserProfileViewController.h"
 #import "SWRevealViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface UserProfileViewController ()
 
@@ -28,10 +29,15 @@
     
     
        //Set GradienColor for control
-    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
     [self setGradientColor:self.updateButton NSArrayColor:gradientColor];
     [self setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
     [self setGradientColor:self.profileBackgroundImageView NSArrayColor:gradientColor];
+    
+    [self.profileImageView.layer setCornerRadius:self.profileImageView.bounds.size.height/2];
+    self.profileImageView.clipsToBounds = YES;
+    [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+    [self.profileImageView.layer setBorderWidth: 2.0];
     
     //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];

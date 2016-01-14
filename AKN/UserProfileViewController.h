@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profileBackgroundImageView;
 @property (weak, nonatomic) IBOutlet UIButton *updateButton;
 @property (weak, nonatomic) IBOutlet UIButton *changePasswordButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 
 @end
