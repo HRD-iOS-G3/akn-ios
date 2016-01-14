@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ChangePasswordTableViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UIButton *changePasswordButton;
 
 @end

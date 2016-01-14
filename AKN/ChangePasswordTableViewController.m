@@ -17,11 +17,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self.changePasswordButton.layer setCornerRadius:self.changePasswordButton.bounds.size.height/2];
+    self.changePasswordButton.clipsToBounds = YES;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //Set GradienColor for control
+    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    [self setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +36,20 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)changePasswordButtonAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
+    //Set GradienColor for control
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = control.bounds;
+    gradient.colors = arrayColor;
+    
+    gradient.startPoint = CGPointMake(0, 0);
+    gradient.endPoint = CGPointMake(0, 1);
+    [control.layer insertSublayer:gradient atIndex:0];
+}
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
