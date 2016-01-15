@@ -7,6 +7,7 @@
 //
 
 #import "DetailNewsTableViewController.h"
+#import "MainViewController.h"
 
 @interface DetailNewsTableViewController ()
 
@@ -23,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	self.title = _pageTitle;
 	
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
 	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
@@ -48,7 +50,8 @@
 }
 
 - (IBAction)backAction:(id)sender {
-	[self dismissViewControllerAnimated:YES completion:nil];
+	MainViewController *mvc = [MainViewController getInstance];
+	[mvc.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "akn-logo.jpg",
+      "filename" : "akn-logo red.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "akn-logo-1.jpg",
+      "filename" : "akn-logo red-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "akn-logo-2.jpg",
+      "filename" : "akn-logo red-2.png",
       "scale" : "3x"
     }
   ],

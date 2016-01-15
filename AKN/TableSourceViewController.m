@@ -7,6 +7,8 @@
 //
 
 #import "TableSourceViewController.h"
+#import "MainViewController.h"
+#import "NewsByCategoryTableViewController.h"
 
 @interface TableSourceViewController ()
 {
@@ -31,12 +33,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma mark - Collection view datasource
-
-
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -51,6 +47,18 @@
 	
 	
     return cell;
+}
+
+
+#pragma mark - Table view delegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	MainViewController *mvc = [MainViewController getInstance];
+	NewsByCategoryTableViewController *view=[self.storyboard instantiateViewControllerWithIdentifier:@"listNews"];
+	view.pageTitle = sources[indexPath.row];
+	[mvc.navigationController pushViewController:view animated:YES];
 }
 /*
 // Override to support conditional editing of the table view.

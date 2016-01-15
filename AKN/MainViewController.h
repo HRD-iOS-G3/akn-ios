@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectView;
 
++(MainViewController *)getInstance;
 @end

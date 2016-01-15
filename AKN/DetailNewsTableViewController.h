@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDate;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 
+@property (strong, nonatomic) NSString *pageTitle;
 
 @end

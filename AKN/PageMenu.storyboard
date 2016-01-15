@@ -31,10 +31,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
+                                            <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="175" image="khmeracademy.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="SID-qD-eIx">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
+                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXo-Vn-GJz">
                                                 <rect key="frame" x="0.0" y="139" width="320" height="36"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the title of news fafafaf afafafaf afafa affafa " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vl9-HI-0Mx">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khmer Academy is the first website that provides you the e-learning in Khmer language." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vl9-HI-0Mx">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -50,9 +53,6 @@
                                                     <constraint firstItem="Vl9-HI-0Mx" firstAttribute="leading" secondItem="vXo-Vn-GJz" secondAttribute="leading" id="dxu-oP-d5J"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="175" image="khmeracademy.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="SID-qD-eIx">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
-                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -67,6 +67,10 @@
                                     </constraints>
                                 </collectionViewCell>
                             </cells>
+                            <connections>
+                                <outlet property="dataSource" destination="JWc-uV-LMl" id="axh-oI-8QB"/>
+                                <outlet property="delegate" destination="JWc-uV-LMl" id="Xrx-N6-BhQ"/>
+                            </connections>
                         </collectionView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="126" id="2Tf-R5-o5a" customClass="HomeViewCell">
@@ -146,7 +150,107 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Axn-kz-tkp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2205" y="15"/>
+            <point key="canvasLocation" x="-167" y="-3509"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="aAO-mi-pyT">
+            <objects>
+                <tableViewController storyboardIdentifier="listNews" id="NaZ-2z-5cP" customClass="NewsByCategoryTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0UA-hs-UV7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsByCategoryCell" rowHeight="126" id="3Ps-K4-8BR" customClass="HomeViewCell">
+                                <rect key="frame" x="0.0" y="92" width="320" height="126"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Ps-K4-8BR" id="TVd-NJ-xuJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3d-fH-cBW">
+                                            <rect key="frame" x="4" y="4" width="312" height="117"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="slider.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Qb0-HE-qsA">
+                                                    <rect key="frame" x="8" y="8" width="131" height="101"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sabay.png" translatesAutoresizingMaskIntoConstraints="NO" id="paQ-Yh-pKK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="view.png" translatesAutoresizingMaskIntoConstraints="NO" id="nlh-pd-G0c">
+                                                    <rect key="frame" x="146" y="89" width="20" height="20"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3g-Zg-KjO">
+                                                    <rect key="frame" x="174" y="88" width="130" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhX-sC-NCs">
+                                                    <rect key="frame" x="147" y="0.0" width="157" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar.png" translatesAutoresizingMaskIntoConstraints="NO" id="2gY-kl-oir">
+                                                    <rect key="frame" x="146" y="63" width="20" height="18"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIq-8z-aJX">
+                                                    <rect key="frame" x="174" y="61" width="130" height="21"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        </view>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.88938301279999998" green="0.88938301279999998" blue="0.88938301279999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="B3d-fH-cBW" secondAttribute="trailing" constant="4" id="825-Wp-V2c"/>
+                                    <constraint firstAttribute="bottom" secondItem="B3d-fH-cBW" secondAttribute="bottom" constant="5" id="NO8-D5-zAK"/>
+                                    <constraint firstItem="B3d-fH-cBW" firstAttribute="top" secondItem="3Ps-K4-8BR" secondAttribute="top" constant="4" id="eTy-aY-Af9"/>
+                                    <constraint firstItem="B3d-fH-cBW" firstAttribute="leading" secondItem="3Ps-K4-8BR" secondAttribute="leading" constant="4" id="gpl-9Z-POO"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="newsDate" destination="iIq-8z-aJX" id="vwY-qL-U8F"/>
+                                    <outlet property="newsImage" destination="Qb0-HE-qsA" id="kpK-c2-nF4"/>
+                                    <outlet property="newsTitle" destination="GhX-sC-NCs" id="6lO-8u-Jqg"/>
+                                    <outlet property="newsView" destination="g3g-Zg-KjO" id="Yt8-iD-ZPg"/>
+                                    <outlet property="sourceImage" destination="paQ-Yh-pKK" id="7NK-YY-4KY"/>
+                                    <outlet property="viewCell" destination="B3d-fH-cBW" id="EoY-lJ-PJR"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="NaZ-2z-5cP" id="byI-jV-GhV"/>
+                            <outlet property="delegate" destination="NaZ-2z-5cP" id="UUd-9T-RDI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="16f-zP-gTQ">
+                        <barButtonItem key="leftBarButtonItem" id="Ttu-lg-h5X">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IRP-xa-FCT">
+                                <rect key="frame" x="16" y="10" width="20" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="left.png"/>
+                                <connections>
+                                    <action selector="actionBack:" destination="NaZ-2z-5cP" eventType="touchUpInside" id="AUY-my-Zpe"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="Deh-nH-u6t">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xSC-Jn-e09">
+                                <rect key="frame" x="281" y="10" width="23" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="search-icon.png"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hbf-6B-FUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-540" y="-2809"/>
         </scene>
         <!--Category Table View Controller-->
         <scene sceneID="gDB-u5-hzn">
@@ -175,7 +279,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2E3-wW-a2Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1819" y="-1"/>
+            <point key="canvasLocation" x="-540" y="-3509"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nh9-Gm-sjA">
@@ -192,10 +296,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="MaR-IW-f6b"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="NaZ-2z-5cP" kind="show" identifier="listNewsIdentifier" id="X88-4I-h1K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XTb-iL-RZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1473" y="15"/>
+            <point key="canvasLocation" x="-906" y="-3509"/>
         </scene>
         <!--Table Source View Controller-->
         <scene sceneID="isa-3d-idk">
@@ -220,7 +327,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A3a-ZN-UA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2616" y="6"/>
+            <point key="canvasLocation" x="235" y="-3509"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ReY-85-5NH">
@@ -238,13 +345,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="90w-R8-WlS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="879" y="15"/>
+            <point key="canvasLocation" x="-1489" y="-3493"/>
         </scene>
     </scenes>
     <resources>
         <image name="calendar.png" width="512" height="512"/>
         <image name="khmeracademy.jpg" width="1280" height="720"/>
+        <image name="left.png" width="24" height="24"/>
         <image name="sabay.png" width="138" height="134"/>
+        <image name="search-icon.png" width="24" height="24"/>
         <image name="slider.jpg" width="960" height="720"/>
         <image name="view.png" width="512" height="512"/>
     </resources>
