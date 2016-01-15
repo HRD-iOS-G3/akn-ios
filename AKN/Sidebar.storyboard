@@ -783,7 +783,7 @@
                         <barButtonItem key="leftBarButtonItem" image="menu.png" id="DM9-MO-eXw">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="ig7-q4-0T3">
+                        <barButtonItem key="rightBarButtonItem" image="search-icon.png" id="ig7-q4-0T3">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>
@@ -862,6 +862,7 @@
         <image name="login.png" width="64" height="64"/>
         <image name="menu.png" width="28" height="20"/>
         <image name="profile.png" width="130" height="130"/>
+        <image name="search-icon.png" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7XM-cd-SwB"/>

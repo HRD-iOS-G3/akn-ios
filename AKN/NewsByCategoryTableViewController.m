@@ -7,12 +7,23 @@
 //
 
 #import "NewsByCategoryTableViewController.h"
+#import "HomeViewCell.h"
+#import "MainViewController.h"
+#import "DetailNewsTableViewController.h"
 
 @interface NewsByCategoryTableViewController ()
 
 @end
 
 @implementation NewsByCategoryTableViewController
+
+-(void)viewWillDisappear:(BOOL)animated{
+	
+}
+- (IBAction)actionBack:(id)sender {
+	[MainViewController getInstance].title = @"ALL KHMER NEWS";
+	[[MainViewController getInstance].navigationController popToRootViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,19 +44,32 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return 20;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+	HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsByCategoryCell"];
+	cell.viewCell.layer.cornerRadius=5;
+	cell.sourceImage.layer.cornerRadius=cell.sourceImage.frame.size.width/2;
+	cell.newsTitle.text=@"4th Generation Orientation at CKCC";
+	cell.newsView.text=@"300";
+	cell.newsDate.text=@"02-April-2015";
+	return cell;
 }
-*/
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+	return 126;
+}
 
+#pragma mark - Table view delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	MainViewController *mvc = [MainViewController getInstance];
+	DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
+	dvc.pageTitle = _pageTitle;
+	[mvc.navigationController pushViewController:dvc animated:YES];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
