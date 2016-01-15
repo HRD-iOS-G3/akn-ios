@@ -34,10 +34,19 @@
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector( visualBlurViewChange ) name:@"VisualEffectBlueViewChange" object:nil];
+    
     SWRevealViewController *revealController = [self revealViewController];
     [revealController panGestureRecognizer];
     [revealController tapGestureRecognizer];
    
+}
+-(void)visualBlurViewChange{
+    if(self.revealViewController.frontViewPosition == 3)
+  self.visualEffectView.layer.zPosition = 1;
+    else if(self.revealViewController.frontViewPosition == 4)
+            self.visualEffectView.layer.zPosition = 0;
+    
 }
 
 -(void)customizePageMenu{
