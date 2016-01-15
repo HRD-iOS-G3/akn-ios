@@ -34,19 +34,22 @@
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     
+    //Set FrontView to blur by NSNotificationCenter
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector( visualBlurViewChange ) name:@"VisualEffectBlueViewChange" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector( visualBlurViewChange ) name:@"NSNotificationCenterHomeClick" object:nil];
     
     SWRevealViewController *revealController = [self revealViewController];
     [revealController panGestureRecognizer];
     [revealController tapGestureRecognizer];
    
 }
+
+#pragma mark Set FrontView to blur by NSNotificationCenter
 -(void)visualBlurViewChange{
     if(self.revealViewController.frontViewPosition == 3)
   self.visualEffectView.layer.zPosition = 1;
     else if(self.revealViewController.frontViewPosition == 4)
-            self.visualEffectView.layer.zPosition = 0;
-    
+        self.visualEffectView.layer.zPosition = 0;
 }
 
 -(void)customizePageMenu{

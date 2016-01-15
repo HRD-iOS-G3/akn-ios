@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "UserProfileViewController.h"
 
+
 @interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *menuItems, *menuTitle;
 }
@@ -26,7 +27,6 @@
     menuItems = @[@"home", @"saveList", @"setting", @"logout", @"aboutUs"];
     menuTitle = @[@"Home", @"Save List", @"Setting", @"Logout", @"About us"];
     
-    [self setNeedsStatusBarAppearanceUpdate];
     
     //Set color for button login
     CAGradientLayer *gradient1 = [CAGradientLayer layer];
@@ -80,6 +80,7 @@
     cell.imageView.highlightedImage = [UIImage imageNamed:  [NSString stringWithFormat:@"%@White", [menuItems objectAtIndex:indexPath.row]]];
     
     cell.textLabel.text = [menuTitle objectAtIndex:indexPath.row];
+    
     cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     
     cell.tag = indexPath.row;
@@ -109,7 +110,10 @@
     destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
     
     // Set the photo if it navigates to the PhotoView
-    if ([segue.identifier isEqualToString:@"showSetting"]) {
+    if ([segue.identifier isEqualToString:@"showHome"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NSNotificationCenterHomeClick" object:nil];
+    }
+    else if ([segue.identifier isEqualToString:@"showSetting"]) {
         //        UINavigationController *navController = segue.destinationViewController;
         //        UserProfileViewController *UserProfileController = [navController childViewControllers].firstObject;
         //        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];

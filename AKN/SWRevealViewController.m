@@ -1523,10 +1523,10 @@ const int FrontViewPositionNone = 0xff;
     
     if ( positionIsChanging )
     {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VisualEffectBlueViewChange" object:nil];
         if ( [_delegate respondsToSelector:@selector(revealController:willMoveToPosition:)] )
             [_delegate revealController:self willMoveToPosition:newPosition];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"VisualEffectBlueViewChange" object:nil];
     _frontViewPosition = newPosition;
     
     void (^deploymentCompletion)() =
