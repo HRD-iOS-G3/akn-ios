@@ -16,6 +16,8 @@
 	NSString *title;
 	NSString *date;
 	NSString *description;
+    IBOutlet NSLayoutConstraint *imageHeaderCenterY;
+    IBOutlet UIImageView *imageDetail;
 }
 
 @end
@@ -31,7 +33,7 @@
 	
 	title = @"3th Generation Orientation at CKCC";
 	date = @"2-April-2015";
-	description = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+	description = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathaversions oIpsum.fsdfsafdsaffdsafdfafhkdsakjfhsaiufhesiufgeasuwgsiufhsaifhsifhasiufhasfuhdfasfhsfhsjfhafhjsfhsfhsfhsdfhskhfsfsfsafa chum rathass";
 	
 	_labelTitle.text = title;
 	_labelDate.text = date;
@@ -69,7 +71,7 @@
 			return 36.0;
 			break;
 		case 3:
-			return [self calculateHeightForString:description];
+			return [self calculateHeightForString:description]+25;
 			break;
 		case 4:
 			return 36.0;
@@ -82,6 +84,19 @@
 -(int)calculateHeightForString:(NSString *)string{
 	NSAttributedString *attr = [[NSAttributedString alloc]initWithString:string];
 	return [attr boundingRectWithSize:CGSizeMake(300.0, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height * 2;
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat y=-scrollView.contentOffset.y;
+    NSLog(@"%f",y);
+    if (y>64)
+    {
+//        imageHeaderCenterY.constant=0;
+    }
+    else
+    {
+        imageHeaderCenterY.constant=(64-y)*2/5;
+    }
 }
 
 /*
