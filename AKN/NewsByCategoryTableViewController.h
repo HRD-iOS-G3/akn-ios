@@ -11,5 +11,6 @@
 @interface NewsByCategoryTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSString *pageTitle;
+@property (strong, nonatomic) NSDictionary *categoryOrSource;
 
 @end

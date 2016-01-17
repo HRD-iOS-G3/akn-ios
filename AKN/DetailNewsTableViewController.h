@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "News.h"
 
 @interface DetailNewsTableViewController : UITableViewController
 
@@ -16,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 
 @property (strong, nonatomic) NSString *pageTitle;
+@property (strong, nonatomic) News *news;
 
 @end

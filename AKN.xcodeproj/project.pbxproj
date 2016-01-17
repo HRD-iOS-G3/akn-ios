@@ -17,6 +17,7 @@
 		9AB961971C46358500C3EE40 /* settingWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB961911C46358500C3EE40 /* settingWhite.png */; };
 		A50231931C4828E0001F6407 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A50231921C4828E0001F6407 /* search-icon.png */; };
 		A50231951C482DCE001F6407 /* akn-logo red.png in Resources */ = {isa = PBXBuildFile; fileRef = A50231941C482DCE001F6407 /* akn-logo red.png */; };
+		A52C5A931C4B58B80040188C /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A52C5A921C4B58B80040188C /* ConnectionManager.m */; };
 		A56D0E5C1C42C6CA00C8435B /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */; };
 		A578E55A1C43FD060053DC8B /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A578E5591C43FD060053DC8B /* Detail.storyboard */; };
 		A578E55C1C43FD8D0053DC8B /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A578E55B1C43FD8D0053DC8B /* left.png */; };
@@ -67,10 +68,21 @@
 		A5C6C3551C36B15D0003AA80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5C6C3531C36B15D0003AA80 /* LaunchScreen.storyboard */; };
 		A5C6C3601C36B15D0003AA80 /* AKNTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6C35F1C36B15D0003AA80 /* AKNTests.m */; };
 		A5C6C36B1C36B15D0003AA80 /* AKNUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6C36A1C36B15D0003AA80 /* AKNUITests.m */; };
+		A5DE789F1C4B9113003DCE16 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DE789E1C4B9113003DCE16 /* News.m */; };
+		A5DE78A11C4BD8C4003DCE16 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78A01C4BD8C4003DCE16 /* save.png */; };
+		A5DE78A41C4BE9F6003DCE16 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DE78A31C4BE9F6003DCE16 /* Utilities.m */; };
+		A5DE78A81C4C03FC003DCE16 /* bnews.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78A51C4C03FC003DCE16 /* bnews.jpg */; };
+		A5DE78A91C4C03FC003DCE16 /* cambo-report.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78A61C4C03FC003DCE16 /* cambo-report.png */; };
+		A5DE78AC1C4C0508003DCE16 /* akn-logo-red.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78AB1C4C0508003DCE16 /* akn-logo-red.png */; };
+		A5DE78AE1C4C0690003DCE16 /* mungkulkar.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78AD1C4C0690003DCE16 /* mungkulkar.png */; };
+		A5DE78B01C4C0891003DCE16 /* kohsontepheap.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78AF1C4C0891003DCE16 /* kohsontepheap.png */; };
+		A5DE78B21C4C1443003DCE16 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78B11C4C1443003DCE16 /* folder.png */; };
+		A5DE78B41C4C1C6C003DCE16 /* save-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78B31C4C1C6C003DCE16 /* save-gray.png */; };
 		A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */; };
 		A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */; };
 		A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */; };
 		D3AAE8371C40F31900739089 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3AAE8361C40F31900739089 /* 4.jpg */; };
+		F9CC9D1D8607CBE082BC8B0E /* libPods-AKN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 689C3458E37E50E1642F30A8 /* libPods-AKN.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +105,9 @@
 /* Begin PBXFileReference section */
 		145749F81C434E0700D2FFC0 /* NewsByCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsByCategoryTableViewController.h; sourceTree = "<group>"; };
 		145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsByCategoryTableViewController.m; sourceTree = "<group>"; };
+		689C3458E37E50E1642F30A8 /* libPods-AKN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AKN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FFF2A141B3F0C438E69616E /* Pods-AKN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.release.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.release.xcconfig"; sourceTree = "<group>"; };
+		774C5044D6DBA11D52D3E913 /* Pods-AKN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.debug.xcconfig"; sourceTree = "<group>"; };
 		9AB9618A1C4634D400C3EE40 /* akn-logo white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo white.png"; sourceTree = "<group>"; };
 		9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutUsWhite.png; sourceTree = "<group>"; };
 		9AB9618D1C46358500C3EE40 /* add99White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add99White.png; sourceTree = "<group>"; };
@@ -102,6 +117,8 @@
 		9AB961911C46358500C3EE40 /* settingWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingWhite.png; sourceTree = "<group>"; };
 		A50231921C4828E0001F6407 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
 		A50231941C482DCE001F6407 /* akn-logo red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo red.png"; sourceTree = "<group>"; };
+		A52C5A911C4B58B80040188C /* ConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionManager.h; sourceTree = "<group>"; };
+		A52C5A921C4B58B80040188C /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
 		A56D0E5A1C42C6CA00C8435B /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
 		A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
 		A578E5591C43FD060053DC8B /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
@@ -174,6 +191,18 @@
 		A5C6C3661C36B15D0003AA80 /* AKNUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AKNUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C6C36A1C36B15D0003AA80 /* AKNUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKNUITests.m; sourceTree = "<group>"; };
 		A5C6C36C1C36B15D0003AA80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5DE789D1C4B9113003DCE16 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
+		A5DE789E1C4B9113003DCE16 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
+		A5DE78A01C4BD8C4003DCE16 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
+		A5DE78A21C4BE9F6003DCE16 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		A5DE78A31C4BE9F6003DCE16 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		A5DE78A51C4C03FC003DCE16 /* bnews.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bnews.jpg; sourceTree = "<group>"; };
+		A5DE78A61C4C03FC003DCE16 /* cambo-report.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cambo-report.png"; sourceTree = "<group>"; };
+		A5DE78AB1C4C0508003DCE16 /* akn-logo-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo-red.png"; sourceTree = "<group>"; };
+		A5DE78AD1C4C0690003DCE16 /* mungkulkar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mungkulkar.png; sourceTree = "<group>"; };
+		A5DE78AF1C4C0891003DCE16 /* kohsontepheap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kohsontepheap.png; sourceTree = "<group>"; };
+		A5DE78B11C4C1443003DCE16 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
+		A5DE78B31C4C1C6C003DCE16 /* save-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-gray.png"; sourceTree = "<group>"; };
 		A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
 		A5E53B741C3EC90700DD32FA /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
@@ -187,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9CC9D1D8607CBE082BC8B0E /* libPods-AKN.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +237,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B080615B51EB20F28F1D8E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				689C3458E37E50E1642F30A8 /* libPods-AKN.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		486A41BA07A6A17611F82E06 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				774C5044D6DBA11D52D3E913 /* Pods-AKN.debug.xcconfig */,
+				6FFF2A141B3F0C438E69616E /* Pods-AKN.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A578E55D1C43FE7B0053DC8B /* Detail News */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +261,17 @@
 				A578E55F1C43FE8A0053DC8B /* DetailNewsTableViewController.m */,
 			);
 			name = "Detail News";
+			sourceTree = "<group>";
+		};
+		A59540C21C4B847E0055921C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A52C5A911C4B58B80040188C /* ConnectionManager.h */,
+				A52C5A921C4B58B80040188C /* ConnectionManager.m */,
+				A5DE78A21C4BE9F6003DCE16 /* Utilities.h */,
+				A5DE78A31C4BE9F6003DCE16 /* Utilities.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		A5BE5FA81C3D08E0007025AC /* User Profile */ = {
@@ -252,6 +310,14 @@
 		A5BE5FBD1C3D0945007025AC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A5DE78B11C4C1443003DCE16 /* folder.png */,
+				A5DE78AF1C4C0891003DCE16 /* kohsontepheap.png */,
+				A5DE78AD1C4C0690003DCE16 /* mungkulkar.png */,
+				A5DE78AB1C4C0508003DCE16 /* akn-logo-red.png */,
+				A5DE78A51C4C03FC003DCE16 /* bnews.jpg */,
+				A5DE78A61C4C03FC003DCE16 /* cambo-report.png */,
+				A5DE78B31C4C1C6C003DCE16 /* save-gray.png */,
+				A5DE78A01C4BD8C4003DCE16 /* save.png */,
 				A50231941C482DCE001F6407 /* akn-logo red.png */,
 				A5BE5FE31C3D0B47007025AC /* 1.jpg */,
 				A5BE5FE41C3D0B47007025AC /* 2.jpg */,
@@ -330,6 +396,8 @@
 				A5C6C35E1C36B15D0003AA80 /* AKNTests */,
 				A5C6C3691C36B15D0003AA80 /* AKNUITests */,
 				A5C6C3431C36B15D0003AA80 /* Products */,
+				486A41BA07A6A17611F82E06 /* Pods */,
+				0B080615B51EB20F28F1D8E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -346,6 +414,8 @@
 		A5C6C3441C36B15D0003AA80 /* AKN */ = {
 			isa = PBXGroup;
 			children = (
+				A5DE789C1C4B9105003DCE16 /* News */,
+				A59540C21C4B847E0055921C /* Utilities */,
 				A578E55D1C43FE7B0053DC8B /* Detail News */,
 				A5E53B731C3EC8F900DD32FA /* LoginSignup */,
 				A5BE5FF71C3D0B77007025AC /* PageMenu */,
@@ -395,6 +465,15 @@
 			path = AKNUITests;
 			sourceTree = "<group>";
 		};
+		A5DE789C1C4B9105003DCE16 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				A5DE789D1C4B9113003DCE16 /* News.h */,
+				A5DE789E1C4B9113003DCE16 /* News.m */,
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
 		A5E53B731C3EC8F900DD32FA /* LoginSignup */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,9 +492,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5C6C36F1C36B15D0003AA80 /* Build configuration list for PBXNativeTarget "AKN" */;
 			buildPhases = (
+				DB7309792CD0055AE45C4A81 /* Check Pods Manifest.lock */,
 				A5C6C33E1C36B15D0003AA80 /* Sources */,
 				A5C6C33F1C36B15D0003AA80 /* Frameworks */,
 				A5C6C3401C36B15D0003AA80 /* Resources */,
+				0C30245BD9A3D26A23946B30 /* Embed Pods Frameworks */,
+				C2342E8AE2D3F8E19C46963A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -513,6 +595,7 @@
 				A5BE5FF21C3D0B47007025AC /* khmeracademy.jpg in Resources */,
 				A5BE5FDE1C3D094F007025AC /* passkey1.png in Resources */,
 				9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */,
+				A5DE78AE1C4C0690003DCE16 /* mungkulkar.png in Resources */,
 				A5C6C3551C36B15D0003AA80 /* LaunchScreen.storyboard in Resources */,
 				A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */,
 				9AB961931C46358500C3EE40 /* add99White.png in Resources */,
@@ -523,6 +606,7 @@
 				D3AAE8371C40F31900739089 /* 4.jpg in Resources */,
 				A5C6C3521C36B15D0003AA80 /* Assets.xcassets in Resources */,
 				A5BE5FEE1C3D0B47007025AC /* calendar.png in Resources */,
+				A5DE78A91C4C03FC003DCE16 /* cambo-report.png in Resources */,
 				A578E55C1C43FD8D0053DC8B /* left.png in Resources */,
 				A5BE5FED1C3D0B47007025AC /* 3.jpg in Resources */,
 				A5BE5FEC1C3D0B47007025AC /* 2.jpg in Resources */,
@@ -538,8 +622,12 @@
 				A5BE5FD71C3D094F007025AC /* logout.png in Resources */,
 				A5BE5FD81C3D094F007025AC /* aboutUs.png in Resources */,
 				A5BE5FD91C3D094F007025AC /* setting.png in Resources */,
+				A5DE78A11C4BD8C4003DCE16 /* save.png in Resources */,
 				A50231951C482DCE001F6407 /* akn-logo red.png in Resources */,
 				A5BE5FEB1C3D0B47007025AC /* 1.jpg in Resources */,
+				A5DE78AC1C4C0508003DCE16 /* akn-logo-red.png in Resources */,
+				A5DE78B21C4C1443003DCE16 /* folder.png in Resources */,
+				A5DE78B41C4C1C6C003DCE16 /* save-gray.png in Resources */,
 				A5BE5FA71C3D08C2007025AC /* Sidebar.storyboard in Resources */,
 				A5BE5FD51C3D094F007025AC /* akn-logo.png in Resources */,
 				A5BE5FD61C3D094F007025AC /* email.png in Resources */,
@@ -551,7 +639,9 @@
 				9AB961921C46358500C3EE40 /* aboutUsWhite.png in Resources */,
 				A5BE5FD31C3D094F007025AC /* guestBackground.png in Resources */,
 				A50231931C4828E0001F6407 /* search-icon.png in Resources */,
+				A5DE78B01C4C0891003DCE16 /* kohsontepheap.png in Resources */,
 				9AB961941C46358500C3EE40 /* homeWhite.png in Resources */,
+				A5DE78A81C4C03FC003DCE16 /* bnews.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +661,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0C30245BD9A3D26A23946B30 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AKN/Pods-AKN-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2342E8AE2D3F8E19C46963A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AKN/Pods-AKN-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB7309792CD0055AE45C4A81 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A5C6C33E1C36B15D0003AA80 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -582,12 +720,14 @@
 				A5BE5FFA1C3D0B82007025AC /* ViewSourceController.m in Sources */,
 				A5BE5FB61C3D0906007025AC /* MainViewController.m in Sources */,
 				A578E5601C43FE8A0053DC8B /* DetailNewsTableViewController.m in Sources */,
+				A5DE78A41C4BE9F6003DCE16 /* Utilities.m in Sources */,
 				A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */,
 				A5BE5FAD1C3D08EB007025AC /* UserProfileViewController.m in Sources */,
 				145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */,
 				A5C6C34A1C36B15D0003AA80 /* AppDelegate.m in Sources */,
 				A5BE5FFD1C3D0B9C007025AC /* ViewController.m in Sources */,
 				A5BE5FBC1C3D091F007025AC /* SWRevealViewController.m in Sources */,
+				A52C5A931C4B58B80040188C /* ConnectionManager.m in Sources */,
 				A5BE60091C3D0BAF007025AC /* TableSourceViewController.m in Sources */,
 				A5BE5FAE1C3D08EB007025AC /* ChangePasswordTableViewController.m in Sources */,
 				A5C6C3471C36B15D0003AA80 /* main.m in Sources */,
@@ -595,6 +735,7 @@
 				A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */,
 				A5BE60081C3D0BAF007025AC /* HomeViewCell.m in Sources */,
 				A5BE5FF61C3D0B5E007025AC /* CAPSPageMenu.m in Sources */,
+				A5DE789F1C4B9113003DCE16 /* News.m in Sources */,
 				A5BE5FB81C3D0906007025AC /* SidebarMenuTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -734,6 +875,7 @@
 		};
 		A5C6C3701C36B15D0003AA80 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 774C5044D6DBA11D52D3E913 /* Pods-AKN.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -749,6 +891,7 @@
 		};
 		A5C6C3711C36B15D0003AA80 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FFF2A141B3F0C438E69616E /* Pods-AKN.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

@@ -8,6 +8,9 @@
 
 #import "DetailNewsTableViewController.h"
 #import "MainViewController.h"
+#import "Utilities.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "ConnectionManager.h"
 
 @interface DetailNewsTableViewController ()
 
@@ -29,14 +32,25 @@
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
 	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
 	
-	title = @"3th Generation Orientation at CKCC";
-	date = @"2-April-2015";
-	description = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+//	title = @"3th Generation Orientation at CKCC";
+//	date = @"2-April-2015";
+//	description = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+	
+	title = _news.newsTitle;
+	date = [Utilities timestamp2date:_news.newsDateTimestampString];
+	description = _news.newsDescription;
 	
 	_labelTitle.text = title;
 	_labelDate.text = date;
 	_labelDescription.text = description;
 	
+	if (_news.newsImage) {
+		_imageViewNews.image = _news.newsImage;
+	}else{
+		[_imageViewNews sd_setImageWithURL:[NSURL URLWithString:_news.newsImageUrl]];
+	}
+	
+	NSLog(@"%d", _news.newsId);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -63,7 +77,7 @@
 			return 200.0;
 			break;
 		case 1:
-			return [self calculateHeightForString:title];
+			return [self calculateHeightForString:title]-30;
 			break;
 		case 2:
 			return 36.0;
@@ -81,7 +95,7 @@
 
 -(int)calculateHeightForString:(NSString *)string{
 	NSAttributedString *attr = [[NSAttributedString alloc]initWithString:string];
-	return [attr boundingRectWithSize:CGSizeMake(300.0, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height * 2;
+	return [attr boundingRectWithSize:CGSizeMake(300.0, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height * 2+50;
 }
 
 /*
