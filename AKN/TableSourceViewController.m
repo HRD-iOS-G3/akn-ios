@@ -9,8 +9,9 @@
 #import "TableSourceViewController.h"
 #import "MainViewController.h"
 #import "NewsByCategoryTableViewController.h"
+#import "ConnectionManager.h"
 
-@interface TableSourceViewController ()
+@interface TableSourceViewController () <ConnectionManagerDelegate>
 {
 	NSMutableArray *sources;
 }
@@ -20,12 +21,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	sources = [[NSMutableArray alloc]initWithArray:@[@"Sabay",@"Khmer Note", @"RFA", @"Cambo Report", @"The BNews", @"Koh Sontepheap"]];
+	sources = [[NSMutableArray alloc]init];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	[self getSourceList];
+}
+-(void)getSourceList{
+	ConnectionManager *manager = [[ConnectionManager alloc]init];
+	manager.delegate = self;
+	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/site/"]];
+}
+-(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
+//	NSLog(@"%@", result);
+	sources = [result valueForKey:@"DATA"];
+	[self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,8 +55,30 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     // Configure the cell...
-	cell.textLabel.text = sources[indexPath.row];
-	
+	cell.textLabel.text = [sources[indexPath.row] valueForKeyPath:@"name"];
+	switch ([[sources[indexPath.row] valueForKeyPath:@"id"] intValue]) {
+			
+		case 1: //sabay
+			cell.imageView.image = [UIImage imageNamed:@"sabay"];
+			break;
+		case 2://koh sontepheap
+			cell.imageView.image = [UIImage imageNamed:@"kohsontepheap"];
+			break;
+		case 5:///the b news
+			cell.imageView.image = [UIImage imageNamed:@"bnews.jpg"];
+			break;
+		case 6://AKN news
+			cell.imageView.image = [UIImage imageNamed:@"akn-logo-red.png"];
+			break;
+		case 10://Cambo report
+			cell.imageView.image = [UIImage imageNamed:@"cambo-report"];
+			break;
+		case 12://Mungkulkar
+			cell.imageView.image = [UIImage imageNamed:@"mungkulkar"];
+			break;
+	default:
+			break;
+	}
 	
     return cell;
 }
@@ -57,7 +91,8 @@
 	
 	MainViewController *mvc = [MainViewController getInstance];
 	NewsByCategoryTableViewController *view=[self.storyboard instantiateViewControllerWithIdentifier:@"listNews"];
-	view.pageTitle = sources[indexPath.row];
+	view.pageTitle = [sources[indexPath.row] valueForKey:@"name"];
+	view.categoryOrSource = sources[indexPath.row];
 	[mvc.navigationController pushViewController:view animated:YES];
 }
 /*

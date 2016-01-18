@@ -8,6 +8,12 @@
 
 #import "HomeViewCell.h"
 
+@interface HomeViewCell()
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonSave;
+
+@end
+
 @implementation HomeViewCell
 
 - (void)awakeFromNib {
@@ -18,6 +24,9 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+- (IBAction)actionSave:(id)sender {
+	[_buttonSave setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
 }
 
 @end
