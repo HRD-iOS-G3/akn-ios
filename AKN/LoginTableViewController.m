@@ -8,8 +8,11 @@
 
 #import "LoginTableViewController.h"
 #import "SWRevealViewController.h"
+#import "ConnectionManager.h"
 
-@interface LoginTableViewController ()
+@interface LoginTableViewController ()<ConnectionManagerDelegate>{
+    ConnectionManager *manager;
+}
 
 @end
 
@@ -62,17 +65,55 @@
     [txtEmail endEditing:YES];
     [txtPwd endEditing:YES];
 }
+
+#pragma mark: - Login
 - (IBAction)actionLogin:(id)sender {
-	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
-	
-	// determine the initial view controller here and instantiate it with
-	UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
-	[self presentViewController:viewController animated:YES completion:nil];
+     // [self.activityIndicatorLoading startAnimating];
+    manager = [[ConnectionManager alloc] init];
+    
+    manager.delegate = self;
+    
+    // request dictionary
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+    [dictionary setObject:self.usernameTextField.text forKey:@"email"];
+    [dictionary setObject:self.passwordTextField.text forKey:@"password"];
+    
+    // send data to server
+    [manager requestDataWithPostURL:dictionary withKey:@"/api/user/login"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark: - ConnectionManagerDelegate
+
+-(void)connectionManagerDidReturnResultWithPost:(NSDictionary *)result{
+    
+   // [self.activityIndicatorLoading stopAnimating];
+    
+    if([[result valueForKey:@"MESSAGE"] isEqualToString:@"LOGIN SUCCESS"]){
+        //create NSUserDefaults object then add respone data to it
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"roles"];
+        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"authorities"];
+        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"password"];
+        
+        [defaults setObject:[result valueForKey:@"DATA"] forKey:@"user"];
+        
+        //open home view
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+        
+        // determine the initial view controller here and instantiate it with
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"Fail");
+    }
+}
+
 
 @end

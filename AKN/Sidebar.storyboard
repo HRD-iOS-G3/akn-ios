@@ -57,12 +57,6 @@
                                                 <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kim TaeKyun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTb-tV-SyM">
-                                                <rect key="frame" x="8" y="94" width="268" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="aay-sP-C2S">
                                                 <rect key="frame" x="103" y="21" width="70" height="70"/>
                                                 <constraints>
@@ -70,6 +64,12 @@
                                                     <constraint firstAttribute="width" constant="70" id="ayg-9Q-Vca"/>
                                                 </constraints>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kim TaeKyun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTb-tV-SyM">
+                                                <rect key="frame" x="8" y="94" width="268" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -227,7 +227,10 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="emailLabel" destination="rIS-zh-PjR" id="8d7-0m-fNa"/>
+                        <outlet property="nameLabel" destination="fTb-tV-SyM" id="4XH-HT-FyA"/>
                         <outlet property="profileBackgroundView" destination="GQ8-qA-0PU" id="dic-xZ-AjU"/>
+                        <outlet property="profileImageView" destination="aay-sP-C2S" id="DrQ-hU-C1O"/>
                         <outlet property="sidebarMenuTableView" destination="9bZ-Hf-wXC" id="iwv-k3-i0M"/>
                     </connections>
                 </viewController>
@@ -238,7 +241,7 @@
         <!--Sidebar Guest View Controller-->
         <scene sceneID="bXw-mB-VQH">
             <objects>
-                <viewController id="qzG-r1-JXD" userLabel="Sidebar Guest View Controller" customClass="SidebarGuestViewController" sceneMemberID="viewController">
+                <viewController id="qzG-r1-JXD" userLabel="Sidebar Guest View Controller" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ku6-wX-LDY"/>
                         <viewControllerLayoutGuide type="bottom" id="xkc-3O-Pbb"/>
@@ -1034,7 +1037,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zwp-jh-Vy0">
-                                                    <rect key="frame" x="31" y="7" width="257" height="30"/>
+                                                    <rect key="frame" x="32" y="7" width="257" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="BtF-q3-Pxg"/>
                                                         <constraint firstAttribute="width" constant="257" id="ZsU-RB-mwV"/>
@@ -1057,7 +1060,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BwZ-HJ-1LL">
-                                                    <rect key="frame" x="31" y="7" width="257" height="30"/>
+                                                    <rect key="frame" x="32" y="7" width="257" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="9mA-sW-0jV"/>
                                                         <constraint firstAttribute="width" constant="257" id="U4R-9Y-LTa"/>
@@ -1080,7 +1083,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zO8-yb-GPt">
-                                                    <rect key="frame" x="31" y="7" width="257" height="30"/>
+                                                    <rect key="frame" x="32" y="7" width="257" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="257" id="0dd-fC-3pm"/>
                                                         <constraint firstAttribute="height" constant="30" id="nXL-u1-JRI"/>
@@ -1112,6 +1115,9 @@
                                                     <state key="normal" title="SIGN UP">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="signUpAction:" destination="GOU-UB-T1a" eventType="touchUpInside" id="ULW-Y6-M0U"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1160,12 +1166,11 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="btnSignUp" destination="u63-jG-DYv" id="Zug-qf-Hnl"/>
+                        <outlet property="emailTextField" destination="BwZ-HJ-1LL" id="kNV-2V-c2x"/>
                         <outlet property="gestTab" destination="BRc-ge-V4G" id="GOl-Yl-nMT"/>
+                        <outlet property="nameTextField" destination="Zwp-jh-Vy0" id="Tir-Wz-7TP"/>
+                        <outlet property="passwordTextField" destination="zO8-yb-GPt" id="AMe-XG-HiX"/>
                         <outlet property="sidebarButton" destination="lVb-Ks-vH1" id="hJT-ps-4Mq"/>
-                        <outlet property="txtEmail" destination="BwZ-HJ-1LL" id="jiB-AC-0mQ"/>
-                        <outlet property="txtFullName" destination="Zwp-jh-Vy0" id="yCV-aX-eM9"/>
-                        <outlet property="txtPwd" destination="zO8-yb-GPt" id="4PM-PA-wvN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4JS-Xb-zqJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1240,13 +1245,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i8m-bC-H0o">
-                                                    <rect key="frame" x="31" y="6" width="257" height="30"/>
+                                                    <rect key="frame" x="32" y="6" width="257" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="257" id="W1S-GI-DvY"/>
                                                         <constraint firstAttribute="height" constant="30" id="a7f-bx-u8q"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1273,7 +1278,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="actionLogin:" destination="6r1-WV-zad" eventType="touchUpInside" id="AVV-67-FD0"/>
+                                                        <action selector="actionLogin:" destination="6r1-WV-zad" eventType="touchUpInside" id="Sha-tx-cue"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1365,11 +1370,10 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="btnLogin" destination="N9B-ok-xqb" id="B3k-g5-NQT"/>
                         <outlet property="gesture" destination="VY5-FQ-Hru" id="uFy-KC-e4L"/>
+                        <outlet property="passwordTextField" destination="i8m-bC-H0o" id="Yx2-Od-nLh"/>
                         <outlet property="sidebarButton" destination="EzP-0E-IqM" id="CQT-mg-dxi"/>
-                        <outlet property="txtEmail" destination="Pbt-oU-nsu" id="Doy-DI-jHn"/>
-                        <outlet property="txtPwd" destination="i8m-bC-H0o" id="9Lh-zK-wkh"/>
+                        <outlet property="usernameTextField" destination="Pbt-oU-nsu" id="sYz-uN-4Xj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zJR-Kn-GXM" userLabel="First Responder" sceneMemberID="firstResponder"/>

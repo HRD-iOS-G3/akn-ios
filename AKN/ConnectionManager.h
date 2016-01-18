@@ -11,6 +11,8 @@
 @protocol  ConnectionManagerDelegate;
 @interface ConnectionManager : NSObject
 
+//Request Method
+-(void)requestDataWithPostURL:(NSDictionary *)reqDictionary withKey:(NSString *)key;
 -(void)requestDataWithURL:(NSURL *)URL;
 
 @property (nonatomic, weak) id<ConnectionManagerDelegate>delegate;
@@ -20,5 +22,6 @@
 @protocol ConnectionManagerDelegate <NSObject>
 @optional
 //Get Result Method
+-(void)connectionManagerDidReturnResultWithPost:(NSDictionary *) result;
 -(void)connectionManagerDidReturnResult:(NSArray *) result FromURL:(NSURL *)URL;
 @end

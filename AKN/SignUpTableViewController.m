@@ -8,8 +8,11 @@
 
 #import "SignUpTableViewController.h"
 #import "SWRevealViewController.h"
+#import "ConnectionManager.h"
 
-@interface SignUpTableViewController ()
+@interface SignUpTableViewController ()<ConnectionManagerDelegate>{
+    ConnectionManager *manager;
+}
 
 @end
 
@@ -69,8 +72,51 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)signUp_Touch:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+#pragma mark: - Sign Up
+- (IBAction)signUpAction:(id)sender {
+    //Create connection object
+    manager = [[ConnectionManager alloc] init];
+    
+    //Set delegate
+    manager.delegate = self;
+    
+    //Create dictionary for store article detail input from user
+    NSDictionary *dictionaryObject = @{
+                                       @"username": self.nameTextField.text,
+                                       @"email": self.emailTextField.text,
+                                       @"password": self.passwordTextField.text,
+                                       @"image": @""
+                                       
+                                       };
+
+    
+    //Send data to server and insert it
+    [manager requestDataWithPostURL:dictionaryObject withKey:@"/api/user/"];
+    
+}
+
+#pragma mark: - ConnectionManagerDelegate
+-(void)connectionManagerDidReturnResultWithPost:(NSDictionary *)result{
+    NSLog(@"+++++++++++++ %@",result);
+    if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else{
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:@"SignUp Failed"
+                                              message:@"This username is already created!!!"
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                   style:UIAlertActionStyleCancel
+                                   handler:nil];
+        
+        [alertController addAction:okAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 @end
