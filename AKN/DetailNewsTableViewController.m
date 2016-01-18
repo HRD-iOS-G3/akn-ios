@@ -16,6 +16,7 @@
 	NSString *title;
 	NSString *date;
 	NSString *description;
+    IBOutlet NSLayoutConstraint *imageHeaderCenterY;
 }
 
 @end
@@ -63,14 +64,14 @@
 			return 200.0;
 			break;
 		case 1:
-			return [self calculateHeightForString:title];
+			return 36;
 			break;
 		case 2:
 			return 36.0;
 			break;
-		case 3:
-			return [self calculateHeightForString:description];
-			break;
+        case 3:
+            return [self heightForText:description font:_labelDescription.font withinWidth:self.view.frame.size.width-36];
+            break;
 		case 4:
 			return 36.0;
 		default:
@@ -78,12 +79,37 @@
 			break;
 	}
 }
+-(CGFloat)heightForText:(NSString*)text font:(UIFont*)font withinWidth:(CGFloat)width {
+    
+    CGSize constraint = CGSizeMake(width, 20000.0f);
+    CGSize size;
+    
+    CGSize boundingBox = [text boundingRectWithSize:constraint
+                                            options:NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{NSFontAttributeName:font}
+                                            context:nil].size;
+    
+    size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height));
+    
+    return size.height;
+}
 
 -(int)calculateHeightForString:(NSString *)string{
 	NSAttributedString *attr = [[NSAttributedString alloc]initWithString:string];
 	return [attr boundingRectWithSize:CGSizeMake(300.0, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height * 2;
 }
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat y=-scrollView.contentOffset.y;
+    if (y>64)
+    {
+            imageHeaderCenterY.constant=0;
+    }
+    else
+    {
+            imageHeaderCenterY.constant=(64-y)*2/5;
+    }
+}
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

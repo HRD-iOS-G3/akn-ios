@@ -20,7 +20,10 @@
     CGFloat kTableHeaderHeight;
     UIView *headerView;
     
-    UIView *viewIndicator;
+  
+    __strong IBOutlet UIView *viewIndicatorTop;
+    __weak IBOutlet UIView *viewIndicator;
+    UIView *viewIndiTop;
 }
 @property (strong,nonatomic) NSArray *arr;
 @property (strong, nonatomic) NSIndexPath *indexPathForDeviceOrientation;// for move to the right position after orientation
@@ -31,11 +34,23 @@
 -(void)viewDidLayoutSubviews
 {
     [collection setItemSize:CGSizeMake(collectionViewNews.frame.size.width, collectionViewNews.frame.size.height)];
+    viewIndicator.layer.zPosition=1;
+    //viewIndicatorTop.alpha=0.5;
+    [viewIndicatorTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,0, viewIndicator.frame.size.width, viewIndicatorTop.frame.size.height)];
+    //viewIndicator.constraints[2].constant=-37;
     //viewIndicator.layer.zPosition=1;
     //[viewIndicator setFrame:CGRectMake(viewIndicator.frame.origin.x,0, viewIndicator.frame.size.width, 35)];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    viewIndiTop=[[UIView alloc]initWithFrame:CGRectMake(0,-37, self.view.frame.size.width, 37)];
+    viewIndiTop.backgroundColor=[UIColor clearColor];
+    [viewIndicator addSubview:viewIndiTop];
+    [viewIndiTop addSubview:viewIndicatorTop];
+    /*viewIndicatorTop.translatesAutoresizingMaskIntoConstraints=NO;
+    [viewIndicator addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[viewIndiTop]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(viewIndiTop)]];
+    [viewIndicator addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-<=0-[viewIndiTop(37)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(viewIndiTop)]];*/
+    
     kTableHeaderHeight=200.0;
     headerView=[[UIView alloc]init];
    
@@ -80,7 +95,22 @@
     
     if (scrollView == self.tableView) {
         [self updateHeaderView];
+        
+        CGFloat y=-scrollView.contentOffset.y;
+        
+        
+        if (y>310 && viewIndicatorTop.tag!=100) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                [viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,0, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
+            } completion:^(BOOL finished) {
+                
+            }];
+            viewIndicatorTop.tag=100;
+        }
+
     }else{
+        
         static CGFloat lastContentOffsetX = FLT_MIN;
         
         // We can ignore the first time scroll,

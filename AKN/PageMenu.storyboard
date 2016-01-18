@@ -25,6 +25,12 @@
                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </collectionViewFlowLayout>
+                            <view key="backgroundView" contentMode="scaleToFill" id="Ne5-mC-IyV">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <cells>
                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="30" contentMode="center" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="175" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" reuseIdentifier="cell1" id="b1N-us-rVr">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
@@ -97,7 +103,7 @@
                                 <rect key="frame" x="0.0" y="203" width="320" height="126"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Tf-R5-o5a" id="PdG-gc-j5i">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="125.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYK-8e-7aU">
@@ -175,9 +181,37 @@
                     <connections>
                         <outlet property="collection" destination="b6t-qe-SWP" id="TLF-r5-BUu"/>
                         <outlet property="collectionViewNews" destination="yaa-Th-57n" id="Ry3-qj-elx"/>
+                        <outlet property="viewIndicator" destination="Ne5-mC-IyV" id="fJl-PO-l3w"/>
+                        <outlet property="viewIndicatorTop" destination="pZr-AV-gEr" id="GDs-Ih-rgR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Axn-kz-tkp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="pZr-AV-gEr">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zeP-8p-BFx">
+                            <rect key="frame" x="115" y="8" width="20" height="20"/>
+                            <animations/>
+                            <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading...." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtt-vk-pVb">
+                            <rect key="frame" x="140" y="8" width="79.5" height="20.5"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.60013469827586197" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="zeP-8p-BFx" firstAttribute="centerX" secondItem="pZr-AV-gEr" secondAttribute="centerX" constant="-35" id="2rO-UT-6tR"/>
+                        <constraint firstItem="zeP-8p-BFx" firstAttribute="centerY" secondItem="pZr-AV-gEr" secondAttribute="centerY" id="45z-0M-XYe"/>
+                        <constraint firstItem="Dtt-vk-pVb" firstAttribute="top" secondItem="zeP-8p-BFx" secondAttribute="top" id="GMQ-b4-jpV"/>
+                        <constraint firstItem="Dtt-vk-pVb" firstAttribute="leading" secondItem="zeP-8p-BFx" secondAttribute="trailing" constant="5" id="fYE-Q4-kBH"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="-167" y="-3509"/>
         </scene>
@@ -308,7 +342,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EPC-zb-OJy" id="LGq-IJ-x7h">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -364,7 +398,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dVG-8H-ssq" id="dqM-lt-dyq">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
