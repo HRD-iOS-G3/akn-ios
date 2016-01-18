@@ -9,8 +9,8 @@
 #import "CategoryTableViewController.h"
 #import "NewsByCategoryTableViewController.h"
 #import "MainViewController.h"
-
-@interface CategoryTableViewController ()
+#import "ConnectionManager.h"
+@interface CategoryTableViewController ()<ConnectionManagerDelegate>
 {
 	NSMutableArray *categories;
 }
@@ -22,13 +22,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	categories = [[NSMutableArray alloc]initWithArray:@[@"ពាណិជ្ជកម្ម", @"ពត៌មានពិភពលោក", @"សហក្រិនភាព",@"ថ្មីហើយប្លែក", @"ស៊ីវីល័យ", @"ជីវិតនិងសង្គម", @"កម្សាន្ត", @"កីឡា", @"អចលនទ្រព្យ", @"បច្ចេកវិទ្យា"]];
+	categories = [[NSMutableArray alloc]init];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	[self getCategoryList];
+}
+-(void)getCategoryList{
+	ConnectionManager *manager = [ConnectionManager new];
+	manager.delegate = self;
+	
+	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/category/"]];
+}
+-(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
+//	NSLog(@"%@", result);
+	categories = [result valueForKey:@"DATA"];
+	[self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,7 +60,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
     
     // Configure the cell...
-	cell.textLabel.text = categories[indexPath.row];
+	cell.textLabel.text = [categories[indexPath.row] valueForKey:@"name"];
+	cell.imageView.image = [UIImage imageNamed:@"folder"];
     
     return cell;
 }
@@ -60,7 +73,9 @@
 	
 	MainViewController *mvc = [MainViewController getInstance];
     NewsByCategoryTableViewController *view=[self.storyboard instantiateViewControllerWithIdentifier:@"listNews"];
-	view.pageTitle = categories[indexPath.row];	[mvc.navigationController pushViewController:view animated:YES];
+	view.pageTitle = [categories[indexPath.row] valueForKey:@"name"];
+	view.categoryOrSource = categories[indexPath.row];
+	[mvc.navigationController pushViewController:view animated:YES];
     
 }
 /*

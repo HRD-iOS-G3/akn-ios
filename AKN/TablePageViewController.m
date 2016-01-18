@@ -10,47 +10,50 @@
 #import "HomeViewCell.h"
 #import "MainViewController.h"
 #import "DetailNewsTableViewController.h"
+#import "ConnectionManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "News.h"
+#import "Utilities.h"
 
-@interface TablePageViewController ()<UICollectionViewDataSource,UIScrollViewDelegate>{
-    
-    
+@interface TablePageViewController ()<UICollectionViewDataSource,UIScrollViewDelegate, ConnectionManagerDelegate>{
+    UICollectionViewFlowLayout *coll;
+	
     __weak IBOutlet UICollectionView *collectionViewNews;
-    
     __weak IBOutlet UICollectionViewFlowLayout *collection;
     CGFloat kTableHeaderHeight;
     UIView *headerView;
     
-  
-    __strong IBOutlet UIView *viewIndicatorTop;
-    __weak IBOutlet UIView *viewIndicator;
-    UIView *viewIndiTop;
+    UIView *viewIndicator;
+	
+	UIActivityIndicatorView *indicatorFooter;
+	
+	ConnectionManager *manager;
 }
-@property (strong,nonatomic) NSArray *arr;
-@property (strong, nonatomic) NSIndexPath *indexPathForDeviceOrientation;// for move to the right position after orientation
+@property (strong, nonatomic) NSMutableArray<News *> *newsList;
+@property (strong, nonatomic) NSMutableArray<News *> *popularNewsList;
+
+@property int currentPageNumber;
+@property int totalPages;
 
 @end
 
 @implementation TablePageViewController
 -(void)viewDidLayoutSubviews
 {
-    [collection setItemSize:CGSizeMake(collectionViewNews.frame.size.width, collectionViewNews.frame.size.height)];
-    viewIndicator.layer.zPosition=1;
-    //viewIndicatorTop.alpha=0.5;
-    [viewIndicatorTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,0, viewIndicator.frame.size.width, viewIndicatorTop.frame.size.height)];
-    //viewIndicator.constraints[2].constant=-37;
+    [coll setItemSize:CGSizeMake(collectionViewNews.frame.size.width, collectionViewNews.frame.size.height)];
     //viewIndicator.layer.zPosition=1;
     //[viewIndicator setFrame:CGRectMake(viewIndicator.frame.origin.x,0, viewIndicator.frame.size.width, 35)];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    viewIndiTop=[[UIView alloc]initWithFrame:CGRectMake(0,-37, self.view.frame.size.width, 37)];
-    viewIndiTop.backgroundColor=[UIColor clearColor];
-    [viewIndicator addSubview:viewIndiTop];
-    [viewIndiTop addSubview:viewIndicatorTop];
-    /*viewIndicatorTop.translatesAutoresizingMaskIntoConstraints=NO;
-    [viewIndicator addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[viewIndiTop]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(viewIndiTop)]];
-    [viewIndicator addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-<=0-[viewIndiTop(37)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(viewIndiTop)]];*/
-    
+	_popularNewsList = [[NSMutableArray alloc]init];
+	_newsList = [[NSMutableArray alloc]init];
+	
+	manager = [[ConnectionManager alloc]init];
+	manager.delegate = self;
+	
+	[self gettingNewsList];
+	
     kTableHeaderHeight=200.0;
     headerView=[[UIView alloc]init];
    
@@ -66,123 +69,170 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     //UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x,self.tableView.frame.origin.y,self.tableView.frame.size.width,150.0)];
-    
-   
-    // data source
-     _arr=@[@1,@2,@3,@4];
-    // duplicate the last item and put it at first
-    // duplicate the first item and put it at last
-    id firstItem = [_arr firstObject];
-    id lastItem = [_arr lastObject];
-    NSMutableArray *workingArray = [_arr mutableCopy];
-    [workingArray insertObject:lastItem atIndex:0];
-    [workingArray addObject:firstItem];
-    _arr = workingArray;
-    
-    
+
+	//set current page n rows
+	_currentPageNumber =1;
+	[self initializeRefreshControl];
 }
+-(void)initializeRefreshControl
+{
+		indicatorFooter = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44)];
+		[indicatorFooter setColor:[UIColor blackColor]];
+		[indicatorFooter startAnimating];
+		[self.tableView setTableFooterView:indicatorFooter];
+	
+}
+bool help = true;
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height)
+	{
+		if (help) {
+			help = false;
+			[self refreshTableVeiwList];
+		}
+	}else{
+		[self updateHeaderView];
+	}
+}
+
+-(void)refreshTableVeiwList
+{
+	//Code here
+	
+	if(_currentPageNumber >= _totalPages){
+		[indicatorFooter stopAnimating];
+	}else{
+		_currentPageNumber++;
+		[self fetchNews];
+	}
+	
+//	[self.tableView setContentOffset:(CGPointMake(0,self.tableView.contentOffset.y-indicatorFooter.frame.size.height)) animated:YES];
+}
+-(void)fetchNews{
+	//Create connection manager
+//	ConnectionManager *manager = [[ConnectionManager alloc] init];
+//	
+//	manager.delegate = self;
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
+}
+
+-(void)gettingNewsList{
+//	ConnectionManager *manager = [[ConnectionManager alloc]init];
+//	manager.delegate = self;
+	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/10/0/0/0/"]];
+	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/5/0/0/0/"]];
+//	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/popular/0"]];
+}
+-(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
+	NSLog(@"%@" , URL.path);
+	if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/0", _currentPageNumber]]) {
+		_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
+		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+			[_newsList addObject:[[News alloc]initWithData:object]];
+		}
+		help = true;
+		[self.tableView reloadData];
+//		[indicatorFooter stopAnimating];
+	}
+//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
+	if ([URL.path isEqualToString:@"/api/article/1/5/0/0/0"]) {
+		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+			[_popularNewsList addObject:[[News alloc]initWithData:object]];
+		}
+		[self->collectionViewNews reloadData];
+	}
+}
+
 -(void)updateHeaderView{
     CGRect headerRect=CGRectMake(0.0, -kTableHeaderHeight, self.tableView.bounds.size.width, kTableHeaderHeight);
     if (self.tableView.contentOffset.y < -kTableHeaderHeight) {
         headerRect.origin.y=self.tableView.contentOffset.y;
         headerRect.size.height= -self.tableView.contentOffset.y;
     }
-	[collection setItemSize:CGSizeMake(collectionViewNews.frame.size.width, headerRect.size.height)];
+	[coll setItemSize:CGSizeMake(collectionViewNews.frame.size.width, headerRect.size.height)];
     headerView.frame=headerRect;
-}
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-
-    
-    if (scrollView == self.tableView) {
-        [self updateHeaderView];
-        
-        CGFloat y=-scrollView.contentOffset.y;
-        
-        
-        if (y>310 && viewIndicatorTop.tag!=100) {
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                [viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,0, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
-            } completion:^(BOOL finished) {
-                
-            }];
-            viewIndicatorTop.tag=100;
-        }
-
-    }else{
-        
-        static CGFloat lastContentOffsetX = FLT_MIN;
-        
-        // We can ignore the first time scroll,
-        // because it is caused by the call scrollToItemAtIndexPath: in ViewWillAppear
-        if (FLT_MIN == lastContentOffsetX) {
-            lastContentOffsetX = scrollView.contentOffset.x;
-            return;
-        }
-        
-        CGFloat currentOffsetX = scrollView.contentOffset.x;
-        CGFloat currentOffsetY = scrollView.contentOffset.y;
-        
-        CGFloat pageWidth = scrollView.frame.size.width;
-        CGFloat offset = pageWidth * (_arr.count - 2);
-        
-        // the first page(showing the last item) is visible and user's finger is still scrolling to the right
-        if (currentOffsetX < pageWidth && lastContentOffsetX > currentOffsetX) {
-            lastContentOffsetX = currentOffsetX + offset;
-            scrollView.contentOffset = (CGPoint){lastContentOffsetX, currentOffsetY};
-        }
-        // the last page (showing the first item) is visible and the user's finger is still scrolling to the left
-        else if (currentOffsetX > offset && lastContentOffsetX < currentOffsetX) {
-            lastContentOffsetX = currentOffsetX - offset;
-            scrollView.contentOffset = (CGPoint){lastContentOffsetX, currentOffsetY};
-        } else {
-            lastContentOffsetX = currentOffsetX;
-        }
-    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    // scroll to the 2nd page, which is showing the first item.
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // scroll to the first page, note that this call will trigger scrollViewDidScroll: once and only once
-        [collectionViewNews scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
-    });
-}
-
-#pragma mark - UIInterfaceOrientation
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    _indexPathForDeviceOrientation = [[collectionViewNews indexPathsForVisibleItems] firstObject];
-    [[collectionViewNews collectionViewLayout] invalidateLayout];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [collectionViewNews scrollToItemAtIndexPath:_indexPathForDeviceOrientation atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
-}
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return _newsList.count;
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.viewCell.layer.cornerRadius=5;
     cell.sourceImage.layer.cornerRadius=cell.sourceImage.frame.size.width/2;
-    cell.newsTitle.text=@"4th Generation Orientation at CKCC";
-    cell.newsView.text=@"300";
-    cell.newsDate.text=@"02-April-2015";
+
+	[self configureCell:cell AtIndexPath:indexPath];
+
+//	cell.newsTitle.text = @"Hello world!";
+//	cell.newsView.text = @"213";
+//	cell.newsDate.text =@"12-12-2014";
+	
     return cell;
+}
+
+-(void)configureCell:(HomeViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath{
+	cell.newsTitle.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsTitle];
+	cell.newsView.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsHitCount];
+	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_newsList[indexPath.row].newsDateTimestampString]];
+	
+	switch (_newsList[indexPath.row].newsSourceId) {
+			
+		case 1: //sabay
+			cell.sourceImage.image = [UIImage imageNamed:@"sabay"];
+			break;
+		case 2://koh sontepheap
+			cell.sourceImage.image = [UIImage imageNamed:@"kohsontepheap"];
+			break;
+		case 5:///the b news
+			cell.sourceImage.image = [UIImage imageNamed:@"bnews.jpg"];
+			break;
+		case 6://AKN news
+			cell.sourceImage.image = [UIImage imageNamed:@"akn-logo-red.png"];
+			break;
+		case 10://Cambo report
+			cell.sourceImage.image = [UIImage imageNamed:@"cambo-report"];
+			break;
+		case 12://Mungkulkar
+			cell.sourceImage.image = [UIImage imageNamed:@"mungkulkar"];
+			break;
+		default:
+			break;
+	}
+	
+	if (self.newsList[indexPath.row].newsImage){
+		cell.newsImage.image = self.newsList[indexPath.row].newsImage;
+	}else{
+		cell.newsImage.image = [UIImage imageNamed:@"akn-logo"];
+		// download image in background
+		[self downloadImageInBackground:self.newsList[indexPath.row] forIndexPath:indexPath];
+	}
+}
+
+- (void)downloadImageInBackground:(News *)news forIndexPath:(NSIndexPath *)indexPath {
+	
+	dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+	
+	dispatch_async(concurrentQueue, ^{
+		__block NSData *dataImage = nil;
+		
+		dispatch_sync(concurrentQueue, ^{
+			NSURL *urlImage = [NSURL URLWithString:news.newsImageUrl];
+			dataImage = [NSData dataWithContentsOfURL:urlImage];
+		});
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			HomeViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+			self.newsList[indexPath.row].newsImage = [UIImage imageWithData:dataImage];
+			cell.newsImage.image = self.newsList[indexPath.row].newsImage;
+		});
+	});
 }
 
 #pragma mark - Table view delegate
@@ -191,7 +241,7 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	MainViewController *mvc = [MainViewController getInstance];
 	DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
-	
+	dvc.news = _newsList[indexPath.row];
 	[mvc.navigationController pushViewController:dvc animated:YES];
 }
 
@@ -207,7 +257,7 @@
 //}
 
 
-#pragma mark - Collection View
+#pragma mark - Collection View delegate
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -216,34 +266,41 @@
 	MainViewController *mvc = [MainViewController getInstance];
 	DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
 	dvc.pageTitle = @"Popular News";
+	dvc.news = _popularNewsList[indexPath.row];
 	[mvc.navigationController pushViewController:dvc animated:YES];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _arr.count;
-}
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return _popularNewsList.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell=[collectionViewNews dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
     UIImageView *img=(UIImageView*)[cell viewWithTag:20];
-<<<<<<< HEAD
-<<<<<<< HEAD
-    img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg",(long)(indexPath.row+1)]];
-=======
-=======
->>>>>>> PoDara
-    UILabel *lbl = (UILabel *)[cell viewWithTag:21];
-    lbl.text = @"Hello world!";
-    UILabel *lbl1 = (UILabel *)[cell viewWithTag:22];
-    lbl1.text = [NSString stringWithFormat:@"%@",_arr[indexPath.item]];
-    img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.jpg",_arr[indexPath.item]]];
-<<<<<<< HEAD
->>>>>>> PoDara
-=======
->>>>>>> PoDara
+	UILabel *label = (UILabel *)[cell viewWithTag:21];
+	label.text = self.popularNewsList[indexPath.row].newsTitle;
+	
+	if (self.popularNewsList[indexPath.row].newsImage){
+		img.image = self.popularNewsList[indexPath.row].newsImage;
+	}else{
+		img.image = [UIImage imageNamed:@"akn-logo"];
+		// download image in background
+		dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+		
+		dispatch_async(concurrentQueue, ^{
+			__block NSData *dataImage = nil;
+			
+			dispatch_sync(concurrentQueue, ^{
+				NSURL *urlImage = [NSURL URLWithString:self.popularNewsList[indexPath.row].newsImageUrl];
+				dataImage = [NSData dataWithContentsOfURL:urlImage];
+			});
+			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				self.popularNewsList[indexPath.row].newsImage = [UIImage imageWithData:dataImage];
+				img.image = self.popularNewsList[indexPath.row].newsImage;
+			});
+		});
+	}
     return cell;
 }
 
