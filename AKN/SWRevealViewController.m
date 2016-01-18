@@ -701,7 +701,8 @@ const int FrontViewPositionNone = 0xff;
     
     // load any defined front/rear controllers from the storyboard before
     #pragma mark - AKN NSUserDefaults
-    NSUserDefaults *ns=[NSUserDefaults standardUserDefaults];
+   // NSUserDefaults *ns=[NSUserDefaults standardUserDefaults];
+     NSUserDefaults *ns=nil;
     [self loadStoryboardControllers:ns];
     
     // This is what Apple used to tell us to set as the initial frame, which is of course totally irrelevant
