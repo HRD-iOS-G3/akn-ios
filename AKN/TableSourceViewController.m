@@ -56,6 +56,9 @@
     
     // Configure the cell...
 	cell.textLabel.text = [sources[indexPath.row] valueForKeyPath:@"name"];
+	
+	cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width/2;
+	cell.imageView.layer.masksToBounds = YES;
 	switch ([[sources[indexPath.row] valueForKeyPath:@"id"] intValue]) {
 			
 		case 1: //sabay
@@ -79,7 +82,6 @@
 	default:
 			break;
 	}
-	
     return cell;
 }
 
