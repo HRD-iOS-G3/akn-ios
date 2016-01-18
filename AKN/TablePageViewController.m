@@ -60,8 +60,6 @@
 	manager = [[ConnectionManager alloc]init];
 	manager.delegate = self;
 	
-	[self gettingNewsList];
-	
     kTableHeaderHeight=200.0;
     headerView=[[UIView alloc]init];
    
@@ -178,14 +176,15 @@ bool help = true;
 //	manager.delegate = self;
 	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
 }
-
--(void)gettingNewsList{
-//	ConnectionManager *manager = [[ConnectionManager alloc]init];
-//	manager.delegate = self;
-	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/10/0/0/0/"]];
-	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/5/0/0/0/"]];
-//	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/popular/0"]];
+bool temp = true;
+-(void)viewDidAppear:(BOOL)animated{
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
+	if (temp) {
+		temp =false;
+		[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/5/0/0/0/"]];
+	}
 }
+
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	NSLog(@"%@" , URL.path);
 	if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/0", _currentPageNumber]]) {
@@ -350,7 +349,7 @@ bool help = true;
 	UILabel *label = (UILabel *)[cell viewWithTag:21];
 	label.text = self.popularNewsList[indexPath.row].newsTitle;
 	UILabel *labelNum = (UILabel *)[cell viewWithTag:22];
-	labelNum.text = [NSString stringWithFormat:@"%ld",(long)indexPath.item];
+	labelNum.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
 	
 	
 	if (self.popularNewsList[indexPath.row].newsImage){

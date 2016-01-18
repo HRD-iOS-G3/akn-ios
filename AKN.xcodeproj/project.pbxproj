@@ -46,14 +46,9 @@
 		A5BE5FDE1C3D094F007025AC /* passkey1.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FCD1C3D094F007025AC /* passkey1.png */; };
 		A5BE5FDF1C3D094F007025AC /* password13.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FCE1C3D094F007025AC /* password13.png */; };
 		A5BE5FE21C3D0AA0007025AC /* PageMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE11C3D0AA0007025AC /* PageMenu.storyboard */; };
-		A5BE5FEB1C3D0B47007025AC /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE31C3D0B47007025AC /* 1.jpg */; };
-		A5BE5FEC1C3D0B47007025AC /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE41C3D0B47007025AC /* 2.jpg */; };
-		A5BE5FED1C3D0B47007025AC /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE51C3D0B47007025AC /* 3.jpg */; };
 		A5BE5FEE1C3D0B47007025AC /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE61C3D0B47007025AC /* calendar.png */; };
-		A5BE5FEF1C3D0B47007025AC /* slider.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE71C3D0B47007025AC /* slider.jpg */; };
 		A5BE5FF01C3D0B47007025AC /* view.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE81C3D0B47007025AC /* view.png */; };
 		A5BE5FF11C3D0B47007025AC /* sabay.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FE91C3D0B47007025AC /* sabay.png */; };
-		A5BE5FF21C3D0B47007025AC /* khmeracademy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A5BE5FEA1C3D0B47007025AC /* khmeracademy.jpg */; };
 		A5BE5FF61C3D0B5E007025AC /* CAPSPageMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BE5FF51C3D0B5E007025AC /* CAPSPageMenu.m */; };
 		A5BE5FFA1C3D0B82007025AC /* ViewSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BE5FF91C3D0B82007025AC /* ViewSourceController.m */; };
 		A5BE5FFD1C3D0B9C007025AC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BE5FFC1C3D0B9C007025AC /* ViewController.m */; };
@@ -81,7 +76,6 @@
 		A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */; };
 		A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */; };
 		A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */; };
-		D3AAE8371C40F31900739089 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3AAE8361C40F31900739089 /* 4.jpg */; };
 		F9CC9D1D8607CBE082BC8B0E /* libPods-AKN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 689C3458E37E50E1642F30A8 /* libPods-AKN.a */; };
 /* End PBXBuildFile section */
 
@@ -155,14 +149,9 @@
 		A5BE5FCD1C3D094F007025AC /* passkey1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = passkey1.png; sourceTree = "<group>"; };
 		A5BE5FCE1C3D094F007025AC /* password13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password13.png; sourceTree = "<group>"; };
 		A5BE5FE11C3D0AA0007025AC /* PageMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PageMenu.storyboard; sourceTree = "<group>"; };
-		A5BE5FE31C3D0B47007025AC /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
-		A5BE5FE41C3D0B47007025AC /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
-		A5BE5FE51C3D0B47007025AC /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		A5BE5FE61C3D0B47007025AC /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
-		A5BE5FE71C3D0B47007025AC /* slider.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slider.jpg; sourceTree = "<group>"; };
 		A5BE5FE81C3D0B47007025AC /* view.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = view.png; sourceTree = "<group>"; };
 		A5BE5FE91C3D0B47007025AC /* sabay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sabay.png; sourceTree = "<group>"; };
-		A5BE5FEA1C3D0B47007025AC /* khmeracademy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = khmeracademy.jpg; sourceTree = "<group>"; };
 		A5BE5FF41C3D0B5E007025AC /* CAPSPageMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAPSPageMenu.h; sourceTree = "<group>"; };
 		A5BE5FF51C3D0B5E007025AC /* CAPSPageMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAPSPageMenu.m; sourceTree = "<group>"; };
 		A5BE5FF81C3D0B82007025AC /* ViewSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSourceController.h; sourceTree = "<group>"; };
@@ -208,7 +197,6 @@
 		A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
 		A5E53B761C3EC90700DD32FA /* SignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpTableViewController.h; sourceTree = "<group>"; };
 		A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpTableViewController.m; sourceTree = "<group>"; };
-		D3AAE8361C40F31900739089 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,17 +307,11 @@
 				A5DE78B31C4C1C6C003DCE16 /* save-gray.png */,
 				A5DE78A01C4BD8C4003DCE16 /* save.png */,
 				A50231941C482DCE001F6407 /* akn-logo red.png */,
-				A5BE5FE31C3D0B47007025AC /* 1.jpg */,
-				A5BE5FE41C3D0B47007025AC /* 2.jpg */,
-				A5BE5FE51C3D0B47007025AC /* 3.jpg */,
 				A578E55B1C43FD8D0053DC8B /* left.png */,
-				D3AAE8361C40F31900739089 /* 4.jpg */,
 				A5BE5FE61C3D0B47007025AC /* calendar.png */,
 				9AB9618A1C4634D400C3EE40 /* akn-logo white.png */,
-				A5BE5FE71C3D0B47007025AC /* slider.jpg */,
 				A5BE5FE81C3D0B47007025AC /* view.png */,
 				A5BE5FE91C3D0B47007025AC /* sabay.png */,
-				A5BE5FEA1C3D0B47007025AC /* khmeracademy.jpg */,
 				9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */,
 				9AB9618D1C46358500C3EE40 /* add99White.png */,
 				9AB9618E1C46358500C3EE40 /* homeWhite.png */,
@@ -592,7 +574,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5BE5FF21C3D0B47007025AC /* khmeracademy.jpg in Resources */,
 				A5BE5FDE1C3D094F007025AC /* passkey1.png in Resources */,
 				9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */,
 				A5DE78AE1C4C0690003DCE16 /* mungkulkar.png in Resources */,
@@ -601,15 +582,11 @@
 				9AB961931C46358500C3EE40 /* add99White.png in Resources */,
 				A5BE5FF11C3D0B47007025AC /* sabay.png in Resources */,
 				A5BE5FD01C3D094F007025AC /* login.png in Resources */,
-				A5BE5FEF1C3D0B47007025AC /* slider.jpg in Resources */,
 				A5BE5FDC1C3D094F007025AC /* menu.png in Resources */,
-				D3AAE8371C40F31900739089 /* 4.jpg in Resources */,
 				A5C6C3521C36B15D0003AA80 /* Assets.xcassets in Resources */,
 				A5BE5FEE1C3D0B47007025AC /* calendar.png in Resources */,
 				A5DE78A91C4C03FC003DCE16 /* cambo-report.png in Resources */,
 				A578E55C1C43FD8D0053DC8B /* left.png in Resources */,
-				A5BE5FED1C3D0B47007025AC /* 3.jpg in Resources */,
-				A5BE5FEC1C3D0B47007025AC /* 2.jpg in Resources */,
 				A5BE5FD41C3D094F007025AC /* add99.png in Resources */,
 				9AB961951C46358500C3EE40 /* logoutWhite.png in Resources */,
 				9AB961971C46358500C3EE40 /* settingWhite.png in Resources */,
@@ -624,7 +601,6 @@
 				A5BE5FD91C3D094F007025AC /* setting.png in Resources */,
 				A5DE78A11C4BD8C4003DCE16 /* save.png in Resources */,
 				A50231951C482DCE001F6407 /* akn-logo red.png in Resources */,
-				A5BE5FEB1C3D0B47007025AC /* 1.jpg in Resources */,
 				A5DE78AC1C4C0508003DCE16 /* akn-logo-red.png in Resources */,
 				A5DE78B21C4C1443003DCE16 /* folder.png in Resources */,
 				A5DE78B41C4C1C6C003DCE16 /* save-gray.png in Resources */,
