@@ -2,7 +2,7 @@
 //  AboutUsViewController.m
 //  AKN
 //
-//  Created by Yin Kokpheng on 1/18/16.
+//  Created by Kokpheng on 1/19/16.
 //  Copyright © 2016 kshrd. All rights reserved.
 //
 
@@ -17,26 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self customizePageMenu];
     
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
-    
-    //button show menu
+    //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
-}
-
-
-#pragma mark - Navigation bar color
-
--(void)customizePageMenu{
-    self.title = @"ABOUT US";
-    
-    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {

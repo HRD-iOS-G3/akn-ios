@@ -21,9 +21,10 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
     
-    //button show menu
+    //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
 #pragma mark - Navigation bar color
