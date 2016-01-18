@@ -230,13 +230,19 @@
     UICollectionViewCell *cell=[collectionViewNews dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
     UIImageView *img=(UIImageView*)[cell viewWithTag:20];
 <<<<<<< HEAD
+<<<<<<< HEAD
     img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%ld.jpg",(long)(indexPath.row+1)]];
 =======
+=======
+>>>>>>> PoDara
     UILabel *lbl = (UILabel *)[cell viewWithTag:21];
     lbl.text = @"Hello world!";
     UILabel *lbl1 = (UILabel *)[cell viewWithTag:22];
     lbl1.text = [NSString stringWithFormat:@"%@",_arr[indexPath.item]];
     img.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.jpg",_arr[indexPath.item]]];
+<<<<<<< HEAD
+>>>>>>> PoDara
+=======
 >>>>>>> PoDara
     return cell;
 }
