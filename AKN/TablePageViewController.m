@@ -22,8 +22,11 @@
     __weak IBOutlet UICollectionViewFlowLayout *collection;
     CGFloat kTableHeaderHeight;
     UIView *headerView;
-    
-    UIView *viewIndicator;
+	
+	
+	__strong IBOutlet UIView *viewIndicatorTop;
+	__weak IBOutlet UIView *viewIndicator;
+	UIView *viewIndiTop;
 	
 	UIActivityIndicatorView *indicatorFooter;
 	
@@ -40,10 +43,15 @@
 @implementation TablePageViewController
 -(void)viewDidLayoutSubviews
 {
-    [coll setItemSize:CGSizeMake(collectionViewNews.frame.size.width, collectionViewNews.frame.size.height)];
-    //viewIndicator.layer.zPosition=1;
-    //[viewIndicator setFrame:CGRectMake(viewIndicator.frame.origin.x,0, viewIndicator.frame.size.width, 35)];
+	[collection setItemSize:CGSizeMake(collectionViewNews.frame.size.width, collectionViewNews.frame.size.height)];
+	viewIndicator.layer.zPosition=1;
+	//viewIndicatorTop.alpha=0.5;
+	[viewIndicatorTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,0, viewIndicator.frame.size.width, viewIndicatorTop.frame.size.height)];
+	//viewIndicator.constraints[2].constant=-37;
+	//viewIndicator.layer.zPosition=1;
+	//[viewIndicator setFrame:CGRectMake(viewIndicator.frame.origin.x,0, viewIndicator.frame.size.width, 35)];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	_popularNewsList = [[NSMutableArray alloc]init];
@@ -73,6 +81,13 @@
 	//set current page n rows
 	_currentPageNumber =1;
 	[self initializeRefreshControl];
+	
+	// pull to refresh
+	viewIndiTop=[[UIView alloc]initWithFrame:CGRectMake(0,-37, self.view.frame.size.width, 37)];
+	viewIndiTop.backgroundColor=[UIColor clearColor];
+	[viewIndicator addSubview:viewIndiTop];
+	[viewIndiTop addSubview:viewIndicatorTop];
+	
 }
 -(void)initializeRefreshControl
 {
@@ -84,15 +99,63 @@
 }
 bool help = true;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height)
-	{
-		if (help) {
-			help = false;
-			[self refreshTableVeiwList];
+	if (scrollView == self.tableView) {
+		if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height)
+		{
+			if (help) {
+				help = false;
+				[self refreshTableVeiwList];
+			}
+		}else{
+			[self updateHeaderView];
 		}
+ 
+		CGFloat y=-scrollView.contentOffset.y;
+		
+		
+		if (y>310 && viewIndicatorTop.tag!=100) {
+			
+			[UIView animateWithDuration:0.3 animations:^{
+				[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,0, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
+			} completion:^(BOOL finished) {
+				// request data
+				
+			}];
+			viewIndicatorTop.tag=100;
+			
+		}
+		
 	}else{
-		[self updateHeaderView];
+		
+		static CGFloat lastContentOffsetX = FLT_MIN;
+		
+		// We can ignore the first time scroll,
+		// because it is caused by the call scrollToItemAtIndexPath: in ViewWillAppear
+		if (FLT_MIN == lastContentOffsetX) {
+			lastContentOffsetX = scrollView.contentOffset.x;
+			return;
+		}
+		
+		CGFloat currentOffsetX = scrollView.contentOffset.x;
+		CGFloat currentOffsetY = scrollView.contentOffset.y;
+		
+		CGFloat pageWidth = scrollView.frame.size.width;
+		CGFloat offset = pageWidth * (_popularNewsList.count - 2);
+		
+		// the first page(showing the last item) is visible and user's finger is still scrolling to the right
+		if (currentOffsetX < pageWidth && lastContentOffsetX > currentOffsetX) {
+			lastContentOffsetX = currentOffsetX + offset;
+			scrollView.contentOffset = (CGPoint){lastContentOffsetX, currentOffsetY};
+		}
+		// the last page (showing the first item) is visible and the user's finger is still scrolling to the left
+		else if (currentOffsetX > offset && lastContentOffsetX < currentOffsetX) {
+			lastContentOffsetX = currentOffsetX - offset;
+			scrollView.contentOffset = (CGPoint){lastContentOffsetX, currentOffsetY};
+		} else {
+			lastContentOffsetX = currentOffsetX;
+		}
 	}
+	
 }
 
 -(void)refreshTableVeiwList
@@ -140,6 +203,13 @@ bool help = true;
 			[_popularNewsList addObject:[[News alloc]initWithData:object]];
 		}
 		[self->collectionViewNews reloadData];
+		
+		id firstItem = [_popularNewsList firstObject];
+		id lastItem = [_popularNewsList lastObject];
+		NSMutableArray *workingArray = [_popularNewsList mutableCopy];
+		[workingArray insertObject:lastItem atIndex:0];
+		[workingArray addObject:firstItem];
+		_popularNewsList = workingArray;
 	}
 }
 
@@ -279,6 +349,9 @@ bool help = true;
     UIImageView *img=(UIImageView*)[cell viewWithTag:20];
 	UILabel *label = (UILabel *)[cell viewWithTag:21];
 	label.text = self.popularNewsList[indexPath.row].newsTitle;
+	UILabel *labelNum = (UILabel *)[cell viewWithTag:22];
+	labelNum.text = [NSString stringWithFormat:@"%ld",(long)indexPath.item];
+	
 	
 	if (self.popularNewsList[indexPath.row].newsImage){
 		img.image = self.popularNewsList[indexPath.row].newsImage;

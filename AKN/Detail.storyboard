@@ -23,11 +23,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="slider.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-Sg-Jff">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slider.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-Sg-Jff">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="195" id="6JA-64-iBj"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vn0-Sg-Jff" firstAttribute="centerX" secondItem="0mR-Mt-87F" secondAttribute="centerX" id="0Xt-Fo-E7J"/>
+                                                <constraint firstItem="vn0-Sg-Jff" firstAttribute="width" secondItem="0mR-Mt-87F" secondAttribute="width" id="2wK-zg-tyI"/>
+                                                <constraint firstItem="vn0-Sg-Jff" firstAttribute="height" secondItem="0mR-Mt-87F" secondAttribute="height" constant="-5" id="CNG-S4-Cbk"/>
+                                                <constraint firstItem="vn0-Sg-Jff" firstAttribute="centerY" secondItem="0mR-Mt-87F" secondAttribute="centerY" constant="-2.5" id="jlV-f4-ON3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="Vm3-24-jAR">
@@ -45,9 +54,9 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="jkM-Xh-Irq" firstAttribute="top" secondItem="hr0-ms-rat" secondAttribute="topMargin" id="DG1-Yc-ko9"/>
-                                                <constraint firstItem="jkM-Xh-Irq" firstAttribute="trailing" secondItem="hr0-ms-rat" secondAttribute="trailingMargin" id="L6G-8K-d4G"/>
-                                                <constraint firstItem="jkM-Xh-Irq" firstAttribute="leading" secondItem="hr0-ms-rat" secondAttribute="leadingMargin" id="ueg-oi-NZj"/>
+                                                <constraint firstItem="jkM-Xh-Irq" firstAttribute="leading" secondItem="hr0-ms-rat" secondAttribute="leadingMargin" id="r9r-lz-kKZ"/>
+                                                <constraint firstItem="jkM-Xh-Irq" firstAttribute="top" secondItem="hr0-ms-rat" secondAttribute="topMargin" id="uPO-vQ-1NZ"/>
+                                                <constraint firstItem="jkM-Xh-Irq" firstAttribute="trailing" secondItem="hr0-ms-rat" secondAttribute="trailingMargin" id="xpL-CL-KYr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -75,16 +84,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHV-EX-dYE">
-                                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                                    <rect key="frame" x="18" y="0.0" width="284" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hHV-EX-dYE" firstAttribute="top" secondItem="xdS-dp-71C" secondAttribute="top" constant="8" id="6rR-4t-p4W"/>
-                                                <constraint firstAttribute="trailing" secondItem="hHV-EX-dYE" secondAttribute="trailing" constant="8" id="lVD-Pg-3mK"/>
-                                                <constraint firstItem="hHV-EX-dYE" firstAttribute="leading" secondItem="xdS-dp-71C" secondAttribute="leading" constant="8" id="rad-Pl-sMr"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hHV-EX-dYE" secondAttribute="trailing" constant="10" id="SEd-Nd-pel"/>
+                                                <constraint firstItem="hHV-EX-dYE" firstAttribute="top" secondItem="xdS-dp-71C" secondAttribute="topMargin" constant="-8" id="dcY-FN-BCo"/>
+                                                <constraint firstItem="hHV-EX-dYE" firstAttribute="leading" secondItem="xdS-dp-71C" secondAttribute="leadingMargin" constant="10" id="kKg-1g-bok"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -95,12 +104,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copyright © 2016 All Khmer News" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlH-DJ-FwQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2016 All Khmer News" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlH-DJ-FwQ">
                                                     <rect key="frame" x="8" y="8" width="304" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wlH-DJ-FwQ" firstAttribute="top" secondItem="Yqu-6s-ZEh" secondAttribute="topMargin" id="4vp-OE-RRG"/>
+                                                <constraint firstItem="wlH-DJ-FwQ" firstAttribute="leading" secondItem="Yqu-6s-ZEh" secondAttribute="leadingMargin" id="g7d-DZ-SX5"/>
+                                                <constraint firstItem="wlH-DJ-FwQ" firstAttribute="trailing" secondItem="Yqu-6s-ZEh" secondAttribute="trailingMargin" id="oM2-d3-YA3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -125,6 +139,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="imageHeaderCenterY" destination="jlV-f4-ON3" id="Fbh-Nu-squ"/>
                         <outlet property="imageViewNews" destination="vn0-Sg-Jff" id="BJ3-0H-2Dm"/>
                         <outlet property="labelDate" destination="F2T-kC-Cd3" id="nac-ZR-rcE"/>
                         <outlet property="labelDescription" destination="hHV-EX-dYE" id="2td-tX-MLc"/>
