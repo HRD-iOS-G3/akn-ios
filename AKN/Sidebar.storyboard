@@ -863,7 +863,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="sidebarButton" destination="jnU-IN-E0w" id="AfI-H6-35y"/>
+                        <outlet property="sidebarButton" destination="jnU-IN-E0w" id="xC2-B7-ZyT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IlJ-uj-cSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -893,7 +893,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="sidebarButton" destination="INB-0X-tEk" id="CvZ-VY-kNN"/>
+                        <outlet property="sidebarButton" destination="INB-0X-tEk" id="oOm-uc-gW0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6y-d5-4iv" userLabel="First Responder" sceneMemberID="firstResponder"/>
