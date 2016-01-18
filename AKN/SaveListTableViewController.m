@@ -1,42 +1,35 @@
 //
-//  ChangePasswordTableViewController.m
+//  SaveListTableViewController.m
 //  AKN
 //
-//  Created by Yin Kokpheng on 1/6/16.
+//  Created by Yin Kokpheng on 1/18/16.
 //  Copyright © 2016 kshrd. All rights reserved.
 //
 
-#import "ChangePasswordTableViewController.h"
+#import "SaveListTableViewController.h"
+#import "SWRevealViewController.h"
 
-@interface ChangePasswordTableViewController ()
+@interface SaveListTableViewController ()
 
 @end
 
-@implementation ChangePasswordTableViewController
+@implementation SaveListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self customizePageMenu];
     
-    [self.changePasswordButton.layer setCornerRadius:self.changePasswordButton.bounds.size.height/2];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
     
-    self.changePasswordButton.clipsToBounds = YES;
-    
-    
-    //Set GradienColor for control
-    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
-    [self setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];;
-
+    //button show menu
+    [self.sidebarButton setTarget: self.revealViewController];
+    [self.sidebarButton setAction: @selector( revealToggle: )];
 }
 
 #pragma mark - Navigation bar color
 
 -(void)customizePageMenu{
-    self.title = @"Change Password";
+    self.title = @"SAVE LIST";
     
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
@@ -44,39 +37,21 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
 }
 
-#pragma mark - Keyboard Did Show and Hide
-
-- (void)keyboardDidShow:(NSNotification *)sender {
-    self.changePasswordTableView.scrollEnabled = YES;
-}
-
-- (void)keyboardWillHide:(NSNotification *)sender {
-    self.changePasswordTableView.scrollEnabled = NO;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)doneButtonAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 0;
 }
 
-- (IBAction)changePasswordButtonAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
 }
 
--(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
-    //Set GradienColor for control
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = control.bounds;
-    gradient.colors = arrayColor;
-    
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(0, 1);
-    [control.layer insertSublayer:gradient atIndex:0];
-}
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

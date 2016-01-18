@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginTableViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end

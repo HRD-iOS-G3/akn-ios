@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SignUpTableViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end
