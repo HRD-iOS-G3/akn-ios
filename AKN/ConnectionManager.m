@@ -8,7 +8,10 @@
 
 #import "ConnectionManager.h"
 
-@implementation ConnectionManager
+@implementation ConnectionManager{
+    //responseData object
+    NSMutableData *responseData;
+}
 
 -(void)requestDataWithURL:(NSURL *)URL{
 	NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc]initWithURL: URL];
@@ -32,5 +35,58 @@
 		
 	}] resume];
 }
+
+#pragma mark: - Request with Post
+-(void)requestDataWithPostURL:(NSDictionary *)reqDictionary withKey:(NSString *)key{
+    
+    //Target URL
+    NSString *baseURL = @"http://akn.khmeracademy.org";
+    NSString *strURL = [NSString stringWithFormat:@"%@%@", baseURL, key];
+  
+    NSURL *url = [NSURL URLWithString:strURL];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
+    
+    //Set request method and content type
+    request.HTTPMethod = @"POST";
+    [request addValue:@"Basic YXBpOmFrbm5ld3M=" forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    //Create session
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:reqDictionary options:0 error:nil];
+    
+    NSString *urlString = [[NSString alloc] initWithData:jsonObject encoding:NSUTF8StringEncoding];
+    
+    //Add request object to request body
+    NSData *requestBodyData = [urlString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    request.HTTPBody = requestBodyData;
+    
+    //Create download task for download content
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
+        
+        if (!error) {
+            if ([request.URL isEqual:url] ) {
+                NSData *data = [NSData dataWithContentsOfURL:localfile];
+               
+                //init responseData object
+                responseData = [NSMutableData data];
+                [responseData appendData:data];
+                
+                //convert from json to dictionary
+                NSDictionary *dicObject = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
+
+                //call return result method
+                [self.delegate connectionManagerDidReturnResultWithPost:dicObject];
+            }
+        }
+    }];
+    [task resume];
+}
+
 
 @end

@@ -7,8 +7,12 @@
 //
 
 #import "LoginTableViewController.h"
+#import "SWRevealViewController.h"
+#import "ConnectionManager.h"
 
-@interface LoginTableViewController ()
+@interface LoginTableViewController ()<ConnectionManagerDelegate>{
+    ConnectionManager *manager;
+}
 
 @end
 
@@ -21,6 +25,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
+    
+    [self customizePageMenu];
+    
     [self.tableView addGestureRecognizer:gesture];
     // Design Style Control
     txtEmail.layer.masksToBounds=YES;
@@ -31,22 +41,79 @@
 //    txtPwd.layer.borderWidth=1;
     btnLogin.layer.cornerRadius=6;
     // Do any additional setup after loading the view.
+    
+    
+    //Set SWReveal
+    [self.sidebarButton setTarget: self.revealViewController];
+    [self.sidebarButton setAction: @selector( revealToggle: )];
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
+
+#pragma mark - Navigation bar color
+
+-(void)customizePageMenu{
+    self.title = @"Login";
+    
+    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
+}
+
+
 - (IBAction)gesture:(id)sender {
     [txtEmail endEditing:YES];
     [txtPwd endEditing:YES];
 }
+
+#pragma mark: - Login
 - (IBAction)actionLogin:(id)sender {
-	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
-	
-	// determine the initial view controller here and instantiate it with
-	UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
-	[self presentViewController:viewController animated:YES completion:nil];
+     // [self.activityIndicatorLoading startAnimating];
+    manager = [[ConnectionManager alloc] init];
+    
+    manager.delegate = self;
+    
+    // request dictionary
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+    [dictionary setObject:self.usernameTextField.text forKey:@"email"];
+    [dictionary setObject:self.passwordTextField.text forKey:@"password"];
+    
+    // send data to server
+    [manager requestDataWithPostURL:dictionary withKey:@"/api/user/login"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark: - ConnectionManagerDelegate
+
+-(void)connectionManagerDidReturnResultWithPost:(NSDictionary *)result{
+    
+   // [self.activityIndicatorLoading stopAnimating];
+    
+    if([[result valueForKey:@"MESSAGE"] isEqualToString:@"LOGIN SUCCESS"]){
+        //create NSUserDefaults object then add respone data to it
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"roles"];
+        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"authorities"];
+        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"password"];
+        
+        [defaults setObject:[result valueForKey:@"DATA"] forKey:@"user"];
+        
+        //open home view
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+        
+        // determine the initial view controller here and instantiate it with
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"Fail");
+    }
+}
+
 
 @end

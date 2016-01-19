@@ -699,11 +699,6 @@ const int FrontViewPositionNone = 0xff;
     // Do not call super, to prevent the apis from unfruitful looking for inexistent xibs!
     //[super loadView];
     
-    // load any defined front/rear controllers from the storyboard before
-    #pragma mark - AKN NSUserDefaults
-    NSUserDefaults *ns=[NSUserDefaults standardUserDefaults];
-    [self loadStoryboardControllers:ns];
-    
     // This is what Apple used to tell us to set as the initial frame, which is of course totally irrelevant
     // with view controller containment patterns, let's leave it for the sake of it!
     // CGRect frame = [[UIScreen mainScreen] applicationFrame];
@@ -1523,6 +1518,12 @@ const int FrontViewPositionNone = 0xff;
     
     if ( positionIsChanging )
     {
+        // load any defined front/rear controllers from the storyboard before
+        #pragma mark - AKN NSUserDefaults
+        NSUserDefaults *ns=[NSUserDefaults standardUserDefaults];
+        
+        [self loadStoryboardControllers:[ns objectForKey:@"user"]];
+    
         [[NSNotificationCenter defaultCenter] postNotificationName:@"VisualEffectBlueViewChange" object:nil];
         if ( [_delegate respondsToSelector:@selector(revealController:willMoveToPosition:)] )
             [_delegate revealController:self willMoveToPosition:newPosition];
@@ -1694,7 +1695,7 @@ const int FrontViewPositionNone = 0xff;
 // Load any defined front/rear controllers from the storyboard
 // This method is intended to be overrided in case the default behavior will not meet your needs
 #pragma mark - AKN Custom performSegueWithIdentifier
-- (void)loadStoryboardControllers:(NSUserDefaults *)userDefaults
+- (void)loadStoryboardControllers:(NSDictionary *)userDefaults
 {
     if ( self.storyboard && _rearViewController == nil )
     {
