@@ -174,14 +174,14 @@ bool help = true;
 //	ConnectionManager *manager = [[ConnectionManager alloc] init];
 //	
 //	manager.delegate = self;
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
 }
 bool temp = true;
 -(void)viewDidAppear:(BOOL)animated{
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
 	if (temp) {
 		temp =false;
-		[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/5/0/0/0/"]];
+		[manager requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/1/5/0/0/0/"]];
 	}
 }
 
