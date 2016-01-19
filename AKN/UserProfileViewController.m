@@ -9,8 +9,14 @@
 #import "UserProfileViewController.h"
 #import "SWRevealViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ConnectionManager.h"
 
-@interface UserProfileViewController ()
+@interface UserProfileViewController ()<ConnectionManagerDelegate>{
+    NSUserDefaults *userDefault;
+    NSMutableDictionary *user;
+    ConnectionManager *manager ;
+}
+
 
 @end
 
@@ -53,6 +59,35 @@
 
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    userDefault = [NSUserDefaults standardUserDefaults];
+    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
+    
+    NSString *imageURL = [NSString stringWithFormat:@"http://hrdams.herokuapp.com/%@",[user valueForKey:@"photo"]];
+    
+    
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_async(concurrentQueue, ^{
+        __block NSData *dataImage = nil;
+        
+        dispatch_sync(concurrentQueue, ^{
+            NSURL *urlImage = [NSURL URLWithString:imageURL];
+            dataImage = [NSData dataWithContentsOfURL:urlImage];
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithData:dataImage];
+            self.profileImageView.image = image;
+            
+        });
+    });
+    
+    self.nameTextField.text = [user valueForKey:@"username"];
+    
+    self.emailTextField.text = [user valueForKey:@"email"];
+}
+
 
 #pragma mark - Keyboard Did Show and Hide
 
@@ -90,6 +125,49 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)updateButtonAction:(id)sender {
+ 
+    //Create connection object
+    manager = [[ConnectionManager alloc] init];
+    
+    //Set delegate
+    manager.delegate = self;
+    
+    // request dictionary
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+    [dictionary setObject:self.nameTextField.text forKey:@"id"];
+    [dictionary setObject:self.emailTextField.text forKey:@"username"];
+    
+    //Send data to server and insert it
+    [manager requestDataWithURL:dictionary withKey:@"/api/user/update" method:@"PUT"];
+    
+}
+
+#pragma mark: - ConnectionManagerDelegate
+
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+    /*
+    if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[userDefault objectForKey:@"user"], nil];
+        NSLog(@"%@", data);
+        
+        
+        //NSUserDefaults object change value
+        //[[userDefault objectForKey:@"user"] setValue:[NSString stringWithFormat:@"%@",self.emailTextField.text ] forKey:@"username"];
+           NSLog(@"%@", [[userDefault objectForKey:@"user"] valueForKey:@"username"]);
+        //open home view
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+        
+        // determine the initial view controller here and instantiate it with
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"Fail");
+    }
+     */
 }
 
 /*
