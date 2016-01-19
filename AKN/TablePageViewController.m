@@ -57,9 +57,6 @@
 	_popularNewsList = [[NSMutableArray alloc]init];
 	_newsList = [[NSMutableArray alloc]init];
 	
-	manager = [[ConnectionManager alloc]init];
-	manager.delegate = self;
-	
     kTableHeaderHeight=200.0;
     headerView=[[UIView alloc]init];
    
@@ -78,6 +75,11 @@
 
 	//set current page n rows
 	_currentPageNumber =1;
+	
+	manager = [[ConnectionManager alloc]init];
+	manager.delegate = self;
+	[self getNewsList];
+	
 	[self initializeRefreshControl];
 	
 	// pull to refresh
@@ -85,7 +87,10 @@
 	viewIndiTop.backgroundColor=[UIColor clearColor];
 	[viewIndicator addSubview:viewIndiTop];
 	[viewIndiTop addSubview:viewIndicatorTop];
-	
+}
+-(void)getNewsList{
+	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/5/0/0/0/"]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
 }
 -(void)initializeRefreshControl
 {
@@ -176,14 +181,7 @@ bool help = true;
 //	manager.delegate = self;
 	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
 }
-bool temp = true;
--(void)viewDidAppear:(BOOL)animated{
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/0/0/0/", _currentPageNumber]]];
-	if (temp) {
-		temp =false;
-		[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/1/5/0/0/0/"]];
-	}
-}
+
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	NSLog(@"%@" , URL.path);
