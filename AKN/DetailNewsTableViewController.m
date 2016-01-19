@@ -12,7 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ConnectionManager.h"
 
-@interface DetailNewsTableViewController ()
+@interface DetailNewsTableViewController ()<ConnectionManagerDelegate>
 
 {
 	NSString *imageFile;
@@ -20,13 +20,28 @@
 	NSString *date;
 	NSString *description;
 	
+    IBOutlet UIView *cellContentOfDesc;
+    IBOutlet UILabel *lblCpyRight;
 	IBOutlet NSLayoutConstraint *imageHeaderCenterY;
 }
 
 @end
 
 @implementation DetailNewsTableViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication].keyWindow addSubview:lblCpyRight];
+    [lblCpyRight setFrame:CGRectMake(self.view.frame.size.width, self.view.frame.size.height-lblCpyRight.frame.size.height, self.view.frame.size.width, lblCpyRight.frame.size.height)];
 
+    [UIView animateWithDuration:0.4 animations:^{
+        [[UIApplication sharedApplication].keyWindow addSubview:lblCpyRight];
+        [lblCpyRight setFrame:CGRectMake(0, self.view.frame.size.height-lblCpyRight.frame.size.height, self.view.frame.size.width, lblCpyRight.frame.size.height)];
+    }];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [lblCpyRight removeFromSuperview];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = _pageTitle;
@@ -58,8 +73,21 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    ConnectionManager *con=[[ConnectionManager alloc]init];
+    con.delegate=self;
+    [con requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/10/10"]];
 }
-
+-(void)connectionManagerDidReturnResult:(NSArray *) result FromURL:(NSURL *)URL
+{
+    NSLog(@"my result %@",((NSDictionary *)result)[@"RESPONSE_DATA"]);
+    NSDictionary *results=((NSDictionary *)result)[@"RESPONSE_DATA"];
+    _labelDescription.text=results[@"content"];
+    description=results[@"content"];
+    [self.tableView reloadData ];
+    /*for (NSString *ns in result) {
+        NSLog(@"%@",ns);
+    }*/
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -77,7 +105,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 	switch (indexPath.row) {
 		case 0:
-			return 200.0;
+			return 180;
 			break;
 		case 1:
 			return [self heightForText:title font:_labelTitle.font withinWidth:self.view.frame.size.width-36]+10;
@@ -123,7 +151,7 @@
 	}
 	else
 	{
-		imageHeaderCenterY.constant=(64-y)*2/5;
+		imageHeaderCenterY.constant=(64-y)/2;
 	}
 }
 

@@ -57,7 +57,7 @@
 		cid = [[_categoryOrSource valueForKey:@"id"] intValue];
 		sid = 0;
 	}
-	url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/1/10/%d/%d/0/", cid, sid]];
+	url =[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/1/10/%d/%d/0/", cid, sid]];
 	
 	[manager requestDataWithURL:url];
     // Uncomment the following line to preserve selection between presentations.
