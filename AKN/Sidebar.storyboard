@@ -1076,7 +1076,7 @@
                                                     <rect key="frame" x="91" y="9" width="139" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="Already have an account">
-                                                        <color key="titleColor" red="0.30757004310000002" green="0.72475814819999995" blue="0.41272231939999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="signUp_Touch:" destination="GOU-UB-T1a" eventType="touchUpInside" id="6wO-hb-Wrs"/>
@@ -1116,6 +1116,7 @@
                         <outlet property="nameTextField" destination="Zwp-jh-Vy0" id="Tir-Wz-7TP"/>
                         <outlet property="passwordTextField" destination="zO8-yb-GPt" id="AMe-XG-HiX"/>
                         <outlet property="sidebarButton" destination="lVb-Ks-vH1" id="hJT-ps-4Mq"/>
+                        <outlet property="signUpButton" destination="u63-jG-DYv" id="Aly-Tx-6ty"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4JS-Xb-zqJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1214,7 +1215,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9B-ok-xqb">
                                                     <rect key="frame" x="32" y="4" width="257" height="38"/>
-                                                    <color key="backgroundColor" red="0.30757004310000002" green="0.72475814819999995" blue="0.41272231939999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="38" id="NQ0-xu-pSg"/>
                                                         <constraint firstAttribute="width" constant="257" id="zXK-Cw-jWR"/>
@@ -1264,7 +1265,7 @@
                                                     <rect key="frame" x="132" y="6" width="56" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <state key="normal" title="SIGN UP">
-                                                        <color key="titleColor" red="0.30757004310000002" green="0.72475814819999995" blue="0.41272231939999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
                                                         <segue destination="zwZ-rh-Qad" kind="showDetail" id="TdW-Ed-1iJ">
@@ -1322,6 +1323,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="gesture" destination="VY5-FQ-Hru" id="uFy-KC-e4L"/>
+                        <outlet property="loginButton" destination="N9B-ok-xqb" id="ugZ-wP-z1I"/>
                         <outlet property="passwordTextField" destination="i8m-bC-H0o" id="Yx2-Od-nLh"/>
                         <outlet property="sidebarButton" destination="EzP-0E-IqM" id="CQT-mg-dxi"/>
                         <outlet property="usernameTextField" destination="Pbt-oU-nsu" id="sYz-uN-4Xj"/>
