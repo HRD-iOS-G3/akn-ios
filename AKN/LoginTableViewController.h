@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UILabel *toastLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorLoading;
 
 @end
