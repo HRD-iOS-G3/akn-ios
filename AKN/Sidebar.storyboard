@@ -62,13 +62,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kim TaeKyun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTb-tV-SyM">
                                                 <rect key="frame" x="8" y="94" width="268" height="21"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                                 <animations/>
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -268,39 +262,21 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guestBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="LZ6-yJ-EjB">
                                 <rect key="frame" x="-4" y="0.0" width="375" height="667"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 <animations/>
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dtn-bC-ciV">
                                 <rect key="frame" x="-4" y="20" width="371" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khmer Academy ពត៌មាន" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J72-aK-RxI">
                                         <rect key="frame" x="8" y="109" width="356" height="41"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                         <animations/>
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="akn-logo white.png" translatesAutoresizingMaskIntoConstraints="NO" id="GeB-d2-Kw7">
                                         <rect key="frame" x="135" y="0.0" width="101" height="101"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                         <animations/>
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
                                         <constraints>
                                             <constraint firstAttribute="height" constant="101" id="J5p-nC-P5i"/>
                                             <constraint firstAttribute="width" constant="101" id="awl-eh-cW4"/>
@@ -449,13 +425,7 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© Copyright" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZA-w9-8OV">
                                 <rect key="frame" x="16" y="637" width="329" height="22"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 <animations/>
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
-=======
->>>>>>> parent of db4834c... Merge remote-tracking branch 'origin/master'
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
