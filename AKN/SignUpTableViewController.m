@@ -44,11 +44,34 @@
 //    txtFullName.layer.borderWidth=1;
     btnSignUp.layer.cornerRadius=6;
     
+    
+    // border radius for button
+    [self.signUpButton.layer setCornerRadius:self.signUpButton.bounds.size.height/2];
+    self.signUpButton.clipsToBounds = YES;
+    
+    
+    //Set GradienColor for control
+    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    [self setGradientColor:self.signUpButton NSArrayColor:gradientColor];
+    
+
+    
     //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 
+}
+
+-(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
+    //Set GradienColor for control
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = control.bounds;
+    gradient.colors = arrayColor;
+    
+    gradient.startPoint = CGPointMake(0, 0);
+    gradient.endPoint = CGPointMake(0, 1);
+    [control.layer insertSublayer:gradient atIndex:0];
 }
 
 #pragma mark - Navigation bar color

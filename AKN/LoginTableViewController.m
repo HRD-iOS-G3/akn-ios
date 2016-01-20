@@ -31,6 +31,16 @@
     
     [self customizePageMenu];
     
+    // border radius
+    [self.loginButton.layer setCornerRadius:self.loginButton.bounds.size.height/2];
+    self.loginButton.clipsToBounds = YES;
+    
+    
+    //Set GradienColor for control
+    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    [self setGradientColor:self.loginButton NSArrayColor:gradientColor];
+
+    
     [self.tableView addGestureRecognizer:gesture];
     // Design Style Control
     txtEmail.layer.masksToBounds=YES;
@@ -64,6 +74,17 @@
 - (IBAction)gesture:(id)sender {
     [txtEmail endEditing:YES];
     [txtPwd endEditing:YES];
+}
+
+-(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
+    //Set GradienColor for control
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = control.bounds;
+    gradient.colors = arrayColor;
+    
+    gradient.startPoint = CGPointMake(0, 0);
+    gradient.endPoint = CGPointMake(0, 1);
+    [control.layer insertSublayer:gradient atIndex:0];
 }
 
 #pragma mark: - Login
