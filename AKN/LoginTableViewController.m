@@ -153,9 +153,9 @@
     if([[result valueForKey:@"MESSAGE"] isEqualToString:@"LOGIN SUCCESS"]){
         //create NSUserDefaults object then add respone data to it
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"roles"];
-        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"authorities"];
-        [[result valueForKey:@"DATA"] setObject:@"" forKey:@"password"];
+        [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"roles"];
+        [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"authorities"];
+        [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"password"];
         
         [defaults setObject:[result valueForKey:@"DATA"] forKey:@"user"];
         

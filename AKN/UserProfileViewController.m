@@ -141,6 +141,7 @@
     }else if ([email isEqualToString:@""]) {
         [self makeToast:@"Please complete email" duration:2];
     }else{
+        NSLog(@"%@", [userDefault objectForKey:@"user"]);
         
         [self.activityIndicatorLoading startAnimating];
         self.updateButton.enabled = false;
@@ -172,13 +173,21 @@
     self.updateButton.enabled = true;
     
     if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
-        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[userDefault objectForKey:@"user"], nil];
-        NSLog(@"%@", data);
         
+        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
         
-       // NSUserDefaults object change value
-        [[userDefault objectForKey:@"user"] setValue:[NSString stringWithFormat:@"%@",self.emailTextField.text ] forKey:@"username"];
-           NSLog(@"%@", [[userDefault objectForKey:@"user"] valueForKey:@"username"]);
+        for (NSString* key in [[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+            id value = [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:key];
+            [dictionary setObject:value forKey:key];
+        }
+        // change
+        [dictionary setObject:self.emailTextField.text forKey:@"email"];
+        
+        [userDefault setObject:dictionary forKey:@"user"];
+        NSLog(@"%@", [userDefault objectForKey:@"user"]);
+        
+       // [data setValue:[NSString stringWithFormat:@"%@",self.emailTextField.text] forKey:@"username"];
+        
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         
@@ -189,7 +198,7 @@
     else{
         NSLog(@"Fail");
     }
-     
+    
 }
 
 /*
