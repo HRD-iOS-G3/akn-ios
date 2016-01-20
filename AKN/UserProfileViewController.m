@@ -9,8 +9,14 @@
 #import "UserProfileViewController.h"
 #import "SWRevealViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ConnectionManager.h"
 
-@interface UserProfileViewController ()
+@interface UserProfileViewController ()<ConnectionManagerDelegate>{
+    NSUserDefaults *userDefault;
+    NSMutableDictionary *user;
+    ConnectionManager *manager ;
+}
+
 
 @end
 
@@ -18,6 +24,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
+    
     [self customizePageMenu];
  
     
@@ -29,7 +38,7 @@
     self.changePasswordButton.clipsToBounds = YES;
     
     
-       //Set GradienColor for control
+    //Set GradienColor for control
     NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
     [self setGradientColor:self.updateButton NSArrayColor:gradientColor];
     [self setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
@@ -50,6 +59,35 @@
 
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    userDefault = [NSUserDefaults standardUserDefaults];
+    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
+    
+    NSString *imageURL = [NSString stringWithFormat:@"http://hrdams.herokuapp.com/%@",[user valueForKey:@"photo"]];
+    
+    
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_async(concurrentQueue, ^{
+        __block NSData *dataImage = nil;
+        
+        dispatch_sync(concurrentQueue, ^{
+            NSURL *urlImage = [NSURL URLWithString:imageURL];
+            dataImage = [NSData dataWithContentsOfURL:urlImage];
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithData:dataImage];
+            self.profileImageView.image = image;
+            
+        });
+    });
+    
+    self.nameTextField.text = [user valueForKey:@"username"];
+    
+    self.emailTextField.text = [user valueForKey:@"email"];
+}
+
 
 #pragma mark - Keyboard Did Show and Hide
 
@@ -61,6 +99,8 @@
 - (void)keyboardWillHide:(NSNotification *)sender {
     self.profileTableView.scrollEnabled = NO;
 }
+
+#pragma mark - Navigation bar color
 
 -(void)customizePageMenu{
     self.title = @"PROFILE";
@@ -85,6 +125,49 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)updateButtonAction:(id)sender {
+ 
+    //Create connection object
+    manager = [[ConnectionManager alloc] init];
+    
+    //Set delegate
+    manager.delegate = self;
+    
+    // request dictionary
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+    [dictionary setObject:self.nameTextField.text forKey:@"id"];
+    [dictionary setObject:self.emailTextField.text forKey:@"username"];
+    
+    //Send data to server and insert it
+    [manager requestDataWithURL:dictionary withKey:@"/api/user/update" method:@"PUT"];
+    
+}
+
+#pragma mark: - ConnectionManagerDelegate
+
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+    /*
+    if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[userDefault objectForKey:@"user"], nil];
+        NSLog(@"%@", data);
+        
+        
+        //NSUserDefaults object change value
+        //[[userDefault objectForKey:@"user"] setValue:[NSString stringWithFormat:@"%@",self.emailTextField.text ] forKey:@"username"];
+           NSLog(@"%@", [[userDefault objectForKey:@"user"] valueForKey:@"username"]);
+        //open home view
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+        
+        // determine the initial view controller here and instantiate it with
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"Fail");
+    }
+     */
 }
 
 /*

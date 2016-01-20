@@ -17,7 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self customizePageMenu];
+    
     [self.changePasswordButton.layer setCornerRadius:self.changePasswordButton.bounds.size.height/2];
+    
     self.changePasswordButton.clipsToBounds = YES;
     
     
@@ -28,6 +31,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];;
 
+}
+
+#pragma mark - Navigation bar color
+
+-(void)customizePageMenu{
+    self.title = @"Change Password";
+    
+    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
 }
 
 #pragma mark - Keyboard Did Show and Hide
