@@ -14,10 +14,16 @@
 #import "TablePageViewController.h"
 #import "viewPageController.h"
 #include "TableSourceViewController.h"
+#import "DetailNewsTableViewController.h"
 
-@interface MainViewController ()<SWRevealViewControllerDelegate>
+@interface MainViewController ()<SWRevealViewControllerDelegate,UISearchBarDelegate>{
+    UIView *disableViewOverlay;
+}
 
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (nonatomic) CAPSPageMenu *pageMenu;
+@property (nonatomic, strong) UIBarButtonItem *searchItem;
+@property (nonatomic, strong) UISearchBar *searchBarField;
 
 @end
 
@@ -46,7 +52,113 @@ static MainViewController *this;
     SWRevealViewController *revealController = [self revealViewController];
     [revealController panGestureRecognizer];
     [revealController tapGestureRecognizer];
-   
+    
+    //search bar
+    
+    //self.searchItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
+    self.searchItem = [[UIBarButtonItem alloc] initWithCustomView:_searchButton];
+    self.navigationItem.rightBarButtonItem = _searchItem;
+
+    self.navigationItem.rightBarButtonItem = _searchItem;
+    
+    self.searchBarField = [[UISearchBar alloc] init];
+    _searchBarField.showsCancelButton = YES;
+    _searchBarField.delegate = self;
+    disableViewOverlay = [[UIView alloc]
+                               initWithFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height)];
+    disableViewOverlay.backgroundColor=[UIColor blackColor];
+    disableViewOverlay.alpha = 0;
+    
+}
+- (IBAction)searchBarTapped:(id)sender {
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"X"];
+    self.searchBarField.placeholder=@"Search Title of News";
+    self.searchBarField.searchBarStyle=UISearchBarStyleMinimal;
+    UITextField *textFieldInsideSearchBar =[self.searchBarField valueForKey:@"searchField"];
+    textFieldInsideSearchBar.textColor=[UIColor whiteColor];
+    [UIView animateWithDuration:0.1 animations:^{
+        self.searchButton.alpha = 0.0f;
+        
+        
+    } completion:^(BOOL finished) {
+        
+        // remove the search button
+        self.navigationItem.rightBarButtonItem = nil;
+        // add the search bar (which will start out hidden).
+        self.navigationItem.titleView = _searchBarField;
+        _searchBarField.alpha = 0.0;
+        
+        [UIView animateWithDuration:0.02
+                         animations:^{
+                             _searchBarField.alpha = 1.0;
+                         } completion:^(BOOL finished) {
+                             [_searchBarField becomeFirstResponder];
+                         }];
+        
+    }];
+}
+#pragma mark UISearchBarDelegate methods
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"X"];
+    self.searchBarField.placeholder=@"Search Title of News";
+    self.searchBarField.searchBarStyle=UISearchBarStyleMinimal;
+    UITextField *textFieldInsideSearchBar =[self.searchBarField valueForKey:@"searchField"];
+    textFieldInsideSearchBar.textColor=[UIColor whiteColor];
+    [UIView animateWithDuration:0.1f animations:^{
+        _searchBarField.alpha = 0.0;
+        } completion:^(BOOL finished) {
+        self.navigationItem.titleView = nil;
+        self.navigationItem.rightBarButtonItem = _searchItem;
+        _searchButton.alpha = 0.0;  // set this *after* adding it back
+        [UIView animateWithDuration:0.2f animations:^ {
+            _searchButton.alpha = 1.0;
+        }];
+    }];
+    [disableViewOverlay removeFromSuperview];
+    self.searchBarField.text=@"";
+}
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [disableViewOverlay removeFromSuperview];
+    //[self searchBarTextDidEndEditing:searchBar];
+    [self.searchBarField endEditing:YES];
+    MainViewController *mvc = [MainViewController getInstance];
+    DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
+    //dvc.news = _newsList[indexPath.row];
+    [mvc.navigationController pushViewController:dvc animated:YES];
+}
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    disableViewOverlay.alpha = 0;
+    [self.view addSubview:disableViewOverlay];
+    
+    [UIView beginAnimations:@"FadeIn" context:nil];
+    [UIView setAnimationDuration:0.5];
+    disableViewOverlay.alpha = 0.6;
+    [UIView commitAnimations];
+}
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    NSLog(@"End work");
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [searchDelayer invalidate], searchDelayer=nil;
+    if (YES /* ...or whatever validity test you want to apply */)
+        searchDelayer = [NSTimer scheduledTimerWithTimeInterval:1.5
+                                                         target:self
+                                                       selector:@selector(doDelayedSearch:)
+                                                       userInfo:searchText
+                                                        repeats:NO];
+}
+-(void)doDelayedSearch:(NSTimer *)t
+{
+    assert(t == searchDelayer);
+    [self request:searchDelayer.userInfo];
+    searchDelayer = nil; // important because the timer is about to release and dealloc itself
+}
+-(void)request:(NSString *)myString
+{
+    NSLog(@"%@",myString);
 }
 
 #pragma mark Set FrontView to blur by NSNotificationCenter

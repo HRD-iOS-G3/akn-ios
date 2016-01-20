@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController{
+NSTimer *searchDelayer;
+}
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectView;
+
 
 +(MainViewController *)getInstance;
 @end

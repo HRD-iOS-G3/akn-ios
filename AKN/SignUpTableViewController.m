@@ -92,12 +92,12 @@
 
     
     //Send data to server and insert it
-    [manager requestDataWithPostURL:dictionaryObject withKey:@"/api/user/"];
+    [manager requestDataWithURL:dictionaryObject withKey:@"/api/user/" method:@"POST"];
     
 }
 
 #pragma mark: - ConnectionManagerDelegate
--(void)connectionManagerDidReturnResultWithPost:(NSDictionary *)result{
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
     NSLog(@"+++++++++++++ %@",result);
     if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
         [self dismissViewControllerAnimated:YES completion:nil];

@@ -36,11 +36,12 @@
 	}] resume];
 }
 
-#pragma mark: - Request with Post
--(void)requestDataWithPostURL:(NSDictionary *)reqDictionary withKey:(NSString *)key{
+#pragma mark: - Request with Method
+-(void)requestDataWithURL:(NSDictionary *)reqDictionary withKey:(NSString *)key method:(NSString *)method{
     
     //Target URL
-    NSString *baseURL = @"http://akn.khmeracademy.org";
+   // NSString *baseURL = @"http://akn.khmeracademy.org";
+      NSString *baseURL = @"http://api-akn.herokuapp.com";
     NSString *strURL = [NSString stringWithFormat:@"%@%@", baseURL, key];
   
     NSURL *url = [NSURL URLWithString:strURL];
@@ -48,7 +49,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
     
     //Set request method and content type
-    request.HTTPMethod = @"POST";
+    request.HTTPMethod = method;
     [request addValue:@"Basic YXBpOmFrbm5ld3M=" forHTTPHeaderField:@"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
@@ -81,12 +82,11 @@
                 NSDictionary *dicObject = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
 
                 //call return result method
-                [self.delegate connectionManagerDidReturnResultWithPost:dicObject];
+                [self.delegate connectionManagerDidReturnResult:dicObject];
             }
         }
     }];
     [task resume];
 }
-
 
 @end

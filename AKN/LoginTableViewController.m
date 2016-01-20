@@ -79,7 +79,7 @@
     [dictionary setObject:self.passwordTextField.text forKey:@"password"];
     
     // send data to server
-    [manager requestDataWithPostURL:dictionary withKey:@"/api/user/login"];
+    [manager requestDataWithURL:dictionary withKey:@"/api/user/login" method:@"POST"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,7 +90,7 @@
 
 #pragma mark: - ConnectionManagerDelegate
 
--(void)connectionManagerDidReturnResultWithPost:(NSDictionary *)result{
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
     
    // [self.activityIndicatorLoading stopAnimating];
     
