@@ -128,46 +128,68 @@
 }
 
 - (IBAction)updateButtonAction:(id)sender {
- 
-    //Create connection object
-    manager = [[ConnectionManager alloc] init];
+     // dismiss keyboard
+    [self dismissKeyboard];
     
-    //Set delegate
-    manager.delegate = self;
+    // Get value from text field
+    NSString * username = self.nameTextField.text;
+    NSString * email = self.emailTextField.text;
     
-    // request dictionary
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-    [dictionary setObject:self.nameTextField.text forKey:@"id"];
-    [dictionary setObject:self.emailTextField.text forKey:@"username"];
+    // validate text field
+    if ([username isEqualToString:@""]) {
+        [self makeToast:@"Please complete username" duration:2];
+    }else if ([email isEqualToString:@""]) {
+        [self makeToast:@"Please complete email" duration:2];
+    }else{
+        
+        [self.activityIndicatorLoading startAnimating];
+        self.updateButton.enabled = false;
+        
+        //Create connection object
+        manager = [[ConnectionManager alloc] init];
+        
+        //Set delegate
+        manager.delegate = self;
+        
+        // request dictionary
+        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+        [dictionary setObject:self.nameTextField.text forKey:@"id"];
+        [dictionary setObject:self.emailTextField.text forKey:@"username"];
+        
+        
+        //Send data to server and insert it
+        [manager requestDataWithURL:dictionary withKey:@"/api/user/update" method:@"PUT"];
     
-    //Send data to server and insert it
-    [manager requestDataWithURL:dictionary withKey:@"/api/user/update" method:@"PUT"];
+    }
     
 }
 
 #pragma mark: - ConnectionManagerDelegate
 
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    /*
+    
+    [self.activityIndicatorLoading stopAnimating];
+    self.updateButton.enabled = true;
+    
     if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
         NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[userDefault objectForKey:@"user"], nil];
         NSLog(@"%@", data);
         
         
-        //NSUserDefaults object change value
-        //[[userDefault objectForKey:@"user"] setValue:[NSString stringWithFormat:@"%@",self.emailTextField.text ] forKey:@"username"];
+       // NSUserDefaults object change value
+        [[userDefault objectForKey:@"user"] setValue:[NSString stringWithFormat:@"%@",self.emailTextField.text ] forKey:@"username"];
            NSLog(@"%@", [[userDefault objectForKey:@"user"] valueForKey:@"username"]);
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         
-        // determine the initial view controller here and instantiate it with
+       //  determine the initial view controller here and instantiate it with
         UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
         NSLog(@"Fail");
     }
-     */
+     
 }
 
 /*
@@ -179,5 +201,25 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)makeToast:(NSString *)msg duration:(NSTimeInterval)duration{
+    self.errorLabel.text=  msg ;
+    self.errorLabel.hidden = false;
+  
+    [UIView animateWithDuration:duration animations:^(void){
+        self.errorLabel.alpha = 0;
+        self.errorLabel.alpha = 1;
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:1.0 animations:^(void){
+            self.errorLabel.alpha = 1;
+            self.errorLabel.alpha = 0;
+            
+        }];
+    }];
+}
+
+-(void)dismissKeyboard{
+    [self.view endEditing:YES];
+}
 
 @end
