@@ -236,7 +236,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xTi-gO-JPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674.5" y="413.5"/>
+            <point key="canvasLocation" x="-529.5" y="121.5"/>
         </scene>
         <!--Sidebar Guest View Controller-->
         <scene sceneID="bXw-mB-VQH">
@@ -826,7 +826,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IlJ-uj-cSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="699.5" y="1179.5"/>
+            <point key="canvasLocation" x="1037.5" y="1205.5"/>
         </scene>
         <!--Save List-->
         <scene sceneID="Hov-In-D5l">
@@ -856,7 +856,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6y-d5-4iv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="459.5" y="2027.5"/>
+            <point key="canvasLocation" x="1037.5" y="2007.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="F0f-ol-g0f">
@@ -914,7 +914,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FUS-jY-fPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="106" y="1180"/>
+            <point key="canvasLocation" x="443.5" y="1205.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="17I-am-dLf">
@@ -933,7 +933,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vdz-pD-OKY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-156.5" y="2040.5"/>
+            <point key="canvasLocation" x="421.5" y="2020.5"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="Mlb-5U-ioY">
@@ -1102,6 +1102,12 @@
                         <barButtonItem key="leftBarButtonItem" image="menu.png" id="lVb-Ks-vH1">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Home" id="rXx-mT-sHe">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="Nw9-oq-CP6" kind="show" id="UDb-9Q-kJr"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -1119,7 +1125,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2265" y="-1168"/>
+            <point key="canvasLocation" x="2241" y="-1185"/>
         </scene>
         <!--Login-->
         <scene sceneID="XH0-r0-EMt">
@@ -1306,6 +1312,12 @@
                         <barButtonItem key="leftBarButtonItem" image="menu.png" id="EzP-0E-IqM">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Home" id="iu4-eP-kDs">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="Nw9-oq-CP6" kind="show" id="wmQ-lr-igV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -1410,7 +1422,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jLV-RU-mk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="965.5" y="392.5"/>
+            <point key="canvasLocation" x="1015.5" y="392.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KxA-y4-fgJ">
@@ -1444,6 +1456,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5Ke-G4-yVY"/>
-        <segue reference="FOG-fc-z24"/>
+        <segue reference="TdW-Ed-1iJ"/>
+        <segue reference="UDb-9Q-kJr"/>
     </inferredMetricsTieBreakers>
 </document>
