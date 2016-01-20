@@ -37,11 +37,6 @@
     gradient1.endPoint = CGPointMake(0, 1);
     [self.profileBackgroundView.layer insertSublayer:gradient1 atIndex:0];
     
-    NSUserDefaults *userDefaul = [NSUserDefaults standardUserDefaults];
-    self.nameLabel.text=[[userDefaul objectForKey:@"user"]valueForKey:@"username"];
-    self.emailLabel.text=[[userDefaul objectForKey:@"user"]valueForKey:@"email"];
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -98,17 +93,6 @@
     
     
     return cell;
-}
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if(indexPath.row == 3)
-    {
-        NSUserDefaults *userDefaul = [NSUserDefaults standardUserDefaults];
-        [userDefaul removeObjectForKey:@"user"];
-        [self.revealViewController performSegueWithIdentifier:SWSegueGuestIdentifier sender:nil];
-    }
 }
 
 

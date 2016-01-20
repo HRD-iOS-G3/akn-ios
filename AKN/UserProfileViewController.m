@@ -18,9 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
-    
     [self customizePageMenu];
  
     
@@ -32,7 +29,7 @@
     self.changePasswordButton.clipsToBounds = YES;
     
     
-    //Set GradienColor for control
+       //Set GradienColor for control
     NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
     [self setGradientColor:self.updateButton NSArrayColor:gradientColor];
     [self setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
@@ -64,8 +61,6 @@
 - (void)keyboardWillHide:(NSNotification *)sender {
     self.profileTableView.scrollEnabled = NO;
 }
-
-#pragma mark - Navigation bar color
 
 -(void)customizePageMenu{
     self.title = @"PROFILE";
