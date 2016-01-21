@@ -9,10 +9,14 @@
 #import "SidebarMenuViewController.h"
 #import "SWRevealViewController.h"
 #import "UserProfileViewController.h"
+#import "ConnectionManager.h"
 
 
-@interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource>{
+@interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource,ConnectionManagerDelegate>{
     NSArray *menuItems, *menuTitle;
+    NSUserDefaults *userDefault;
+    NSMutableDictionary *user;
+    ConnectionManager *manager;
 }
 
 @end
@@ -23,6 +27,7 @@
     [super viewDidLoad];
     self.sidebarMenuTableView.delegate=self;
     self.sidebarMenuTableView.dataSource=self;
+    
     
     menuItems = @[@"home", @"saveList", @"setting", @"logout", @"aboutUs"];
     menuTitle = @[@"Home", @"Save List", @"Setting", @"Logout", @"About us"];
@@ -37,6 +42,11 @@
     gradient1.endPoint = CGPointMake(0, 1);
     [self.profileBackgroundView.layer insertSublayer:gradient1 atIndex:0];
     
+    [self.profileImageView.layer setCornerRadius:self.profileImageView.bounds.size.height/2];
+    self.profileImageView.clipsToBounds = YES;
+    [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+    [self.profileImageView.layer setBorderWidth: 2.0];
+    
     NSUserDefaults *userDefaul = [NSUserDefaults standardUserDefaults];
     self.nameLabel.text=[[userDefaul objectForKey:@"user"]valueForKey:@"username"];
     self.emailLabel.text=[[userDefaul objectForKey:@"user"]valueForKey:@"email"];
@@ -49,6 +59,11 @@
     
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     [self.revealViewController.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    //set image
+    userDefault = [NSUserDefaults standardUserDefaults];
+    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
+    [self startDownloadingImage];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -135,6 +150,34 @@
         //        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];
         //        UserProfileController.photoFilename = photoFilename;
     }
+}
+
+
+#pragma mark: - load image
+- (void)startDownloadingImage{
+    
+    NSString *imageURL = [NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]];
+    NSLog(@"%@",[user valueForKey:@"image"]);
+    
+    // NSString *imageURL =  @"http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg";
+    
+    
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_async(concurrentQueue, ^{
+        __block NSData *dataImage = nil;
+        
+        dispatch_sync(concurrentQueue, ^{
+            NSURL *urlImage = [NSURL URLWithString:imageURL];
+            dataImage = [NSData dataWithContentsOfURL:urlImage];
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithData:dataImage];
+            self.profileImageView.image = image;
+            
+        });
+    });
 }
 
 /*
