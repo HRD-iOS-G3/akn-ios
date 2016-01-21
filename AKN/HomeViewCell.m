@@ -10,8 +10,6 @@
 
 @interface HomeViewCell()
 
-@property (weak, nonatomic) IBOutlet UIButton *buttonSave;
-
 @end
 
 @implementation HomeViewCell
@@ -25,8 +23,4 @@
 
     // Configure the view for the selected state
 }
-- (IBAction)actionSave:(id)sender {
-	[_buttonSave setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
-}
-
 @end

@@ -23,7 +23,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slider.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-Sg-Jff">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-Sg-Jff">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -172,6 +172,5 @@
     </scenes>
     <resources>
         <image name="left.png" width="24" height="24"/>
-        <image name="slider.jpg" width="960" height="720"/>
     </resources>
 </document>

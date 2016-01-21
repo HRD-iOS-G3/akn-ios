@@ -14,9 +14,9 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "News.h"
 #import "Utilities.h"
+#import "UIView+Toast.h"
 
 @interface TablePageViewController ()<UICollectionViewDataSource,UIScrollViewDelegate, ConnectionManagerDelegate>{
-    UICollectionViewFlowLayout *coll;
 	
     __weak IBOutlet UICollectionView *collectionViewNews;
     __weak IBOutlet UICollectionViewFlowLayout *collection;
@@ -31,6 +31,8 @@
 	UIActivityIndicatorView *indicatorFooter;
 	
 	ConnectionManager *manager;
+	
+	NSMutableArray *countHelp;
 }
 @property (strong, nonatomic) NSMutableArray<News *> *newsList;
 @property (strong, nonatomic) NSMutableArray<News *> *popularNewsList;
@@ -85,6 +87,7 @@
 	viewIndiTop.backgroundColor=[UIColor clearColor];
 	[viewIndicator addSubview:viewIndiTop];
 	[viewIndiTop addSubview:viewIndicatorTop];
+//	viewIndicatorTop.tag =101;
 	
 }
 -(void)initializeRefreshControl
@@ -117,7 +120,7 @@ bool help = true;
 				[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,0, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
 			} completion:^(BOOL finished) {
 				// request data
-				
+				[self refreshData];
 			}];
 			viewIndicatorTop.tag=100;
 			
@@ -156,6 +159,15 @@ bool help = true;
 	
 }
 
+-(void)refreshData{
+	_currentPageNumber = 1;
+	viewIndicatorTop.tag = 101;
+	
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
+	[manager requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/1/5/0/0/0/"]];
+	
+}
+
 -(void)refreshTableVeiwList
 {
 	//Code here
@@ -176,39 +188,88 @@ bool help = true;
 //	manager.delegate = self;
 	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
 }
-bool temp = true;
 -(void)viewDidAppear:(BOOL)animated{
 	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
-	if (temp) {
-		temp =false;
-		[manager requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/1/5/0/0/0/"]];
-	}
+	[manager requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/1/5/0/0/0/"]];
 }
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	NSLog(@"%@" , URL.path);
-	if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/0", _currentPageNumber]]) {
-		_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
-		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
-			[_newsList addObject:[[News alloc]initWithData:object]];
+	if (viewIndicatorTop.tag == 101) { // refresh data
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/0", _currentPageNumber]]) {
+			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
+			NSMutableArray<News *> *tmp = [NSMutableArray new];
+			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+				[tmp addObject:[[News alloc]initWithData:object]];
+			}
+			help = true;
+			[_newsList removeAllObjects];
+			[_newsList addObjectsFromArray:tmp];
+			
+			[self.tableView reloadData];
 		}
-		help = true;
-		[self.tableView reloadData];
-//		[indicatorFooter stopAnimating];
-	}
-//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
-	if ([URL.path isEqualToString:@"/api/article/1/5/0/0/0"]) {
-		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
-			[_popularNewsList addObject:[[News alloc]initWithData:object]];
+		//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
+		if ([URL.path isEqualToString:@"/api/article/1/5/0/0/0"]) {
+			
+			NSMutableArray<News *> *tmp = [NSMutableArray new];
+			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+				[tmp addObject:[[News alloc]initWithData:object]];
+			}
+			[_popularNewsList removeAllObjects];
+			[_popularNewsList addObjectsFromArray:tmp];
+			[self->collectionViewNews reloadData];
+			
+			id firstItem = [_popularNewsList firstObject];
+			id lastItem = [_popularNewsList lastObject];
+			NSMutableArray *workingArray = [_popularNewsList mutableCopy];
+			[workingArray insertObject:lastItem atIndex:0];
+			[workingArray addObject:firstItem];
+			
+			_popularNewsList = workingArray;
+			
+			countHelp = [NSMutableArray new];
+			for (int i=1; i<_popularNewsList.count-1; i++) {
+				[countHelp addObject:[NSNumber numberWithInt:i]];
+			}
+			[countHelp addObjectsFromArray:countHelp];
 		}
-		[self->collectionViewNews reloadData];
 		
-		id firstItem = [_popularNewsList firstObject];
-		id lastItem = [_popularNewsList lastObject];
-		NSMutableArray *workingArray = [_popularNewsList mutableCopy];
-		[workingArray insertObject:lastItem atIndex:0];
-		[workingArray addObject:firstItem];
-		_popularNewsList = workingArray;
+		[UIView animateWithDuration:0.3 animations:^{
+			[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
+		} completion:^(BOOL finished) {
+			viewIndicatorTop.tag = 102;
+		}];
+	}else{
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/0", _currentPageNumber]]) {
+			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
+			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+				[_newsList addObject:[[News alloc]initWithData:object]];
+			}
+			help = true;
+			[self.tableView reloadData];
+		}
+		//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
+		if ([URL.path isEqualToString:@"/api/article/1/5/0/0/0"]) {
+			
+			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+				[_popularNewsList addObject:[[News alloc]initWithData:object]];
+			}
+			[self->collectionViewNews reloadData];
+			
+			id firstItem = [_popularNewsList firstObject];
+			id lastItem = [_popularNewsList lastObject];
+			NSMutableArray *workingArray = [_popularNewsList mutableCopy];
+			[workingArray insertObject:lastItem atIndex:0];
+			[workingArray addObject:firstItem];
+			
+			_popularNewsList = workingArray;
+			
+			countHelp = [NSMutableArray new];
+			for (int i=1; i<_popularNewsList.count-1; i++) {
+				[countHelp addObject:[NSNumber numberWithInt:i]];
+			}
+			[countHelp addObjectsFromArray:countHelp];
+		}
 	}
 }
 
@@ -218,7 +279,7 @@ bool temp = true;
         headerRect.origin.y=self.tableView.contentOffset.y;
         headerRect.size.height= -self.tableView.contentOffset.y;
     }
-	[coll setItemSize:CGSizeMake(collectionViewNews.frame.size.width, headerRect.size.height)];
+	[collection setItemSize:CGSizeMake(collectionViewNews.frame.size.width, headerRect.size.height)];
     headerView.frame=headerRect;
 }
 
@@ -251,6 +312,14 @@ bool temp = true;
 	cell.newsView.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_newsList[indexPath.row].newsDateTimestampString]];
 	
+	
+	cell.buttonSave.tag = indexPath.row;
+	[cell.buttonSave addTarget:self action:@selector(buttonSaveClick:) forControlEvents:UIControlEventTouchUpInside];
+	
+	if (_newsList[indexPath.row].saved) {
+		[cell.buttonSave setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+	}
+	
 	switch (_newsList[indexPath.row].newsSourceId) {
 			
 		case 1: //sabay
@@ -281,6 +350,16 @@ bool temp = true;
 		cell.newsImage.image = [UIImage imageNamed:@"akn-logo"];
 		// download image in background
 		[self downloadImageInBackground:self.newsList[indexPath.row] forIndexPath:indexPath];
+	}
+}
+-(void)buttonSaveClick:(UIButton *)sender{
+	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
+		
+	}else{
+		
+		[[MainViewController getInstance].navigationController.view makeToast:@"Please login first!"
+					duration:3.0
+					position:CSToastPositionBottom];
 	}
 }
 
@@ -349,7 +428,7 @@ bool temp = true;
 	UILabel *label = (UILabel *)[cell viewWithTag:21];
 	label.text = self.popularNewsList[indexPath.row].newsTitle;
 	UILabel *labelNum = (UILabel *)[cell viewWithTag:22];
-	labelNum.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+	labelNum.text = [NSString stringWithFormat:@"%@",countHelp[indexPath.row]];
 	
 	
 	if (self.popularNewsList[indexPath.row].newsImage){

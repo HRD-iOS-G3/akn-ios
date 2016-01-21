@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *newsDate;
 @property (weak, nonatomic) IBOutlet UILabel *newsView;
 @property (weak, nonatomic) IBOutlet UIView *viewCell;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSave;
 
 @end

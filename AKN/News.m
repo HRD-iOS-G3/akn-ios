@@ -22,6 +22,7 @@
 		_newsHitCount = [array valueForKeyPath:@"hit"];
 		_newsDateTimestampString = [array valueForKeyPath:@"date"];
 		_newsURL = [array valueForKey:@"url"];
+		_saved = ([[array valueForKey:@"saved"] intValue] == 0)?false:true;
 	}
 	return self;
 }
