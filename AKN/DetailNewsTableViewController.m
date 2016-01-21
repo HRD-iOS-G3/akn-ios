@@ -75,15 +75,20 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     ConnectionManager *con=[[ConnectionManager alloc]init];
     con.delegate=self;
-    [con requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/10/10"]];
+    [con requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/12",_news.newsId]]];
 }
 -(void)connectionManagerDidReturnResult:(NSArray *) result FromURL:(NSURL *)URL
 {
-    NSLog(@"my result %@",((NSDictionary *)result)[@"RESPONSE_DATA"]);
     NSDictionary *results=((NSDictionary *)result)[@"RESPONSE_DATA"];
-    _labelDescription.text=results[@"content"];
-    description=results[@"content"];
+    _labelDescription.text=[results[@"content"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSLog(@"%d",_news.newsId);
     [self.tableView reloadData ];
+    
+    
+    
+    
+    
+    
     /*for (NSString *ns in result) {
         NSLog(@"%@",ns);
     }*/
@@ -114,7 +119,7 @@
 			return 36.0;
 			break;
 		case 3:
-			return [self heightForText:description font:_labelDescription.font withinWidth:self.view.frame.size.width-36];
+			return [self heightForText:_labelDescription.text font:_labelDescription.font withinWidth:self.view.frame.size.width-36];
 			break;
 		case 4:
 			return 36.0;
