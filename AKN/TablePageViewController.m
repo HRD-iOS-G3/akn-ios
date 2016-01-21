@@ -389,7 +389,7 @@ bool help = true;
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	MainViewController *mvc = [MainViewController getInstance];
 	DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
-	dvc.news = _newsList[indexPath.row];
+	dvc.news = (News *)_newsList[indexPath.row];
 	[mvc.navigationController pushViewController:dvc animated:YES];
 }
 

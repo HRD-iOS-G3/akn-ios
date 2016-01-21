@@ -25,10 +25,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vn0-Sg-Jff">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="195" id="6JA-64-iBj"/>
-                                                    </constraints>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -84,7 +81,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHV-EX-dYE">
-                                                    <rect key="frame" x="18" y="0.0" width="284" height="20.5"/>
+                                                    <rect key="frame" x="18" y="0.0" width="284" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -104,8 +101,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2016 All Khmer News" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlH-DJ-FwQ">
-                                                    <rect key="frame" x="8" y="8" width="304" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlH-DJ-FwQ">
+                                                    <rect key="frame" x="8" y="8" width="304" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -139,16 +136,26 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="cellContentOfDesc" destination="xdS-dp-71C" id="Mts-v8-44T"/>
                         <outlet property="imageHeaderCenterY" destination="jlV-f4-ON3" id="Fbh-Nu-squ"/>
                         <outlet property="imageViewNews" destination="vn0-Sg-Jff" id="BJ3-0H-2Dm"/>
                         <outlet property="labelDate" destination="F2T-kC-Cd3" id="nac-ZR-rcE"/>
                         <outlet property="labelDescription" destination="hHV-EX-dYE" id="2td-tX-MLc"/>
                         <outlet property="labelTitle" destination="jkM-Xh-Irq" id="Q36-yQ-g88"/>
+                        <outlet property="lblCpyRight" destination="SBL-UG-kec" id="IOy-4L-9bX"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gu5-n9-48W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2016 All Khmer News" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SBL-UG-kec">
+                    <rect key="frame" x="0.0" y="0.0" width="328" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </objects>
-            <point key="canvasLocation" x="914" y="195"/>
+            <point key="canvasLocation" x="596" y="115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sKi-po-Ulr">
@@ -167,7 +174,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CPe-bA-jLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="484" y="195"/>
+            <point key="canvasLocation" x="245" y="115"/>
         </scene>
     </scenes>
     <resources>

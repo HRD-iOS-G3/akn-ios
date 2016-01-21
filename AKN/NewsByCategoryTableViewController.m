@@ -30,12 +30,17 @@
 
 @implementation NewsByCategoryTableViewController
 
+- (IBAction)buttonSearchClicked:(id)sender {
+	
+	
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
 	
 }
 - (IBAction)actionBack:(id)sender {
 	[MainViewController getInstance].title = @"ALL KHMER NEWS";
-	[[MainViewController getInstance].navigationController popToRootViewControllerAnimated:YES];
+	[[MainViewController getInstance].navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {

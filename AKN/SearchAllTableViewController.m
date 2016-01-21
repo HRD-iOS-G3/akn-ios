@@ -204,10 +204,10 @@ bool help1 = true;
 }
 -(void)buttonSaveClick:(UIButton *)sender{
 	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
-		ConnectionManager *manager = [ConnectionManager new];
-		manager.delegate = self;
-		
-		[manager requestDataWithURL:@{@"uid":@0, @""} withKey:@"/api/article/savelist" method:@"POST"];
+//		ConnectionManager *manager = [ConnectionManager new];
+//		manager.delegate = self;
+//		[manager requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_listNewsFound[sender.tag].newsId], @"userid":[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"]} withKey:@"/api/article/savelist" method:@"POST"];
+//		[self.navigationController.view makeToast:@"Saving..."];
 	}else{
 		[self.navigationController.view makeToast:@"Please login first!"
 					duration:3.0
