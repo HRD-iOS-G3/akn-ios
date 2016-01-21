@@ -63,8 +63,20 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
     
-    NSString *imageURL = [NSString stringWithFormat:@"http://hrdams.herokuapp.com/%@",[user valueForKey:@"photo"]];
     
+        self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
+        [self startDownloadingImage];
+
+    
+    self.nameTextField.text = [user valueForKey:@"username"];
+    
+    self.emailTextField.text = [user valueForKey:@"email"];
+}
+
+
+- (void)startDownloadingImage{
+    
+    NSString *imageURL = [NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]];
     
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     
@@ -82,11 +94,9 @@
             
         });
     });
-    
-    self.nameTextField.text = [user valueForKey:@"username"];
-    
-    self.emailTextField.text = [user valueForKey:@"email"];
 }
+
+
 
 
 #pragma mark - Keyboard Did Show and Hide
@@ -141,7 +151,6 @@
     }else if ([email isEqualToString:@""]) {
         [self makeToast:@"Please complete email" duration:2];
     }else{
-        NSLog(@"%@", [userDefault objectForKey:@"user"]);
         
         [self.activityIndicatorLoading startAnimating];
         self.updateButton.enabled = false;
@@ -154,8 +163,10 @@
         
         // request dictionary
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        [dictionary setObject:self.nameTextField.text forKey:@"id"];
-        [dictionary setObject:self.emailTextField.text forKey:@"username"];
+        [dictionary setObject:[[userDefault objectForKey:@"user"] valueForKey:@"id"] forKey:@"id"];
+        
+        [dictionary setObject:self.nameTextField.text forKey:@"username"];
+     //   [dictionary setObject:self.emailTextField.text forKey:@"email"];
         
         
         //Send data to server and insert it

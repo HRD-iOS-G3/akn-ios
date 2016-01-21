@@ -7,8 +7,15 @@
 //
 
 #import "ChangePasswordTableViewController.h"
+#import "ConnectionManager.h"
 
-@interface ChangePasswordTableViewController ()
+@interface ChangePasswordTableViewController ()<ConnectionManagerDelegate>{
+    NSUserDefaults *userDefault;
+    NSMutableDictionary *user;
+    ConnectionManager *manager ;
+}
+
+
 
 @end
 
@@ -64,7 +71,69 @@
 }
 
 - (IBAction)changePasswordButtonAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // dismiss keyboard
+    [self dismissKeyboard];
+    
+    // Get value from text field
+    
+    NSString * oldPassword = self.oldPasswordTextField.text;
+    NSString * newPassword = self.nnewPasworldTextField.text;
+     NSString * comfirmPassword = self.comfirmPasswordTextField.text;
+    
+    // validate text field
+    if ([oldPassword isEqualToString:@""]) {
+        [self makeToast:@"Please complete old password" duration:2];
+    }else if ([newPassword isEqualToString:@""]) {
+        [self makeToast:@"Please complete new password" duration:2];
+    }else if ([comfirmPassword isEqualToString:@""]) {
+        [self makeToast:@"Please complete comfirm password" duration:2];
+    }else if (![newPassword isEqualToString:comfirmPassword]) {
+        [self makeToast:@"Your new password and comfirm password is not the same" duration:2];
+    }else{
+        userDefault = [[NSUserDefaults standardUserDefaults] init];
+        
+        [self.activityIndicatorLoading startAnimating];
+        self.changePasswordButton.enabled = false;
+        
+        //Create connection object
+        manager = [[ConnectionManager alloc] init];
+        
+        //Set delegate
+        manager.delegate = self;
+        
+        // request dictionary
+        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+        [dictionary setObject:[[userDefault objectForKey:@"user"] valueForKey:@"id"] forKey:@"id"];
+        
+        [dictionary setObject:newPassword forKey:@"newpass"];
+        [dictionary setObject:oldPassword forKey:@"oldpass"];
+        NSLog(@"%@", dictionary);
+        
+        //Send data to server and insert it
+        [manager requestDataWithURL:dictionary withKey:@"/api/user/changepwd" method:@"PUT"];
+    
+    }
+}
+
+#pragma mark: - ConnectionManagerDelegate
+
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+    
+    [self.activityIndicatorLoading stopAnimating];
+    self.changePasswordButton.enabled = true;
+    
+    if([[result valueForKey:@"MESSAGE"] containsString:@"CHANGED"]){
+        //open home view
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+        
+        //  determine the initial view controller here and instantiate it with
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else{
+       [self makeToast:@"You old password is incorrect" duration:2];
+    }
+    
 }
 
 -(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
@@ -77,6 +146,27 @@
     gradient.endPoint = CGPointMake(0, 1);
     [control.layer insertSublayer:gradient atIndex:0];
 }
+
+-(void)makeToast:(NSString *)msg duration:(NSTimeInterval)duration{
+    self.errorLabel.text=  msg ;
+    self.errorLabel.hidden = false;
+    
+    [UIView animateWithDuration:duration animations:^(void){
+        self.errorLabel.alpha = 0;
+        self.errorLabel.alpha = 1;
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:1.0 animations:^(void){
+            self.errorLabel.alpha = 1;
+            self.errorLabel.alpha = 0;
+            
+        }];
+    }];
+}
+
+-(void)dismissKeyboard{
+    [self.view endEditing:YES];
+}
+
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

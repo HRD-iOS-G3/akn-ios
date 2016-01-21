@@ -40,8 +40,8 @@
 -(void)requestDataWithURL:(NSDictionary *)reqDictionary withKey:(NSString *)key method:(NSString *)method{
     
     //Target URL
-   // NSString *baseURL = @"http://akn.khmeracademy.org";
-      NSString *baseURL = @"http://api-akn.herokuapp.com";
+   NSString *baseURL = @"http://akn.khmeracademy.org";
+     // NSString *baseURL = @"http://api-akn.herokuapp.com";
     NSString *strURL = [NSString stringWithFormat:@"%@%@", baseURL, key];
   
     NSURL *url = [NSURL URLWithString:strURL];
