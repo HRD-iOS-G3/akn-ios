@@ -786,8 +786,32 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="12" id="mmb-as-6Gl">
+                                        <rect key="frame" x="0.0" y="315" width="375" height="12"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mmb-as-6Gl" id="Iwz-Eo-0nr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="12"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxh-e4-Foe">
+                                                    <rect key="frame" x="26" y="-2" width="323" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="323" id="8pe-K8-bdo"/>
+                                                        <constraint firstAttribute="height" constant="15" id="km7-gA-4s7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Cxh-e4-Foe" firstAttribute="centerY" secondItem="Iwz-Eo-0nr" secondAttribute="centerY" id="lmd-HV-myt"/>
+                                                <constraint firstItem="Cxh-e4-Foe" firstAttribute="centerX" secondItem="Iwz-Eo-0nr" secondAttribute="centerX" id="my2-Xp-QQX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="56" id="YeT-0y-kE8">
-                                        <rect key="frame" x="0.0" y="315" width="375" height="56"/>
+                                        <rect key="frame" x="0.0" y="327" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YeT-0y-kE8" id="3rW-xg-vho">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
@@ -803,11 +827,21 @@
                                                         <action selector="changePasswordButtonAction:" destination="IWa-Ct-lBr" eventType="touchUpInside" id="tKR-6n-B10"/>
                                                     </connections>
                                                 </button>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bs5-nU-3CS">
+                                                    <rect key="frame" x="325" y="18" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="EAE-gU-VCg"/>
+                                                        <constraint firstAttribute="height" constant="20" id="Orh-Gy-fQD"/>
+                                                    </constraints>
+                                                    <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="tGu-ML-rH4" secondAttribute="bottom" constant="8" id="Dwu-kp-LJm"/>
                                                 <constraint firstItem="tGu-ML-rH4" firstAttribute="leading" secondItem="3rW-xg-vho" secondAttribute="leading" constant="22" id="Gdh-Xp-VMz"/>
+                                                <constraint firstItem="Bs5-nU-3CS" firstAttribute="centerY" secondItem="tGu-ML-rH4" secondAttribute="centerY" id="LsV-rm-6aJ"/>
                                                 <constraint firstItem="tGu-ML-rH4" firstAttribute="top" secondItem="3rW-xg-vho" secondAttribute="top" constant="8" id="ahU-M4-gr0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Bs5-nU-3CS" secondAttribute="trailing" constant="22" id="hWC-5v-evc"/>
                                                 <constraint firstAttribute="trailing" secondItem="tGu-ML-rH4" secondAttribute="trailing" constant="23" id="rqY-1d-1FU"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -828,8 +862,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicatorLoading" destination="Bs5-nU-3CS" id="q31-n6-bUa"/>
                         <outlet property="changePasswordButton" destination="tGu-ML-rH4" id="P6j-iT-c6G"/>
                         <outlet property="changePasswordTableView" destination="LFT-Yy-vOt" id="CDM-TT-xFh"/>
+                        <outlet property="comfirmPasswordTextField" destination="olp-jW-4Si" id="lVI-E8-KNR"/>
+                        <outlet property="errorLabel" destination="Cxh-e4-Foe" id="l9h-yN-79M"/>
+                        <outlet property="nnewPasworldTextField" destination="DuO-zO-9Ob" id="aBV-fC-zGX"/>
+                        <outlet property="oldPasswordTextField" destination="66u-pc-aLP" id="QSe-qf-UPU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="91A-9a-urI" userLabel="First Responder" sceneMemberID="firstResponder"/>
