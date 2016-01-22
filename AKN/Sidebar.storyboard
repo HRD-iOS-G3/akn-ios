@@ -475,6 +475,9 @@
                                             <state key="normal" title="Change Picture">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="changePictureButtonAction:" destination="efB-We-NXY" eventType="touchUpInside" id="2q5-ae-jTo"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -674,6 +677,7 @@
                     <connections>
                         <outlet property="activityIndicatorLoading" destination="2bs-9b-VhS" id="0b3-wh-IA5"/>
                         <outlet property="changePasswordButton" destination="rHg-6J-VmE" id="wgD-a2-SXH"/>
+                        <outlet property="changePictureButton" destination="Yju-Dz-0n8" id="rDd-sh-LOl"/>
                         <outlet property="emailTextField" destination="M8p-Be-d4d" id="d1P-qq-e49"/>
                         <outlet property="errorLabel" destination="sQv-Iq-2Yp" id="gsY-Gd-VQN"/>
                         <outlet property="nameTextField" destination="FHl-lO-pGA" id="JxP-6i-pxO"/>
