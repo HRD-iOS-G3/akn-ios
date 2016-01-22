@@ -462,29 +462,23 @@
                                                 <constraint firstAttribute="width" constant="100" id="SS0-y5-9KM"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPp-V7-m5C">
-                                            <rect key="frame" x="197" y="125" width="95" height="28"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="Remove Picture">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yju-Dz-0n8">
-                                            <rect key="frame" x="85" y="125" width="94" height="28"/>
+                                            <rect key="frame" x="141" y="125" width="94" height="28"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <state key="normal" title="Change Picture">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="changePictureButtonAction:" destination="efB-We-NXY" eventType="touchUpInside" id="2q5-ae-jTo"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="zNH-ih-VP5" firstAttribute="top" secondItem="Nkj-g2-veS" secondAttribute="top" constant="20" id="3eY-8u-9zY"/>
-                                        <constraint firstItem="bPp-V7-m5C" firstAttribute="centerX" secondItem="Nkj-g2-veS" secondAttribute="centerX" constant="57" id="6da-Vv-96h"/>
                                         <constraint firstItem="IOe-bT-Sfw" firstAttribute="centerY" secondItem="Nkj-g2-veS" secondAttribute="centerY" id="NYK-5P-hJJ"/>
                                         <constraint firstItem="IOe-bT-Sfw" firstAttribute="width" secondItem="Nkj-g2-veS" secondAttribute="width" id="Ymg-pa-KPT"/>
-                                        <constraint firstAttribute="bottom" secondItem="bPp-V7-m5C" secondAttribute="bottom" constant="15" id="aIy-29-3xr"/>
                                         <constraint firstAttribute="bottom" secondItem="Yju-Dz-0n8" secondAttribute="bottom" constant="15" id="dDu-GG-0g2"/>
-                                        <constraint firstItem="Yju-Dz-0n8" firstAttribute="centerX" secondItem="Nkj-g2-veS" secondAttribute="centerX" constant="-55.5" id="dcg-Bs-LE8"/>
+                                        <constraint firstItem="Yju-Dz-0n8" firstAttribute="centerX" secondItem="Nkj-g2-veS" secondAttribute="centerX" id="dcg-Bs-LE8"/>
                                         <constraint firstAttribute="height" constant="168" id="nTl-8d-1eX"/>
                                         <constraint firstItem="zNH-ih-VP5" firstAttribute="centerX" secondItem="Nkj-g2-veS" secondAttribute="centerX" id="qaS-Bt-K6Q"/>
                                         <constraint firstItem="IOe-bT-Sfw" firstAttribute="centerX" secondItem="Nkj-g2-veS" secondAttribute="centerX" id="tMY-gS-e0y"/>
@@ -674,6 +668,7 @@
                     <connections>
                         <outlet property="activityIndicatorLoading" destination="2bs-9b-VhS" id="0b3-wh-IA5"/>
                         <outlet property="changePasswordButton" destination="rHg-6J-VmE" id="wgD-a2-SXH"/>
+                        <outlet property="changePictureButton" destination="Yju-Dz-0n8" id="rDd-sh-LOl"/>
                         <outlet property="emailTextField" destination="M8p-Be-d4d" id="d1P-qq-e49"/>
                         <outlet property="errorLabel" destination="sQv-Iq-2Yp" id="gsY-Gd-VQN"/>
                         <outlet property="nameTextField" destination="FHl-lO-pGA" id="JxP-6i-pxO"/>

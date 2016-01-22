@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ConnectionManager.h"
+#import "UIImageView+WebCache.h"
 
 @interface UserProfileViewController ()<ConnectionManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
     NSUserDefaults *userDefault;
@@ -29,6 +30,12 @@
     
     [self customizePageMenu];
  
+    
+    //Create connection object
+    manager = [[ConnectionManager alloc] init];
+    
+    //Set delegate
+    manager.delegate = self;
     
     // border radius
     [self.updateButton.layer setCornerRadius:self.updateButton.bounds.size.height/2];
@@ -64,40 +71,13 @@
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
     
     
-        self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-        [self startDownloadingImage];
-
+    self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
     self.nameTextField.text = [user valueForKey:@"username"];
     
     self.emailTextField.text = [user valueForKey:@"email"];
 }
-
-
-- (void)startDownloadingImage{
-    
-    NSString *imageURL = [NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]];
-    
-    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    
-    dispatch_async(concurrentQueue, ^{
-        __block NSData *dataImage = nil;
-        
-        dispatch_sync(concurrentQueue, ^{
-            NSURL *urlImage = [NSURL URLWithString:imageURL];
-            dataImage = [NSData dataWithContentsOfURL:urlImage];
-        });
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImage *image = [UIImage imageWithData:dataImage];
-            self.profileImageView.image = image;
-            
-        });
-    });
-}
-
-
-
 
 #pragma mark - Keyboard Did Show and Hide
 
@@ -155,12 +135,6 @@
         [self.activityIndicatorLoading startAnimating];
         self.updateButton.enabled = false;
         
-        //Create connection object
-        manager = [[ConnectionManager alloc] init];
-        
-        //Set delegate
-        manager.delegate = self;
-        
         // request dictionary
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
         [dictionary setObject:[[userDefault objectForKey:@"user"] valueForKey:@"id"] forKey:@"id"];
@@ -215,18 +189,50 @@
 #pragma mark - change profile image
 - (IBAction)changePictureButtonAction:(id)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
+    picker.delegate =self;
     picker.allowsEditing = YES;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     self.profileImageView.image = chosenImage;
+    [manager uploadImage:chosenImage urlPath:@"/api/user/upload" fileName:@"hrd.jpg"];
+    
     [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)responseImage:(NSDictionary *)dataDictionary{
+    [self.activityIndicatorLoading stopAnimating];
+    self.updateButton.enabled = true;
+    NSLog(@"--------%@", dataDictionary);
+    if([[dataDictionary valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
+        
+        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+        
+        for (NSString* key in [[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+            id value = [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:key];
+            [dictionary setObject:value forKey:key];
+        }
+        // change
+        [dictionary setObject:[[dataDictionary valueForKey:@"IMAGE"] substringFromIndex:8] forKey:@"image"];
+        
+        [userDefault setObject:dictionary forKey:@"user"];
+        NSLog(@"=========%@", [userDefault objectForKey:@"user"]);
+        
+        //open home view
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+        
+        //  determine the initial view controller here and instantiate it with
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"Fail");
+    }
 }
 
 /*
