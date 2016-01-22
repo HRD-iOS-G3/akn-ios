@@ -89,4 +89,57 @@
     [task resume];
 }
 
+
+-(void)uploadImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name{
+    // url
+    //Target URL
+    NSString *baseURL = @"http://akn.khmeracademy.org";
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", baseURL, path]];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    // image
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:60];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *boundary = @"---------------------------14737809831466499882746641449";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+    
+    // set content type
+    [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    [request addValue:@"Basic YXBpOmFrbm5ld3M=" forHTTPHeaderField:@"Authorization"];
+    
+    // post body
+    NSMutableData *body = [NSMutableData data];
+    
+    // add params (all params are strings)
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n",name]] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    // add image data
+    [body appendData:[NSData dataWithData:imageData]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // create session
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    [[session downloadTaskWithRequest:request completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            NSData *data = [NSData dataWithContentsOfURL:localfile];
+            NSDictionary *root = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            [self.delegate responseImage:root];
+        }else{
+            NSLog(@"Error request data : %@", error);
+        }
+        
+    }] resume];
+}
+
+
 @end

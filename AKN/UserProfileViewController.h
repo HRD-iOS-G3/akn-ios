@@ -23,4 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *changePictureButton;
+
 @end
