@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ConnectionManager.h"
 
-@interface UserProfileViewController ()<ConnectionManagerDelegate>{
+@interface UserProfileViewController ()<ConnectionManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
     NSUserDefaults *userDefault;
     NSMutableDictionary *user;
     ConnectionManager *manager ;
@@ -210,6 +210,23 @@
         NSLog(@"Fail");
     }
     
+}
+
+#pragma mark - change profile image
+- (IBAction)changePictureButtonAction:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.profileImageView.image = chosenImage;
+    [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
 /*
