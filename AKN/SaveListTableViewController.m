@@ -8,9 +8,17 @@
 
 #import "SaveListTableViewController.h"
 #import "SWRevealViewController.h"
-
-@interface SaveListTableViewController ()
-
+#import "ConnectionManager.h"
+#import "News.h"
+#import "UIView+Toast.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "HomeViewCell.h"
+#import "Utilities.h"
+@interface SaveListTableViewController ()<ConnectionManagerDelegate>
+{
+	int userId;
+	NSMutableArray<News *> *savedNewsList;
+}
 @end
 
 @implementation SaveListTableViewController
@@ -18,7 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self customizePageMenu];
-    
+	savedNewsList = [[NSMutableArray alloc]init];
+	userId = 0;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
     
     //Set SWReveal
@@ -26,7 +35,15 @@
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
+	}
+	ConnectionManager *manager = [[ConnectionManager alloc]init];
+	manager.delegate = self;
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/savelist/%d", userId]]];
+	[SVProgressHUD showWithStatus:@"Loading..."];
+}
 #pragma mark - Navigation bar color
 
 -(void)customizePageMenu{
@@ -45,23 +62,123 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return savedNewsList.count;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+#pragma mark - Connection manager delegate
+-(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
+	[SVProgressHUD dismiss];
+	NSLog(@"%@",result);
+	if ([[result valueForKeyPath:@"MESSAGE"] isEqualToString:@"NEWS HAS BEEN FOUND"]) {
+		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+			[savedNewsList addObject:[[News alloc]initWithData:object]];
+		}
+		[self.tableView reloadData];
+	}else{
+		[self.navigationController.view makeToast:[result valueForKeyPath:@"MESAGE"] duration:3 position:CSToastPositionCenter];
+	}
 }
-*/
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+	NSLog(@"%@",result);
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"saveListCell"];
+	cell.viewCell.layer.cornerRadius=5;
+	cell.sourceImage.layer.cornerRadius=cell.sourceImage.frame.size.width/2;
+	
+	[self configureCell:cell AtIndexPath:indexPath];
+	
+	return cell;
+
+}
+
+-(void)configureCell:(HomeViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath{
+	cell.newsTitle.text=[NSString stringWithFormat:@"%@",savedNewsList[indexPath.row].newsTitle];
+	cell.newsView.text=[NSString stringWithFormat:@"%@",savedNewsList[indexPath.row].newsHitCount];
+	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:savedNewsList[indexPath.row].newsDateTimestampString]];
+	
+	cell.buttonSave.tag = indexPath.row;
+	[cell.buttonSave addTarget:self action:@selector(buttonSaveClick:) forControlEvents:UIControlEventTouchUpInside];
+	
+	[cell.buttonSave setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+	
+	switch (savedNewsList[indexPath.row].newsSourceId) {
+			
+		case 1: //sabay
+			cell.sourceImage.image = [UIImage imageNamed:@"sabay"];
+			break;
+		case 2://koh sontepheap
+			cell.sourceImage.image = [UIImage imageNamed:@"kohsontepheap"];
+			break;
+		case 5:///the b news
+			cell.sourceImage.image = [UIImage imageNamed:@"bnews.jpg"];
+			break;
+		case 6://AKN news
+			cell.sourceImage.image = [UIImage imageNamed:@"akn-logo-red.png"];
+			break;
+		case 10://Cambo report
+			cell.sourceImage.image = [UIImage imageNamed:@"cambo-report"];
+			break;
+		case 12://Mungkulkar
+			cell.sourceImage.image = [UIImage imageNamed:@"mungkulkar"];
+			break;
+		default:
+			break;
+	}
+	
+	if (savedNewsList[indexPath.row].newsImage){
+		cell.newsImage.image = savedNewsList[indexPath.row].newsImage;
+	}else{
+		cell.newsImage.image = [UIImage imageNamed:@"akn-logo-red"];
+		// download image in background
+		[self downloadImageInBackground:savedNewsList[indexPath.row] forIndexPath:indexPath];
+	}
+}
+-(void)buttonSaveClick:(UIButton *)sender{
+	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
+		ConnectionManager *m = [[ConnectionManager alloc]init];
+		m.delegate = self;
+		
+		[m requestDataWithURL:@{} withKey:[NSString stringWithFormat:@"/api/article/savelist/%d/%d", savedNewsList[sender.tag].newsId,userId] method:@"DELETE"];
+		
+		[self.navigationController.view makeToast:@"Deleted!"
+																	 duration:2.0
+																	 position:CSToastPositionBottom];
+		[savedNewsList removeObjectAtIndex:sender.tag];
+		[self.tableView reloadData];
+	}else{
+		
+		[self.navigationController.view makeToast:@"Error occurred!"
+																	 duration:3.0
+																	 position:CSToastPositionBottom];
+	}
+}
+
+- (void)downloadImageInBackground:(News *)news forIndexPath:(NSIndexPath *)indexPath {
+	
+	dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+	
+	dispatch_async(concurrentQueue, ^{
+		__block NSData *dataImage = nil;
+		
+		dispatch_sync(concurrentQueue, ^{
+			NSURL *urlImage = [NSURL URLWithString:news.newsImageUrl];
+			dataImage = [NSData dataWithContentsOfURL:urlImage];
+		});
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			HomeViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+			savedNewsList[indexPath.row].newsImage = [UIImage imageWithData:dataImage];
+			cell.newsImage.image = savedNewsList[indexPath.row].newsImage;
+		});
+	});
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+	return 126;
+}
 
 /*
 // Override to support conditional editing of the table view.

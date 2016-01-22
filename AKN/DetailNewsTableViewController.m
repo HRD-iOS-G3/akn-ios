@@ -11,8 +11,9 @@
 #import "Utilities.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ConnectionManager.h"
-
-@interface DetailNewsTableViewController ()
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "UIView+Toast.h"
+@interface DetailNewsTableViewController ()<ConnectionManagerDelegate>
 
 {
 	NSString *imageFile;
@@ -20,12 +21,33 @@
 	NSString *date;
 	NSString *description;
 	
+    IBOutlet UIView *cellContentOfDesc;
+    IBOutlet UILabel *lblCpyRight;
 	IBOutlet NSLayoutConstraint *imageHeaderCenterY;
+
 }
 
 @end
 
 @implementation DetailNewsTableViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication].keyWindow addSubview:lblCpyRight];
+    [lblCpyRight setFrame:CGRectMake(self.view.frame.size.width, self.view.frame.size.height-lblCpyRight.frame.size.height, self.view.frame.size.width, lblCpyRight.frame.size.height)];
+
+    [UIView animateWithDuration:0.4 animations:^{
+        [[UIApplication sharedApplication].keyWindow addSubview:lblCpyRight];
+        [lblCpyRight setFrame:CGRectMake(0, self.view.frame.size.height-lblCpyRight.frame.size.height, self.view.frame.size.width, lblCpyRight.frame.size.height)];
+    }];
+	
+	_labelTitle.text = @"";
+	_labelDate.text = @"";
+	_labelDescription.text = @"";
+
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [lblCpyRight removeFromSuperview];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,38 +56,63 @@
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
 	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
 	
-//	title = @"3th Generation Orientation at CKCC";
-//	date = @"2-April-2015";
-//	description = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-	
 	title = _news.newsTitle;
 	date = [Utilities timestamp2date:_news.newsDateTimestampString];
-	description = _news.newsDescription;
-	
-	_labelTitle.text = title;
-	_labelDate.text = date;
-	_labelDescription.text = description;
-	
-	if (_news.newsImage) {
-		_imageViewNews.image = _news.newsImage;
-	}else{
-		[_imageViewNews sd_setImageWithURL:[NSURL URLWithString:_news.newsImageUrl]];
-	}
+//	description = _news.newsDescription;
 	
 	NSLog(@"%d", _news.newsId);
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	int userId= 0;
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
+	}
+	
+    ConnectionManager *con=[[ConnectionManager alloc]init];
+    con.delegate=self;
+    [con requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/%d",_news.newsId, userId]]];
+	
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+	[SVProgressHUD showWithStatus:@"Loading..."];
+}
+-(void)connectionManagerDidReturnResult:(NSArray *) result FromURL:(NSURL *)URL
+{
+	NSLog(@"%@", URL);
+	[SVProgressHUD dismiss];
+	if ([[result valueForKey:@"STATUS"]  isEqual: @404]) {
+		[self.navigationController.view makeToast:[result valueForKey:@"MESSAGE"] duration:3 position:CSToastPositionCenter];
+		[SVProgressHUD dismiss];
+	}else{
+		NSDictionary *results=((NSDictionary *)result)[@"RESPONSE_DATA"];
+		NSString *str = [[result valueForKey:@"RESPONSE_DATA"] valueForKey:@"content"];
+		if (str != (id)[NSNull null]) {
+			if (![str  isEqualToString: @""] || ![str isEqualToString:@"null"]) {
+			_labelDescription.text=[NSString stringWithFormat:@"%@",[results[@"content"] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+			_news.newsDescription = _labelDescription.text;
+			_labelTitle.text = title;
+			_labelDate.text = date;
+			
+			if (_news.newsImage) {
+				_imageViewNews.image = _news.newsImage;
+			}else{
+				[_imageViewNews sd_setImageWithURL:[NSURL URLWithString:_news.newsImageUrl]];
+			}
+			[SVProgressHUD dismiss];
+			[self.tableView reloadData ];
+			}
+		}else{
+			[self.navigationController.view makeToast:@"News not found!" duration:2 position:CSToastPositionCenter];
+			[SVProgressHUD dismiss];
+		}
+		NSLog(@"%d",_news.newsId);
+	}
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)backAction:(id)sender {
+	[SVProgressHUD dismiss];
 	MainViewController *mvc = [MainViewController getInstance];
 	[mvc.navigationController popViewControllerAnimated:YES];
 //	[mvc.navigationController popToRootViewControllerAnimated:YES];
@@ -77,7 +124,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 	switch (indexPath.row) {
 		case 0:
-			return 200.0;
+			return 180;
 			break;
 		case 1:
 			return [self heightForText:title font:_labelTitle.font withinWidth:self.view.frame.size.width-36]+10;
@@ -86,7 +133,7 @@
 			return 36.0;
 			break;
 		case 3:
-			return [self heightForText:description font:_labelDescription.font withinWidth:self.view.frame.size.width-36];
+			return [self heightForText:_labelDescription.text font:_labelDescription.font withinWidth:self.view.frame.size.width-36];
 			break;
 		case 4:
 			return 36.0;
@@ -123,7 +170,7 @@
 	}
 	else
 	{
-		imageHeaderCenterY.constant=(64-y)*2/5;
+		imageHeaderCenterY.constant=(64-y)/2;
 	}
 }
 

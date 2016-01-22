@@ -15,9 +15,11 @@
 #import "viewPageController.h"
 #include "TableSourceViewController.h"
 #import "DetailNewsTableViewController.h"
+#import "SearchAllTableViewController.h"
 
 @interface MainViewController ()<SWRevealViewControllerDelegate,UISearchBarDelegate>{
     UIView *disableViewOverlay;
+	NSString *searchString;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
@@ -124,9 +126,10 @@ static MainViewController *this;
     //[self searchBarTextDidEndEditing:searchBar];
     [self.searchBarField endEditing:YES];
     MainViewController *mvc = [MainViewController getInstance];
-    DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
+    SearchAllTableViewController *svc = [[UIStoryboard storyboardWithName:@"Search" bundle:nil] instantiateViewControllerWithIdentifier:@"search"];
+	svc.searchKey = searchString;
     //dvc.news = _newsList[indexPath.row];
-    [mvc.navigationController pushViewController:dvc animated:YES];
+    [mvc.navigationController pushViewController:svc animated:YES];
 }
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     disableViewOverlay.alpha = 0;
@@ -138,10 +141,11 @@ static MainViewController *this;
     [UIView commitAnimations];
 }
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    NSLog(@"End work");
+//    NSLog(@"End work");
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+	searchString = searchText;
     [searchDelayer invalidate], searchDelayer=nil;
     if (YES /* ...or whatever validity test you want to apply */)
         searchDelayer = [NSTimer scheduledTimerWithTimeInterval:1.5
@@ -156,9 +160,8 @@ static MainViewController *this;
     [self request:searchDelayer.userInfo];
     searchDelayer = nil; // important because the timer is about to release and dealloc itself
 }
--(void)request:(NSString *)myString
-{
-    NSLog(@"%@",myString);
+-(void)request:(NSString *)myString{
+//    NSLog(@"%@",myString);
 }
 
 #pragma mark Set FrontView to blur by NSNotificationCenter
