@@ -13,6 +13,7 @@
 #import "ConnectionManager.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "UIView+Toast.h"
+#import "SaveListTableViewController.h"
 @interface DetailNewsTableViewController ()<ConnectionManagerDelegate>
 
 {
@@ -113,8 +114,13 @@
 
 - (IBAction)backAction:(id)sender {
 	[SVProgressHUD dismiss];
-	MainViewController *mvc = [MainViewController getInstance];
-	[mvc.navigationController popViewControllerAnimated:YES];
+	
+	if ([self.sourceViewController isEqualToString:@"SaveList"]) {
+		[[SaveListTableViewController getInstance].navigationController popToRootViewControllerAnimated:YES];
+	}else{
+		MainViewController *mvc = [MainViewController getInstance];
+		[mvc.navigationController popViewControllerAnimated:YES];
+	}
 //	[mvc.navigationController popToRootViewControllerAnimated:YES];
 }
 

@@ -14,6 +14,8 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "HomeViewCell.h"
 #import "Utilities.h"
+#import "MainViewController.h"
+#import "DetailNewsTableViewController.h"
 @interface SaveListTableViewController ()<ConnectionManagerDelegate>
 {
 	int userId;
@@ -22,9 +24,13 @@
 @end
 
 @implementation SaveListTableViewController
-
+id selfobject;
++(SaveListTableViewController *)getInstance{
+	return selfobject;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+	selfobject = self;
     [self customizePageMenu];
 	savedNewsList = [[NSMutableArray alloc]init];
 	userId = 0;
@@ -39,10 +45,12 @@
 	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
 		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
 	}
-	ConnectionManager *manager = [[ConnectionManager alloc]init];
-	manager.delegate = self;
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/savelist/%d", userId]]];
-	[SVProgressHUD showWithStatus:@"Loading..."];
+	if (savedNewsList.count == 0) {
+		ConnectionManager *manager = [[ConnectionManager alloc]init];
+		manager.delegate = self;
+		[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/savelist/%d", userId]]];
+		[SVProgressHUD showWithStatus:@"Loading..."];
+	}
 }
 #pragma mark - Navigation bar color
 
@@ -71,6 +79,7 @@
 	[SVProgressHUD dismiss];
 	NSLog(@"%@",result);
 	if ([[result valueForKeyPath:@"MESSAGE"] isEqualToString:@"NEWS HAS BEEN FOUND"]) {
+		[savedNewsList removeAllObjects];
 		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
 			[savedNewsList addObject:[[News alloc]initWithData:object]];
 		}
@@ -178,6 +187,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 	return 126;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	DetailNewsTableViewController *dvc = [[UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"detailNews"];
+	dvc.news = (News *)savedNewsList[indexPath.row];
+	dvc.sourceViewController = @"SaveList";
+	[self.navigationController pushViewController:dvc animated:YES];
 }
 
 /*
