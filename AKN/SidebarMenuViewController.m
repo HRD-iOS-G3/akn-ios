@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "UserProfileViewController.h"
 #import "ConnectionManager.h"
+#import "UIImageView+WebCache.h"
 
 
 @interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource,ConnectionManagerDelegate>{
@@ -63,7 +64,10 @@
     //set image
     userDefault = [NSUserDefaults standardUserDefaults];
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
-    [self startDownloadingImage];
+    
+    self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -150,34 +154,6 @@
         //        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo", [menuItems objectAtIndex:indexPath.row]];
         //        UserProfileController.photoFilename = photoFilename;
     }
-}
-
-
-#pragma mark: - load image
-- (void)startDownloadingImage{
-    
-    NSString *imageURL = [NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]];
-    NSLog(@"%@",[user valueForKey:@"image"]);
-    
-    // NSString *imageURL =  @"http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg";
-    
-    
-    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    
-    dispatch_async(concurrentQueue, ^{
-        __block NSData *dataImage = nil;
-        
-        dispatch_sync(concurrentQueue, ^{
-            NSURL *urlImage = [NSURL URLWithString:imageURL];
-            dataImage = [NSData dataWithContentsOfURL:urlImage];
-        });
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImage *image = [UIImage imageWithData:dataImage];
-            self.profileImageView.image = image;
-            
-        });
-    });
 }
 
 /*

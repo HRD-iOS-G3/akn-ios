@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ConnectionManager.h"
+#import "UIImageView+WebCache.h"
 
 @interface UserProfileViewController ()<ConnectionManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
     NSUserDefaults *userDefault;
@@ -70,41 +71,13 @@
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
     
     
-        self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-        [self startDownloadingImage];
-
-    NSLog(@"%@", user);
+    self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
     self.nameTextField.text = [user valueForKey:@"username"];
     
     self.emailTextField.text = [user valueForKey:@"email"];
 }
-
-
-- (void)startDownloadingImage{
-    
-    NSString *imageURL = [NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]];
-    
-    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    
-    dispatch_async(concurrentQueue, ^{
-        __block NSData *dataImage = nil;
-        
-        dispatch_sync(concurrentQueue, ^{
-            NSURL *urlImage = [NSURL URLWithString:imageURL];
-            dataImage = [NSData dataWithContentsOfURL:urlImage];
-        });
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImage *image = [UIImage imageWithData:dataImage];
-            self.profileImageView.image = image;
-            
-        });
-    });
-}
-
-
-
 
 #pragma mark - Keyboard Did Show and Hide
 
