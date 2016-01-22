@@ -20,6 +20,7 @@
 @property(nonatomic, strong)UIImage *newsImage;
 @property(nonatomic, strong)NSString *newsHitCount;
 @property(nonatomic, strong)NSString *newsDateTimestampString;
+@property BOOL saved;
 
 -(id)initWithData:(NSDictionary *)array;
 

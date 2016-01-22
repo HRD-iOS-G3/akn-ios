@@ -13,35 +13,152 @@
 #import "ConnectionManager.h"
 #import "News.h"
 #import "Utilities.h"
-@interface NewsByCategoryTableViewController ()<ConnectionManagerDelegate>
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "UIView+Toast.h"
+#import "SearchAllTableViewController.h"
+@interface NewsByCategoryTableViewController ()<ConnectionManagerDelegate, UISearchBarDelegate>
 {
 	NSURL *url;
 	int cid;
 	int sid;
+	int userId;
 	bool help; //finish fetching news -> help = false otherwise true
 	UIActivityIndicatorView *indicatorFooter;
+	
+	NSTimer *searchDelayer;
+	UIView *disableViewOverlay;
+	NSString *searchString;
 }
 @property (strong, nonatomic) NSMutableArray<News *> *newsList;
 
 @property int currentPageNumber;
 @property int totalPages;
 
+@property (nonatomic, strong) UIBarButtonItem *searchItem;
+@property (nonatomic, strong) UISearchBar *searchBarField;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+
 @end
 
 @implementation NewsByCategoryTableViewController
 
--(void)viewWillDisappear:(BOOL)animated{
+- (IBAction)buttonSearchClicked:(id)sender {
+	[[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
+	[[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"X"];
+	self.searchBarField.placeholder=[NSString stringWithFormat:@"Search news of this %@",([_categoryOrSource valueForKey:@"url"])?@"site":@"category"];
+	self.searchBarField.searchBarStyle=UISearchBarStyleMinimal;
+	UITextField *textFieldInsideSearchBar =[self.searchBarField valueForKey:@"searchField"];
+	textFieldInsideSearchBar.textColor=[UIColor whiteColor];
+	[UIView animateWithDuration:0.1 animations:^{
+		self.searchButton.alpha = 0.0f;
+		
+		
+	} completion:^(BOOL finished) {
+		
+		// remove the search button
+		self.navigationItem.rightBarButtonItem = nil;
+		// add the search bar (which will start out hidden).
+		self.navigationItem.titleView = _searchBarField;
+		_searchBarField.alpha = 0.0;
+		
+		[UIView animateWithDuration:0.02
+						 animations:^{
+							 _searchBarField.alpha = 1.0;
+						 } completion:^(BOOL finished) {
+							 [_searchBarField becomeFirstResponder];
+						 }];
+		
+	}];
 	
 }
+#pragma mark UISearchBarDelegate methods
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+	[[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
+	[[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"X"];
+	self.searchBarField.placeholder=[NSString stringWithFormat:@"Search news of this %@",([_categoryOrSource valueForKey:@"url"])?@"site":@"category"];
+	self.searchBarField.searchBarStyle=UISearchBarStyleMinimal;
+	UITextField *textFieldInsideSearchBar =[self.searchBarField valueForKey:@"searchField"];
+	textFieldInsideSearchBar.textColor=[UIColor whiteColor];
+	[UIView animateWithDuration:0.1f animations:^{
+		_searchBarField.alpha = 0.0;
+	} completion:^(BOOL finished) {
+		self.navigationItem.titleView = nil;
+		self.navigationItem.rightBarButtonItem = _searchItem;
+		_searchButton.alpha = 0.0;  // set this *after* adding it back
+		[UIView animateWithDuration:0.2f animations:^ {
+			_searchButton.alpha = 1.0;
+		}];
+	}];
+	[disableViewOverlay removeFromSuperview];
+	self.searchBarField.text=@"";
+}
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+	NSLog(@"searchBarSearchButtonClicked");
+	[disableViewOverlay removeFromSuperview];
+	//[self searchBarTextDidEndEditing:searchBar];
+	[self.searchBarField endEditing:YES];
+	
+	
+	MainViewController *mvc = [MainViewController getInstance];
+	SearchAllTableViewController *svc = [[UIStoryboard storyboardWithName:@"Search" bundle:nil] instantiateViewControllerWithIdentifier:@"search"];
+	svc.searchKey = searchString;
+	svc.userId = userId;
+	svc.cId = cid;
+	svc.sId = sid;
+	
+	[mvc.navigationController pushViewController:svc animated:YES];
+}
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+	disableViewOverlay.alpha = 0;
+	[self.view addSubview:disableViewOverlay];
+	
+	[UIView beginAnimations:@"FadeIn" context:nil];
+	[UIView setAnimationDuration:0.5];
+	disableViewOverlay.alpha = 0.6;
+	[UIView commitAnimations];
+}
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+	//    NSLog(@"End work");
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+	searchString = searchText;
+	[searchDelayer invalidate], searchDelayer=nil;
+	if (YES /* ...or whatever validity test you want to apply */)
+		searchDelayer = [NSTimer scheduledTimerWithTimeInterval:1.5
+														 target:self
+													   selector:@selector(doDelayedSearch:)
+													   userInfo:searchText
+														repeats:NO];
+}
+-(void)doDelayedSearch:(NSTimer *)t
+{
+	assert(t == searchDelayer);
+	[self request:searchDelayer.userInfo];
+	searchDelayer = nil; // important because the timer is about to release and dealloc itself
+}
+-(void)request:(NSString *)myString{
+	//    NSLog(@"%@",myString);
+}
+-(void)viewDidAppear:(BOOL)animated{
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+		userId = [[[NSUserDefaults standardUserDefaults] valueForKey:@"id"] intValue];
+	}
+	if (_newsList.count ==0) {
+		[SVProgressHUD show];
+	}
+}
 - (IBAction)actionBack:(id)sender {
+	[SVProgressHUD dismiss];
 	[MainViewController getInstance].title = @"ALL KHMER NEWS";
-	[[MainViewController getInstance].navigationController popToRootViewControllerAnimated:YES];
+	[[MainViewController getInstance].navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = _pageTitle;
 	help = true;
+	
 	//set current page n rows
 	_currentPageNumber = 1;
 	_newsList = [[NSMutableArray<News *> alloc]init];
@@ -57,23 +174,41 @@
 		cid = [[_categoryOrSource valueForKey:@"id"] intValue];
 		sid = 0;
 	}
-	url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/1/10/%d/%d/0/", cid, sid]];
+	userId = 0;
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+		userId = [[[NSUserDefaults standardUserDefaults] valueForKey:@"id"] intValue];
+	}
+	url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/1/10/%d/%d/%d/", cid, sid, userId]];
 	
 	[manager requestDataWithURL:url];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	[self initializeRefreshControl];
+	
+	//search bar
+	
+	//self.searchItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
+	self.searchItem = [[UIBarButtonItem alloc] initWithCustomView:_searchButton];
+	self.navigationItem.rightBarButtonItem = _searchItem;
+	
+	self.navigationItem.rightBarButtonItem = _searchItem;
+	
+	self.searchBarField = [[UISearchBar alloc] init];
+	_searchBarField.showsCancelButton = YES;
+	_searchBarField.delegate = self;
+	disableViewOverlay = [[UIView alloc]
+						  initWithFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height)];
+	disableViewOverlay.backgroundColor=[UIColor blackColor];
+	disableViewOverlay.alpha = 0;
 }
+
+#pragma - Mark Search bar
+
 
 
 -(void)initializeRefreshControl
 {
 	indicatorFooter = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44)];
 	[indicatorFooter setColor:[UIColor blackColor]];
-	[indicatorFooter startAnimating];
+//	[indicatorFooter startAnimating];
 	[self.tableView setTableFooterView:indicatorFooter];
 	
 }
@@ -81,6 +216,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
 	if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height)
 	{
+		[indicatorFooter startAnimating];
 		if (help) {
 			help = false;
 			[self refreshTableVeiwList];
@@ -90,13 +226,11 @@
 
 -(void)refreshTableVeiwList
 {
-	//Code here
-	NSLog(@"currentPage: %d, totalPage: %d", _currentPageNumber, _totalPages);
 	if(_currentPageNumber >= _totalPages){
 		[indicatorFooter stopAnimating];
 	}else{
 		_currentPageNumber++;
-		url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/%d/%d/0/", _currentPageNumber,cid, sid]];
+		url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/%d/%d/%d/", _currentPageNumber,cid, sid, userId]];
 		
 		[self fetchNews];
 	}
@@ -114,14 +248,20 @@
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	NSLog(@"%@" , URL.path);
-	if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/%d/%d/0", _currentPageNumber, cid, sid]]) {
+	if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/%d/%d/%d", _currentPageNumber, cid, sid, userId]]) {
 		_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
 		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
 			[_newsList addObject:[[News alloc]initWithData:object]];
 		}
-		help = true;
-		[self.tableView reloadData];
-		//		[indicatorFooter stopAnimating];
+		if (_newsList.count == 0) {
+			[SVProgressHUD dismiss];
+			[self.navigationController.view makeToast:@"No news found!" duration:3 position:CSToastPositionCenter];
+		}else{
+			help = true;
+			[SVProgressHUD dismiss];
+			[self.tableView reloadData];
+			//		[indicatorFooter stopAnimating];
+		}
 	}
 }
 - (void)didReceiveMemoryWarning {
@@ -181,7 +321,7 @@
 	if (self.newsList[indexPath.row].newsImage){
 		cell.newsImage.image = self.newsList[indexPath.row].newsImage;
 	}else{
-		cell.newsImage.image = [UIImage imageNamed:@"akn-logo"];
+		cell.newsImage.image = [UIImage imageNamed:@"akn-logo-red"];
 		// download image in background
 		[self downloadImageInBackground:self.newsList[indexPath.row] forIndexPath:indexPath];
 	}
