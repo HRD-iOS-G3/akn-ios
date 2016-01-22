@@ -12,4 +12,7 @@
 
 @property(strong,nonatomic) NSString *searchKey;
 
+@property int cId;
+@property int sId;
+@property int userId;
 @end

@@ -38,7 +38,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="175" translatesAutoresizingMaskIntoConstraints="NO" id="SID-qD-eIx">
+                                            <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="175" image="akn-logo red.png" translatesAutoresizingMaskIntoConstraints="NO" id="SID-qD-eIx">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXo-Vn-GJz">
@@ -102,7 +102,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYK-8e-7aU">
                                             <rect key="frame" x="4" y="4" width="312" height="115"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RFC-wF-igg">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="akn-logo red.png" translatesAutoresizingMaskIntoConstraints="NO" id="RFC-wF-igg">
                                                     <rect key="frame" x="8" y="8" width="125" height="96"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="RFC-wF-igg" secondAttribute="height" multiplier="13:10" id="lmZ-bf-Wz9"/>
@@ -271,7 +271,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kr2-uo-Hbl">
                                             <rect key="frame" x="4" y="4" width="312" height="115"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dei-FK-PTu">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="akn-logo red.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dei-FK-PTu">
                                                     <rect key="frame" x="8" y="8" width="125" height="96"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Dei-FK-PTu" secondAttribute="height" multiplier="13:10" id="sbq-aH-R3z"/>
@@ -406,6 +406,9 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchButton" destination="xSC-Jn-e09" id="Yzp-dE-J6H"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbf-6B-FUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -508,6 +511,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="akn-logo red.png" width="1024" height="1024"/>
         <image name="calendar.png" width="512" height="512"/>
         <image name="left.png" width="24" height="24"/>
         <image name="sabay.png" width="138" height="134"/>

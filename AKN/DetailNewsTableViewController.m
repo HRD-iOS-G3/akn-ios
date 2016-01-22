@@ -12,7 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ConnectionManager.h"
 #import <SVProgressHUD/SVProgressHUD.h>
-
+#import "UIView+Toast.h"
 @interface DetailNewsTableViewController ()<ConnectionManagerDelegate>
 
 {
@@ -58,13 +58,17 @@
 	
 	title = _news.newsTitle;
 	date = [Utilities timestamp2date:_news.newsDateTimestampString];
-	description = _news.newsDescription;
+//	description = _news.newsDescription;
 	
 	NSLog(@"%d", _news.newsId);
+	int userId= 0;
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
+	}
 	
     ConnectionManager *con=[[ConnectionManager alloc]init];
     con.delegate=self;
-    [con requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/12",_news.newsId]]];
+    [con requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/%d",_news.newsId, userId]]];
 	
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -72,34 +76,35 @@
 }
 -(void)connectionManagerDidReturnResult:(NSArray *) result FromURL:(NSURL *)URL
 {
-    NSDictionary *results=((NSDictionary *)result)[@"RESPONSE_DATA"];
-    _labelDescription.text=[results[@"content"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-	_news.newsDescription = _labelDescription.text;
-    NSLog(@"%d",_news.newsId);
-	
+	NSLog(@"%@", URL);
 	[SVProgressHUD dismiss];
-	
-	_labelTitle.text = title;
-	_labelDate.text = date;
-//	_labelDescription.text = description;
-
-	if (_news.newsImage) {
-		_imageViewNews.image = _news.newsImage;
+	if ([[result valueForKey:@"STATUS"]  isEqual: @404]) {
+		[self.navigationController.view makeToast:[result valueForKey:@"MESSAGE"] duration:3 position:CSToastPositionCenter];
+		[SVProgressHUD dismiss];
 	}else{
-		[_imageViewNews sd_setImageWithURL:[NSURL URLWithString:_news.newsImageUrl]];
+		NSDictionary *results=((NSDictionary *)result)[@"RESPONSE_DATA"];
+		NSString *str = [[result valueForKey:@"RESPONSE_DATA"] valueForKey:@"content"];
+		if (str != (id)[NSNull null]) {
+			if (![str  isEqualToString: @""] || ![str isEqualToString:@"null"]) {
+			_labelDescription.text=[NSString stringWithFormat:@"%@",[results[@"content"] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+			_news.newsDescription = _labelDescription.text;
+			_labelTitle.text = title;
+			_labelDate.text = date;
+			
+			if (_news.newsImage) {
+				_imageViewNews.image = _news.newsImage;
+			}else{
+				[_imageViewNews sd_setImageWithURL:[NSURL URLWithString:_news.newsImageUrl]];
+			}
+			[SVProgressHUD dismiss];
+			[self.tableView reloadData ];
+			}
+		}else{
+			[self.navigationController.view makeToast:@"News not found!" duration:2 position:CSToastPositionCenter];
+			[SVProgressHUD dismiss];
+		}
+		NSLog(@"%d",_news.newsId);
 	}
-
-
-    [self.tableView reloadData ];
-    
-    
-    
-    
-    
-    
-    /*for (NSString *ns in result) {
-        NSLog(@"%@",ns);
-    }*/
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

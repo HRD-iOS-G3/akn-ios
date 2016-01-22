@@ -61,7 +61,7 @@
 -(void)fetchNews{
 	ConnectionManager *manager = [[ConnectionManager alloc] init];
 	manager.delegate = self;
-	[manager requestDataWithURL:@{@"key":@"", @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":@0, @"sid":@0, @"uid":@0} withKey:@"/api/article/search" method:@"POST"];
+	[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":[NSNumber numberWithInt:_cId], @"sid":[NSNumber numberWithInt:_sId], @"uid":[NSNumber numberWithInt:_userId]} withKey:@"/api/article/search" method:@"POST"];
 }
 
 bool help1 = true;
@@ -126,7 +126,7 @@ bool help1 = true;
 	if (_listNewsFound.count == 0) {
 		ConnectionManager *manager = [ConnectionManager new];
 		manager.delegate = self;
-		[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":@0, @"sid":@0, @"uid":[NSNumber numberWithInt:userId]} withKey:@"/api/article/search" method:@"POST"];
+		[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":[NSNumber numberWithInt:_cId], @"sid":[NSNumber numberWithInt:_sId], @"uid":[NSNumber numberWithInt:_userId]} withKey:@"/api/article/search" method:@"POST"];
 		
 		[SVProgressHUD show];
 	}

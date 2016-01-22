@@ -78,6 +78,7 @@
 		A5DE78B01C4C0891003DCE16 /* kohsontepheap.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78AF1C4C0891003DCE16 /* kohsontepheap.png */; };
 		A5DE78B21C4C1443003DCE16 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78B11C4C1443003DCE16 /* folder.png */; };
 		A5DE78B41C4C1C6C003DCE16 /* save-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = A5DE78B31C4C1C6C003DCE16 /* save-gray.png */; };
+		A5E3A20E1C51DAAB00481D2F /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E3A20D1C51DAAB00481D2F /* delete.png */; };
 		A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */; };
 		A5E53B781C3EC90700DD32FA /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */; };
 		A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E53B771C3EC90700DD32FA /* SignUpTableViewController.m */; };
@@ -205,6 +206,7 @@
 		A5DE78AF1C4C0891003DCE16 /* kohsontepheap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kohsontepheap.png; sourceTree = "<group>"; };
 		A5DE78B11C4C1443003DCE16 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		A5DE78B31C4C1C6C003DCE16 /* save-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save-gray.png"; sourceTree = "<group>"; };
+		A5E3A20D1C51DAAB00481D2F /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		A5E53B711C3EC8E400DD32FA /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
 		A5E53B741C3EC90700DD32FA /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		A5E53B751C3EC90700DD32FA /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				A5BE5FC01C3D094F007025AC /* menuBackgroup.png */,
 				A5BE5FC11C3D094F007025AC /* profile.png */,
 				A5BE5FC21C3D094F007025AC /* guestBackground.png */,
+				A5E3A20D1C51DAAB00481D2F /* delete.png */,
 				A5BE5FC31C3D094F007025AC /* add99.png */,
 				A5BE5FC51C3D094F007025AC /* email.png */,
 				A5BE5FC61C3D094F007025AC /* logout.png */,
@@ -633,6 +636,7 @@
 				A5BE5FDE1C3D094F007025AC /* passkey1.png in Resources */,
 				9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */,
 				A5DE78AE1C4C0690003DCE16 /* mungkulkar.png in Resources */,
+				A5E3A20E1C51DAAB00481D2F /* delete.png in Resources */,
 				A5C6C3551C36B15D0003AA80 /* LaunchScreen.storyboard in Resources */,
 				A5CDB3C81C5002E700BC3273 /* Search.storyboard in Resources */,
 				A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */,

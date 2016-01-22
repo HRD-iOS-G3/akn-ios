@@ -15,6 +15,7 @@
 #import "News.h"
 #import "Utilities.h"
 #import "UIView+Toast.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface TablePageViewController ()<UICollectionViewDataSource,UIScrollViewDelegate, ConnectionManagerDelegate>{
 	
@@ -33,6 +34,7 @@
 	ConnectionManager *manager;
 	
 	NSMutableArray *countHelp;
+	int userId;
 }
 @property (strong, nonatomic) NSMutableArray<News *> *newsList;
 @property (strong, nonatomic) NSMutableArray<News *> *popularNewsList;
@@ -43,6 +45,9 @@
 @end
 
 @implementation TablePageViewController
+
+NSString *khmeracademy = @"http://akn.khmeracademy.org";
+
 -(void)viewDidLayoutSubviews
 {
 	[collection setItemSize:CGSizeMake(collectionViewNews.frame.size.width, collectionViewNews.frame.size.height)];
@@ -89,12 +94,18 @@
 	[viewIndiTop addSubview:viewIndicatorTop];
 //	viewIndicatorTop.tag =101;
 	
+	userId = 0;
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+		userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:@"user"] valueForKey:@"id"]intValue];
+	}
+	
+	[SVProgressHUD show];
 }
 -(void)initializeRefreshControl
 {
 		indicatorFooter = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44)];
 		[indicatorFooter setColor:[UIColor blackColor]];
-		[indicatorFooter startAnimating];
+//		[indicatorFooter startAnimating];
 		[self.tableView setTableFooterView:indicatorFooter];
 	
 }
@@ -103,6 +114,7 @@ bool help = true;
 	if (scrollView == self.tableView) {
 		if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height)
 		{
+			[indicatorFooter startAnimating];
 			if (help) {
 				help = false;
 				[self refreshTableVeiwList];
@@ -163,8 +175,8 @@ bool help = true;
 	_currentPageNumber = 1;
 	viewIndicatorTop.tag = 101;
 	
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
-	[manager requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/1/5/0/0/0/"]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/",khmeracademy, _currentPageNumber, userId]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/1/5/0/0/%d/",khmeracademy, userId]]];
 	
 }
 
@@ -186,17 +198,29 @@ bool help = true;
 //	ConnectionManager *manager = [[ConnectionManager alloc] init];
 //	
 //	manager.delegate = self;
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/", khmeracademy,_currentPageNumber,userId]]];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+	[SVProgressHUD dismiss];
 }
 -(void)viewDidAppear:(BOOL)animated{
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api-akn.herokuapp.com/api/article/%d/10/0/0/0/", _currentPageNumber]]];
-	[manager requestDataWithURL:[NSURL URLWithString:@"http://api-akn.herokuapp.com/api/article/1/5/0/0/0/"]];
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+		userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:@"user"] valueForKey:@"id"]intValue];
+	}
+	if (_popularNewsList.count == 0) {
+		[SVProgressHUD show];
+	}
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/", khmeracademy,_currentPageNumber,userId]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/1/5/0/0/%d/",khmeracademy, userId]]];
 }
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	NSLog(@"%@" , URL.path);
 	if (viewIndicatorTop.tag == 101) { // refresh data
-		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/0", _currentPageNumber]]) {
+		
+		[SVProgressHUD dismiss];
+		
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/%d", _currentPageNumber, userId]]) {
 			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
 			NSMutableArray<News *> *tmp = [NSMutableArray new];
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
@@ -209,7 +233,7 @@ bool help = true;
 			[self.tableView reloadData];
 		}
 		//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
-		if ([URL.path isEqualToString:@"/api/article/1/5/0/0/0"]) {
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/1/5/0/0/%d", userId]]) {
 			
 			NSMutableArray<News *> *tmp = [NSMutableArray new];
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
@@ -231,7 +255,9 @@ bool help = true;
 			for (int i=1; i<_popularNewsList.count-1; i++) {
 				[countHelp addObject:[NSNumber numberWithInt:i]];
 			}
-			[countHelp addObjectsFromArray:countHelp];
+			if (countHelp.count <= _popularNewsList.count) {
+				[countHelp addObjectsFromArray:countHelp];
+			}
 		}
 		
 		[UIView animateWithDuration:0.3 animations:^{
@@ -239,8 +265,9 @@ bool help = true;
 		} completion:^(BOOL finished) {
 			viewIndicatorTop.tag = 102;
 		}];
-	}else{
-		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/0", _currentPageNumber]]) {
+	}
+	else{
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/%d", _currentPageNumber, userId]]) {
 			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
 				[_newsList addObject:[[News alloc]initWithData:object]];
@@ -249,7 +276,7 @@ bool help = true;
 			[self.tableView reloadData];
 		}
 		//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
-		if ([URL.path isEqualToString:@"/api/article/1/5/0/0/0"]) {
+		else if([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/1/5/0/0/%d",userId]]) {
 			
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
 				[_popularNewsList addObject:[[News alloc]initWithData:object]];
@@ -270,7 +297,13 @@ bool help = true;
 			}
 			[countHelp addObjectsFromArray:countHelp];
 		}
+		if (_newsList.count > 0 && _popularNewsList.count > 0) {
+			[SVProgressHUD dismiss];
+		}
 	}
+}
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+	NSLog(@"%@",result);
 }
 
 -(void)updateHeaderView{
@@ -312,12 +345,15 @@ bool help = true;
 	cell.newsView.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_newsList[indexPath.row].newsDateTimestampString]];
 	
-	
 	cell.buttonSave.tag = indexPath.row;
 	[cell.buttonSave addTarget:self action:@selector(buttonSaveClick:) forControlEvents:UIControlEventTouchUpInside];
 	
 	if (_newsList[indexPath.row].saved) {
+		[cell.buttonSave setEnabled:false];
 		[cell.buttonSave setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+	}else{
+		[cell.buttonSave setEnabled:true];
+		[cell.buttonSave setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
 	}
 	
 	switch (_newsList[indexPath.row].newsSourceId) {
@@ -347,14 +383,22 @@ bool help = true;
 	if (self.newsList[indexPath.row].newsImage){
 		cell.newsImage.image = self.newsList[indexPath.row].newsImage;
 	}else{
-		cell.newsImage.image = [UIImage imageNamed:@"akn-logo"];
+		cell.newsImage.image = [UIImage imageNamed:@"akn-logo-red"];
 		// download image in background
 		[self downloadImageInBackground:self.newsList[indexPath.row] forIndexPath:indexPath];
 	}
 }
 -(void)buttonSaveClick:(UIButton *)sender{
 	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
+		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
 		
+		ConnectionManager *m = [[ConnectionManager alloc]init];
+		m.delegate = self;
+		
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
+																	 duration:2.0
+																	 position:CSToastPositionBottom];
 	}else{
 		
 		[[MainViewController getInstance].navigationController.view makeToast:@"Please login first!"
@@ -434,7 +478,7 @@ bool help = true;
 	if (self.popularNewsList[indexPath.row].newsImage){
 		img.image = self.popularNewsList[indexPath.row].newsImage;
 	}else{
-		img.image = [UIImage imageNamed:@"akn-logo"];
+		img.image = [UIImage imageNamed:@"akn-logo-red"];
 		// download image in background
 		dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		
