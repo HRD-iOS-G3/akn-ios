@@ -19,6 +19,7 @@
 		9AB961971C46358500C3EE40 /* settingWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB961911C46358500C3EE40 /* settingWhite.png */; };
 		A50231931C4828E0001F6407 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A50231921C4828E0001F6407 /* search-icon.png */; };
 		A50231951C482DCE001F6407 /* akn-logo red.png in Resources */ = {isa = PBXBuildFile; fileRef = A50231941C482DCE001F6407 /* akn-logo red.png */; };
+		A50A9BE91C521AD7002D250A /* Connectivity.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A9BE81C521AD7002D250A /* Connectivity.m */; };
 		A52C5A931C4B58B80040188C /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A52C5A921C4B58B80040188C /* ConnectionManager.m */; };
 		A55066B11C50C7310073CB63 /* DetailNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A55066B01C50C7310073CB63 /* DetailNewsTableViewController.m */; };
 		A55066B31C50C7480073CB63 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A55066B21C50C7480073CB63 /* Detail.storyboard */; };
@@ -121,6 +122,8 @@
 		9AB961911C46358500C3EE40 /* settingWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingWhite.png; sourceTree = "<group>"; };
 		A50231921C4828E0001F6407 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
 		A50231941C482DCE001F6407 /* akn-logo red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo red.png"; sourceTree = "<group>"; };
+		A50A9BE71C521AD7002D250A /* Connectivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connectivity.h; sourceTree = "<group>"; };
+		A50A9BE81C521AD7002D250A /* Connectivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connectivity.m; sourceTree = "<group>"; };
 		A52C5A911C4B58B80040188C /* ConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionManager.h; sourceTree = "<group>"; };
 		A52C5A921C4B58B80040188C /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
 		A55066AF1C50C7310073CB63 /* DetailNewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNewsTableViewController.h; sourceTree = "<group>"; };
@@ -299,6 +302,8 @@
 		A59540C21C4B847E0055921C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A50A9BE71C521AD7002D250A /* Connectivity.h */,
+				A50A9BE81C521AD7002D250A /* Connectivity.m */,
 				A52C5A911C4B58B80040188C /* ConnectionManager.h */,
 				A52C5A921C4B58B80040188C /* ConnectionManager.m */,
 				A5DE78A21C4BE9F6003DCE16 /* Utilities.h */,
@@ -774,6 +779,7 @@
 				6F3FB1971C4D6A7800D47ECB /* AboutUsViewController.m in Sources */,
 				A55066B11C50C7310073CB63 /* DetailNewsTableViewController.m in Sources */,
 				A5BE5FF61C3D0B5E007025AC /* CAPSPageMenu.m in Sources */,
+				A50A9BE91C521AD7002D250A /* Connectivity.m in Sources */,
 				A5DE789F1C4B9113003DCE16 /* News.m in Sources */,
 				A5BE5FB81C3D0906007025AC /* SidebarMenuTableViewCell.m in Sources */,
 				A5CDB3C61C5002E100BC3273 /* SearchAllTableViewController.m in Sources */,

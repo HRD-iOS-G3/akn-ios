@@ -100,6 +100,7 @@ NSString *khmeracademy = @"http://akn.khmeracademy.org";
 	}
 	
 	[SVProgressHUD show];
+	
 }
 -(void)initializeRefreshControl
 {
@@ -391,7 +392,8 @@ bool help = true;
 -(void)buttonSaveClick:(UIButton *)sender{
 	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
 		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
-		
+		[sender setEnabled:false];
+		_newsList[sender.tag].saved = true;
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		

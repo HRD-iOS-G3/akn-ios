@@ -142,7 +142,7 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
 	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
-		userId = [[[NSUserDefaults standardUserDefaults] valueForKey:@"id"] intValue];
+		userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:@"user"] valueForKey:@"id"]intValue];
 	}
 	if (_newsList.count ==0) {
 		[SVProgressHUD show];
@@ -176,7 +176,7 @@
 	}
 	userId = 0;
 	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
-		userId = [[[NSUserDefaults standardUserDefaults] valueForKey:@"id"] intValue];
+		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
 	}
 	url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/1/10/%d/%d/%d/", cid, sid, userId]];
 	
@@ -264,6 +264,9 @@
 		}
 	}
 }
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+	NSLog(@"%@",result);
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -281,9 +284,7 @@
 	HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsByCategoryCell"];
 	cell.viewCell.layer.cornerRadius=5;
 	cell.sourceImage.layer.cornerRadius=cell.sourceImage.frame.size.width/2;
-//	cell.newsTitle.text=@"4th Generation Orientation at CKCC";
-//	cell.newsView.text=@"300";
-//	cell.newsDate.text=@"02-April-2015";
+
 	[self configureCell:cell AtIndexPath:indexPath];
 	return cell;
 }
@@ -292,6 +293,17 @@
 	cell.newsTitle.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsTitle];
 	cell.newsView.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_newsList[indexPath.row].newsDateTimestampString]];
+	
+	cell.buttonSave.tag = indexPath.row;
+	[cell.buttonSave addTarget:self action:@selector(buttonSaveClick:) forControlEvents:UIControlEventTouchUpInside];
+	
+	if (_newsList[indexPath.row].saved) {
+		[cell.buttonSave setEnabled:false];
+		[cell.buttonSave setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+	}else{
+		[cell.buttonSave setEnabled:true];
+		[cell.buttonSave setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+	}
 	
 	switch (_newsList[indexPath.row].newsSourceId) {
 			
@@ -324,6 +336,26 @@
 		cell.newsImage.image = [UIImage imageNamed:@"akn-logo-red"];
 		// download image in background
 		[self downloadImageInBackground:self.newsList[indexPath.row] forIndexPath:indexPath];
+	}
+}
+
+-(void)buttonSaveClick:(UIButton *)sender{
+	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
+		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+		[sender setEnabled:false];
+		_newsList[sender.tag].saved = true;
+		ConnectionManager *m = [[ConnectionManager alloc]init];
+		m.delegate = self;
+		
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
+																	 duration:2.0
+																	 position:CSToastPositionBottom];
+	}else{
+		
+		[[MainViewController getInstance].navigationController.view makeToast:@"Please login first!"
+																	 duration:3.0
+																	 position:CSToastPositionBottom];
 	}
 }
 

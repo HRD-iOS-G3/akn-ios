@@ -370,6 +370,7 @@
                                     <constraint firstItem="kr2-uo-Hbl" firstAttribute="top" secondItem="sAX-mN-qQE" secondAttribute="top" constant="4" id="qe9-ot-xX3"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="buttonSave" destination="wwJ-sA-AWj" id="789-Y2-4nS"/>
                                     <outlet property="newsDate" destination="Og3-yz-J3Q" id="8xG-8S-dSU"/>
                                     <outlet property="newsImage" destination="Dei-FK-PTu" id="ZRp-n9-Th9"/>
                                     <outlet property="newsTitle" destination="4sf-ky-gbT" id="C9W-bb-Wh7"/>
