@@ -19,7 +19,7 @@
 @interface SearchAllTableViewController () <ConnectionManagerDelegate>
 {	
 	UIActivityIndicatorView *indicatorFooter;
-	
+
 }
 @property (strong, nonatomic) NSMutableArray<News *> *listNewsFound;
 
@@ -80,6 +80,7 @@ bool help1 = true;
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result{
 	[SVProgressHUD dismiss];
+	NSLog(@"%@",result);
 	NSMutableArray<News *> *temp = [NSMutableArray new];
 	for (NSDictionary *news in [result valueForKey:@"RESPONSE_DATA"]) {
 		[temp addObject:[[News alloc] initWithData:news]];
@@ -110,6 +111,11 @@ bool help1 = true;
 	MainViewController *mvc = [MainViewController getInstance];
 	[mvc.navigationController popViewControllerAnimated:YES];
 }
+-(void)viewDidAppear:(BOOL)animated{
+	if (_listNewsFound.count <= 0) {
+		[SVProgressHUD show];
+	}
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -128,7 +134,6 @@ bool help1 = true;
 		manager.delegate = self;
 		[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":[NSNumber numberWithInt:_cId], @"sid":[NSNumber numberWithInt:_sId], @"uid":[NSNumber numberWithInt:_userId]} withKey:@"/api/article/search" method:@"POST"];
 		
-		[SVProgressHUD show];
 	}
 	
 }
@@ -162,11 +167,15 @@ bool help1 = true;
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_listNewsFound[indexPath.row].newsDateTimestampString]];
 	
 	cell.buttonSave.tag = indexPath.row;
-	[cell.buttonSave addTarget:self action:@selector(buttonSaveClick:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.buttonSave addTarget:self action:@selector(buttonSaveClick1:) forControlEvents:UIControlEventTouchUpInside];
 	
 	
 	if (_listNewsFound[indexPath.row].saved) {
+		[cell.buttonSave setEnabled:false];
 		[cell.buttonSave setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+	}else{
+		[cell.buttonSave setEnabled:true];
+		[cell.buttonSave setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
 	}
 	
 	switch (_listNewsFound[indexPath.row].newsSourceId) {
@@ -202,16 +211,23 @@ bool help1 = true;
 	}
 	
 }
--(void)buttonSaveClick:(UIButton *)sender{
+
+-(void)buttonSaveClick1:(UIButton *)sender{
 	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
-//		ConnectionManager *manager = [ConnectionManager new];
-//		manager.delegate = self;
-//		[manager requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_listNewsFound[sender.tag].newsId], @"userid":[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"]} withKey:@"/api/article/savelist" method:@"POST"];
-//		[self.navigationController.view makeToast:@"Saving..."];
+		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+		
+		ConnectionManager *m = [[ConnectionManager alloc]init];
+		m.delegate = self;
+		NSLog(@"Clicked!");
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_listNewsFound[sender.tag].newsId], @"userid":[NSNumber numberWithInt:_userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
+																	 duration:2.0
+																	 position:CSToastPositionBottom];
 	}else{
-		[self.navigationController.view makeToast:@"Please login first!"
-					duration:3.0
-					position:CSToastPositionBottom];
+		
+		[[MainViewController getInstance].navigationController.view makeToast:@"Please login first!"
+																	 duration:3.0
+																	 position:CSToastPositionBottom];
 	}
 }
 

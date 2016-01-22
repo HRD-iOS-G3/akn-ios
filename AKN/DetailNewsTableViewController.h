@@ -19,4 +19,5 @@
 @property (strong, nonatomic) NSString *pageTitle;
 @property (strong, nonatomic) News *news;
 
+@property (strong, nonatomic) NSString *sourceViewController;
 @end

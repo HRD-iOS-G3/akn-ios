@@ -11,4 +11,5 @@
 @interface SaveListTableViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
++(SaveListTableViewController *)getInstance;
 @end

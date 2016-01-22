@@ -16,6 +16,9 @@
 #include "TableSourceViewController.h"
 #import "DetailNewsTableViewController.h"
 #import "SearchAllTableViewController.h"
+#import "Connectivity.h"
+#import "UIView+Toast.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface MainViewController ()<SWRevealViewControllerDelegate,UISearchBarDelegate>{
     UIView *disableViewOverlay;
@@ -70,7 +73,7 @@ static MainViewController *this;
                                initWithFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height)];
     disableViewOverlay.backgroundColor=[UIColor blackColor];
     disableViewOverlay.alpha = 0;
-    
+
 }
 - (IBAction)searchBarTapped:(id)sender {
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
