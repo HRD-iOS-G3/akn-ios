@@ -21,6 +21,8 @@
 		A50231951C482DCE001F6407 /* akn-logo red.png in Resources */ = {isa = PBXBuildFile; fileRef = A50231941C482DCE001F6407 /* akn-logo red.png */; };
 		A50A9BE91C521AD7002D250A /* Connectivity.m in Sources */ = {isa = PBXBuildFile; fileRef = A50A9BE81C521AD7002D250A /* Connectivity.m */; };
 		A52C5A931C4B58B80040188C /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A52C5A921C4B58B80040188C /* ConnectionManager.m */; };
+		A54D5B9A1C571030008FF1AB /* KhmerOSBattambang-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A54D5B991C570F56008FF1AB /* KhmerOSBattambang-Regular.ttf */; };
+		A54D5B9C1C57143B008FF1AB /* KhmerOSBattambang-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A54D5B9B1C571403008FF1AB /* KhmerOSBattambang-Bold.ttf */; };
 		A55066B11C50C7310073CB63 /* DetailNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A55066B01C50C7310073CB63 /* DetailNewsTableViewController.m */; };
 		A55066B31C50C7480073CB63 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A55066B21C50C7480073CB63 /* Detail.storyboard */; };
 		A56D0E5C1C42C6CA00C8435B /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */; };
@@ -126,6 +128,8 @@
 		A50A9BE81C521AD7002D250A /* Connectivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connectivity.m; sourceTree = "<group>"; };
 		A52C5A911C4B58B80040188C /* ConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionManager.h; sourceTree = "<group>"; };
 		A52C5A921C4B58B80040188C /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
+		A54D5B991C570F56008FF1AB /* KhmerOSBattambang-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KhmerOSBattambang-Regular.ttf"; sourceTree = "<group>"; };
+		A54D5B9B1C571403008FF1AB /* KhmerOSBattambang-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KhmerOSBattambang-Bold.ttf"; sourceTree = "<group>"; };
 		A55066AF1C50C7310073CB63 /* DetailNewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNewsTableViewController.h; sourceTree = "<group>"; };
 		A55066B01C50C7310073CB63 /* DetailNewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNewsTableViewController.m; sourceTree = "<group>"; };
 		A55066B21C50C7480073CB63 /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
@@ -478,6 +482,8 @@
 		A5C6C3451C36B15D0003AA80 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A54D5B9B1C571403008FF1AB /* KhmerOSBattambang-Bold.ttf */,
+				A54D5B991C570F56008FF1AB /* KhmerOSBattambang-Regular.ttf */,
 				A5BE5FBD1C3D0945007025AC /* images */,
 				A5C6C3461C36B15D0003AA80 /* main.m */,
 			);
@@ -638,6 +644,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A54D5B9C1C57143B008FF1AB /* KhmerOSBattambang-Bold.ttf in Resources */,
+				A54D5B9A1C571030008FF1AB /* KhmerOSBattambang-Regular.ttf in Resources */,
 				A5BE5FDE1C3D094F007025AC /* passkey1.png in Resources */,
 				9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */,
 				A5DE78AE1C4C0690003DCE16 /* mungkulkar.png in Resources */,

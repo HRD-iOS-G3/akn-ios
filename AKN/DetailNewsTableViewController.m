@@ -52,6 +52,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+//	NSArray *fontFamilies = [UIFont familyNames];
+//	for (int i = 0; i < [fontFamilies count]; i++)
+//	{
+//		NSString *fontFamily = [fontFamilies objectAtIndex:i];
+//		NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
+//		NSLog (@"%@: %@", fontFamily, fontNames);
+//	}
+	
 	self.title = _pageTitle;
 	
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
@@ -60,6 +69,12 @@
 	title = _news.newsTitle;
 	date = [Utilities timestamp2date:_news.newsDateTimestampString];
 //	description = _news.newsDescription;
+	
+	UIFont *customFont = [UIFont fontWithName:@"KhmerOSBattambang" size:17];
+	self.labelDescription.font = customFont;
+
+	UIFont *customFont2 = [UIFont fontWithName:@"KhmerOSBattambang-Bold" size:17];
+	self.labelTitle.font = customFont2;
 	
 	NSLog(@"%d", _news.newsId);
 	int userId= 0;
