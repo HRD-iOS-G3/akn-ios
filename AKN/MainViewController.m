@@ -81,6 +81,10 @@ static MainViewController *this;
     self.searchBarField.placeholder=@"Search Title of News";
     self.searchBarField.searchBarStyle=UISearchBarStyleMinimal;
     UITextField *textFieldInsideSearchBar =[self.searchBarField valueForKey:@"searchField"];
+	
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(searchBarCancelButtonClicked:)];
+	[disableViewOverlay addGestureRecognizer:tap];
+	
     textFieldInsideSearchBar.textColor=[UIColor whiteColor];
     [UIView animateWithDuration:0.1 animations:^{
         self.searchButton.alpha = 0.0f;
