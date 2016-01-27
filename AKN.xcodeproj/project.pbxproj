@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */; };
-		6F3FB1971C4D6A7800D47ECB /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FB1961C4D6A7800D47ECB /* AboutUsViewController.m */; };
 		6F3FB19B1C4D6A9100D47ECB /* SaveListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FB19A1C4D6A9100D47ECB /* SaveListTableViewController.m */; };
+		6F87B32A1C59222100B5168E /* AboutUsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F87B3291C59222100B5168E /* AboutUsTableViewController.m */; };
 		9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618A1C4634D400C3EE40 /* akn-logo white.png */; };
 		9AB961921C46358500C3EE40 /* aboutUsWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */; };
 		9AB961931C46358500C3EE40 /* add99White.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618D1C46358500C3EE40 /* add99White.png */; };
@@ -109,10 +109,10 @@
 		145749F81C434E0700D2FFC0 /* NewsByCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsByCategoryTableViewController.h; sourceTree = "<group>"; };
 		145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsByCategoryTableViewController.m; sourceTree = "<group>"; };
 		689C3458E37E50E1642F30A8 /* libPods-AKN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AKN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F3FB1951C4D6A7800D47ECB /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
-		6F3FB1961C4D6A7800D47ECB /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		6F3FB1991C4D6A9100D47ECB /* SaveListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveListTableViewController.h; sourceTree = "<group>"; };
 		6F3FB19A1C4D6A9100D47ECB /* SaveListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveListTableViewController.m; sourceTree = "<group>"; };
+		6F87B3281C59222100B5168E /* AboutUsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsTableViewController.h; sourceTree = "<group>"; };
+		6F87B3291C59222100B5168E /* AboutUsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsTableViewController.m; sourceTree = "<group>"; };
 		6FFF2A141B3F0C438E69616E /* Pods-AKN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.release.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.release.xcconfig"; sourceTree = "<group>"; };
 		774C5044D6DBA11D52D3E913 /* Pods-AKN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.debug.xcconfig"; sourceTree = "<group>"; };
 		9AB9618A1C4634D400C3EE40 /* akn-logo white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo white.png"; sourceTree = "<group>"; };
@@ -270,8 +270,8 @@
 		6F3FB1941C4D6A5500D47ECB /* About Us */ = {
 			isa = PBXGroup;
 			children = (
-				6F3FB1951C4D6A7800D47ECB /* AboutUsViewController.h */,
-				6F3FB1961C4D6A7800D47ECB /* AboutUsViewController.m */,
+				6F87B3281C59222100B5168E /* AboutUsTableViewController.h */,
+				6F87B3291C59222100B5168E /* AboutUsTableViewController.m */,
 			);
 			name = "About Us";
 			sourceTree = "<group>";
@@ -767,6 +767,7 @@
 				A5BE60071C3D0BAF007025AC /* viewPageController.m in Sources */,
 				A5BE60061C3D0BAF007025AC /* TablePageViewController.m in Sources */,
 				A5BE5FB71C3D0906007025AC /* SidebarMenuViewController.m in Sources */,
+				6F87B32A1C59222100B5168E /* AboutUsTableViewController.m in Sources */,
 				A5BE5FFA1C3D0B82007025AC /* ViewSourceController.m in Sources */,
 				A5BE5FB61C3D0906007025AC /* MainViewController.m in Sources */,
 				A5DE78A41C4BE9F6003DCE16 /* Utilities.m in Sources */,
@@ -784,7 +785,6 @@
 				A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */,
 				6F3FB19B1C4D6A9100D47ECB /* SaveListTableViewController.m in Sources */,
 				A5BE60081C3D0BAF007025AC /* HomeViewCell.m in Sources */,
-				6F3FB1971C4D6A7800D47ECB /* AboutUsViewController.m in Sources */,
 				A55066B11C50C7310073CB63 /* DetailNewsTableViewController.m in Sources */,
 				A5BE5FF61C3D0B5E007025AC /* CAPSPageMenu.m in Sources */,
 				A50A9BE91C521AD7002D250A /* Connectivity.m in Sources */,

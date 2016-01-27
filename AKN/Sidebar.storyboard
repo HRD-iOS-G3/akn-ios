@@ -171,7 +171,7 @@
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
-                                                    <segue destination="eEP-PN-PNT" kind="custom" identifier="showAboutUs" customClass="SWRevealViewControllerSeguePushController" id="lDs-Hj-2wA"/>
+                                                    <segue destination="JVg-1M-tQT" kind="custom" identifier="showAboutUs" customClass="SWRevealViewControllerSeguePushController" id="Kdv-hH-Ust"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -873,36 +873,6 @@
             </objects>
             <point key="canvasLocation" x="1878.5" y="-434.5"/>
         </scene>
-        <!--About Us-->
-        <scene sceneID="fLC-gN-SKP">
-            <objects>
-                <viewController title="About Us" id="UQ1-55-ntb" customClass="AboutUsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AsX-cb-m5s"/>
-                        <viewControllerLayoutGuide type="bottom" id="TuF-Xd-NPX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="chx-JE-7MT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="About Us" id="rFs-OF-3mq">
-                        <barButtonItem key="leftBarButtonItem" image="menu.png" id="jnU-IN-E0w">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="search-icon.png" id="A3E-Fr-DIO">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="sidebarButton" destination="jnU-IN-E0w" id="xC2-B7-ZyT"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IlJ-uj-cSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1037.5" y="1205.5"/>
-        </scene>
         <!--Save List-->
         <scene sceneID="Hov-In-D5l">
             <objects>
@@ -1089,24 +1059,44 @@
             </objects>
             <point key="canvasLocation" x="1446.5" y="-434.5"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="SBP-6o-vWK">
+        <!--About Us-->
+        <scene sceneID="muC-nq-dqJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eEP-PN-PNT" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OxU-ju-bre">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <tableViewController id="QmE-Ln-7fw" customClass="AboutUsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rjR-bh-d5T">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="c4N-nS-oRe">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c4N-nS-oRe" id="xXN-pC-pMT">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="QmE-Ln-7fw" id="0ED-ED-ROY"/>
+                            <outlet property="delegate" destination="QmE-Ln-7fw" id="8Ld-nr-Zks"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="About Us" id="Oqo-YT-vy2">
+                        <barButtonItem key="leftBarButtonItem" image="menu.png" id="zPq-an-A6x">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="search-icon.png" id="yUV-CV-M59">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <segue destination="UQ1-55-ntb" kind="relationship" relationship="rootViewController" id="oSr-CH-RFU"/>
+                        <outlet property="sidebarButton" destination="zPq-an-A6x" id="b2W-52-awk"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FUS-jY-fPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f9t-M0-BdI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="443.5" y="1205.5"/>
+            <point key="canvasLocation" x="1177.5" y="1111.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="17I-am-dLf">
@@ -1645,6 +1635,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dDc-1m-KmH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="464.5" y="392.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QbG-Oq-3vl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JVg-1M-tQT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Fr-5v-EKL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QmE-Ln-7fw" kind="relationship" relationship="rootViewController" id="UFo-mR-GsX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="piE-yE-KHT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="683.5" y="1111.5"/>
         </scene>
     </scenes>
     <resources>
