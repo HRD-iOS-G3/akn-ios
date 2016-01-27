@@ -853,6 +853,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Change Password" id="ijN-zK-TT8">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="jsV-kq-79v">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="doneButtonAction:" destination="IWa-Ct-lBr" id="haB-tX-gsB"/>
                             </connections>
@@ -1500,32 +1501,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="42" id="WxS-nI-OHR">
-                                        <rect key="frame" x="0.0" y="504" width="320" height="42"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WxS-nI-OHR" id="zhR-No-Qnh">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please complete username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQP-dr-1CN">
-                                                    <rect key="frame" x="77" y="0.0" width="166" height="34"/>
-                                                    <color key="backgroundColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="166" id="PL2-DG-Lhf"/>
-                                                        <constraint firstAttribute="height" constant="34" id="dEI-dC-fsm"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="GQP-dr-1CN" firstAttribute="centerY" secondItem="zhR-No-Qnh" secondAttribute="centerY" constant="-4" id="4CX-Sl-aDE"/>
-                                                <constraint firstItem="GQP-dr-1CN" firstAttribute="centerX" secondItem="zhR-No-Qnh" secondAttribute="centerX" id="SDy-Xu-8Mw"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1552,7 +1527,6 @@
                         <outlet property="loginButton" destination="N9B-ok-xqb" id="ugZ-wP-z1I"/>
                         <outlet property="passwordTextField" destination="i8m-bC-H0o" id="Yx2-Od-nLh"/>
                         <outlet property="sidebarButton" destination="EzP-0E-IqM" id="CQT-mg-dxi"/>
-                        <outlet property="toastLabel" destination="GQP-dr-1CN" id="mpc-OA-AJM"/>
                         <outlet property="usernameTextField" destination="Pbt-oU-nsu" id="sYz-uN-4Xj"/>
                     </connections>
                 </tableViewController>
@@ -1689,9 +1663,9 @@
         <image name="view.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5Ke-G4-yVY"/>
         <segue reference="MXy-7g-AA1"/>
         <segue reference="uYh-om-mhJ"/>
-        <segue reference="UDb-9Q-kJr"/>
+        <segue reference="wmQ-lr-igV"/>
+        <segue reference="5Ke-G4-yVY"/>
     </inferredMetricsTieBreakers>
 </document>

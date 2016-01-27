@@ -9,6 +9,7 @@
 #import "SignUpTableViewController.h"
 #import "SWRevealViewController.h"
 #import "ConnectionManager.h"
+#import "SVProgressHUD.h"
 
 @interface SignUpTableViewController ()<ConnectionManagerDelegate>{
     ConnectionManager *manager;
@@ -60,6 +61,11 @@
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    
+    // change background color
+    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
+    [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 
 }
 
@@ -98,47 +104,75 @@
 
 #pragma mark: - Sign Up
 - (IBAction)signUpAction:(id)sender {
-    //Create connection object
-    manager = [[ConnectionManager alloc] init];
+     // dismiss keyboard
+    [self dismissKeyboard];
     
-    //Set delegate
-    manager.delegate = self;
+    // Get value from text field
+    NSString * name = self.nameTextField.text;
+    NSString * email = self.emailTextField.text;
+    NSString * password = self.passwordTextField.text;
     
-    //Create dictionary for store article detail input from user
-    NSDictionary *dictionaryObject = @{
-                                       @"username": self.nameTextField.text,
-                                       @"email": self.emailTextField.text,
-                                       @"password": self.passwordTextField.text,
-                                       @"image": @""
-                                       
-                                       };
+    // validate text field
+    if ([name isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"Please complete name"];
+    }else if ([email isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"Please complete email"];
+    }else if ([password isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"Please complete pasword"];
+    }else{
+        [SVProgressHUD show];
+        [self.view setUserInteractionEnabled:false];
+        
+        // disable login button
+        self.signUpButton.enabled = false;
+               
+        //Create connection object
+        manager = [[ConnectionManager alloc] init];
+        
+        //Set delegate
+        manager.delegate = self;
+        
+        //Create dictionary for store article detail input from user
+        NSDictionary *dictionaryObject = @{
+                                           @"username": name,
+                                           @"email": email,
+                                           @"password": password,
+                                           @"image": @""
+                                           
+                                           };
+        
+        
+        //Send data to server and insert it
+        [manager requestDataWithURL:dictionaryObject withKey:@"/api/user/" method:@"POST"];
+        
+    }
+    
+}
 
-    
-    //Send data to server and insert it
-    [manager requestDataWithURL:dictionaryObject withKey:@"/api/user/" method:@"POST"];
-    
+
+-(void)dismissKeyboard{
+    [self.view endEditing:YES];
 }
 
 #pragma mark: - ConnectionManagerDelegate
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    NSLog(@"+++++++++++++ %@",result);
+    
+    [self.view setUserInteractionEnabled:true];
+    
+    // disable login button
+    self.signUpButton.enabled =true;
+    
     if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [SVProgressHUD dismiss];
+        //open home view
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+        
+        // determine the initial view controller here and instantiate it with
+        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+        [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-        UIAlertController *alertController = [UIAlertController
-                                              alertControllerWithTitle:@"SignUp Failed"
-                                              message:@"This username is already created!!!"
-                                              preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *okAction = [UIAlertAction
-                                   actionWithTitle:NSLocalizedString(@"OK", @"OK action")
-                                   style:UIAlertActionStyleCancel
-                                   handler:nil];
-        
-        [alertController addAction:okAction];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
+         [SVProgressHUD showErrorWithStatus:@"SignUp Failed\nThis username is already created!!!"];
     }
 }
 

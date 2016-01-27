@@ -9,6 +9,7 @@
 #import "LoginTableViewController.h"
 #import "SWRevealViewController.h"
 #import "ConnectionManager.h"
+#import "SVProgressHUD.h"
 
 @interface LoginTableViewController ()<ConnectionManagerDelegate>{
     ConnectionManager *manager;
@@ -26,8 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
     
     [self customizePageMenu];
@@ -38,15 +37,9 @@
     
     
     //Set GradienColor for control
-    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    NSArray *gradientColor  =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
     [self setGradientColor:self.loginButton NSArrayColor:gradientColor];
     
-    
-    //Toast Label
-    self.toastLabel.layer.masksToBounds = YES;
-    [self.toastLabel.layer setCornerRadius:self.toastLabel.bounds.size.height/2];
-    self.toastLabel.hidden = true;
-
     
     [self.tableView addGestureRecognizer:gesture];
     // Design Style Control
@@ -64,6 +57,11 @@
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    
+    // change background color
+    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
+    [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 }
 
 #pragma mark - Navigation bar color
@@ -75,10 +73,7 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
-    
-    CGSize stringsize1 = [self.toastLabel.text sizeWithAttributes:
-                          @{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
-    [self.toastLabel setFrame:CGRectMake((CGRectGetMidX(self.view.bounds) -CGRectGetMidX(self.toastLabel.bounds)),self.toastLabel.frame.origin.y,stringsize1.width + 10,self.toastLabel.bounds.size.height)];
+   
 }
 
 
@@ -109,11 +104,13 @@
     
     // validate text field
     if ([username isEqualToString:@""]) {
-        [self makeToast:@"Please complete username" duration:2];
+        [SVProgressHUD showErrorWithStatus:@"Please complete username"];
     }else if ([password isEqualToString:@""]) {
-        [self makeToast:@"Please complete pasword" duration:2];
+        [SVProgressHUD showErrorWithStatus:@"Please complete pasword"];
     }else{
+        [self.view setUserInteractionEnabled:false];
         
+        // disable login button
         [self.activityIndicatorLoading startAnimating];
         self.loginButton.enabled = false;
         
@@ -131,7 +128,6 @@
         // send data to server
         [manager requestDataWithURL:dictionary withKey:@"/api/user/login" method:@"POST"];
         
-       
         
     }
     
@@ -146,7 +142,7 @@
 #pragma mark: - ConnectionManagerDelegate
 
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    
+      [self.view setUserInteractionEnabled:true];
     [self.activityIndicatorLoading stopAnimating];
      self.loginButton.enabled = true;
     
@@ -167,28 +163,11 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-        [self makeToast:[result valueForKey:@"MESSAGE"] duration:2];
+        [SVProgressHUD showErrorWithStatus:[result valueForKey:@"MESSAGE"]];
     }
 }
 
--(void)makeToast:(NSString *)msg duration:(NSTimeInterval)duration{
-    CGSize stringsize1 = [msg sizeWithAttributes:
-                          @{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]}];
-    [self.toastLabel setFrame:CGRectMake((CGRectGetMidX(self.view.bounds) -CGRectGetMidX(self.toastLabel.bounds)),self.toastLabel.frame.origin.y,stringsize1.width + 10,self.toastLabel.bounds.size.height)];
-    self.toastLabel.text=  msg ;
-    self.toastLabel.hidden = false;
-    
-    [UIView animateWithDuration:duration animations:^(void){
-        self.toastLabel.alpha = 0;
-        self.toastLabel.alpha = 1;
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:1.0 animations:^(void){
-            self.toastLabel.alpha = 1;
-            self.toastLabel.alpha = 0;
-            
-        }];
-    }];
-}
+
 -(void)dismissKeyboard{
     [self.view endEditing:YES];
 }

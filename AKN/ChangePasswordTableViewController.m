@@ -8,6 +8,7 @@
 
 #import "ChangePasswordTableViewController.h"
 #import "ConnectionManager.h"
+#import "SVProgressHUD.h"
 
 @interface ChangePasswordTableViewController ()<ConnectionManagerDelegate>{
     NSUserDefaults *userDefault;
@@ -82,16 +83,17 @@
     
     // validate text field
     if ([oldPassword isEqualToString:@""]) {
-        [self makeToast:@"Please complete old password" duration:2];
+        [SVProgressHUD showErrorWithStatus:@"Please complete old password"];
     }else if ([newPassword isEqualToString:@""]) {
-        [self makeToast:@"Please complete new password" duration:2];
+        [SVProgressHUD showErrorWithStatus:@"Please complete new password"];
     }else if ([comfirmPassword isEqualToString:@""]) {
-        [self makeToast:@"Please complete comfirm password" duration:2];
+        [SVProgressHUD showErrorWithStatus:@"Please complete comfirm password"];
     }else if (![newPassword isEqualToString:comfirmPassword]) {
-        [self makeToast:@"Your new password and comfirm password is not the same" duration:2];
+        [SVProgressHUD showErrorWithStatus:@"Your new password and comfirm password is not the same"];
     }else{
         userDefault = [[NSUserDefaults standardUserDefaults] init];
         
+        [self.view setUserInteractionEnabled:false];
         [self.activityIndicatorLoading startAnimating];
         self.changePasswordButton.enabled = false;
         
@@ -118,7 +120,7 @@
 #pragma mark: - ConnectionManagerDelegate
 
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    
+     [self.view setUserInteractionEnabled:true];
     [self.activityIndicatorLoading stopAnimating];
     self.changePasswordButton.enabled = true;
     
@@ -131,7 +133,7 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-       [self makeToast:@"You old password is incorrect" duration:2];
+         [SVProgressHUD showErrorWithStatus:@"You old password is incorrect"];
     }
     
 }
@@ -147,21 +149,6 @@
     [control.layer insertSublayer:gradient atIndex:0];
 }
 
--(void)makeToast:(NSString *)msg duration:(NSTimeInterval)duration{
-    self.errorLabel.text=  msg ;
-    self.errorLabel.hidden = false;
-    
-    [UIView animateWithDuration:duration animations:^(void){
-        self.errorLabel.alpha = 0;
-        self.errorLabel.alpha = 1;
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:1.0 animations:^(void){
-            self.errorLabel.alpha = 1;
-            self.errorLabel.alpha = 0;
-            
-        }];
-    }];
-}
 
 -(void)dismissKeyboard{
     [self.view endEditing:YES];

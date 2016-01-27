@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ConnectionManager.h"
 #import "UIImageView+WebCache.h"
+#import "SVProgressHUD.h"
 
 @interface UserProfileViewController ()<ConnectionManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
     NSUserDefaults *userDefault;
@@ -63,6 +64,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];;
+    
+    
+    // change background color
+    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
+    [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 
 }
 
@@ -127,11 +133,12 @@
     
     // validate text field
     if ([username isEqualToString:@""]) {
-        [self makeToast:@"Please complete username" duration:2];
+         [SVProgressHUD showErrorWithStatus:@"Please complete username"];
     }else if ([email isEqualToString:@""]) {
-        [self makeToast:@"Please complete email" duration:2];
+         [SVProgressHUD showErrorWithStatus:@"Please complete email"];
     }else{
         
+        [self.view setUserInteractionEnabled:false];
         [self.activityIndicatorLoading startAnimating];
         self.updateButton.enabled = false;
         
@@ -145,7 +152,7 @@
         
         //Send data to server and insert it
         [manager requestDataWithURL:dictionary withKey:@"/api/user/update" method:@"PUT"];
-    
+        
     }
     
 }
@@ -153,7 +160,7 @@
 #pragma mark: - ConnectionManagerDelegate
 
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    
+    [self.view setUserInteractionEnabled:true];
     [self.activityIndicatorLoading stopAnimating];
     self.updateButton.enabled = true;
     
@@ -169,9 +176,6 @@
         [dictionary setObject:self.emailTextField.text forKey:@"email"];
         
         [userDefault setObject:dictionary forKey:@"user"];
-        NSLog(@"%@", [userDefault objectForKey:@"user"]);
-        
-       // [data setValue:[NSString stringWithFormat:@"%@",self.emailTextField.text] forKey:@"username"];
         
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
@@ -181,7 +185,7 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-        NSLog(@"Fail");
+       [SVProgressHUD showErrorWithStatus:[result valueForKey:@"MESSAGE"]];
     }
     
 }
@@ -245,21 +249,6 @@
 }
 */
 
--(void)makeToast:(NSString *)msg duration:(NSTimeInterval)duration{
-    self.errorLabel.text=  msg ;
-    self.errorLabel.hidden = false;
-  
-    [UIView animateWithDuration:duration animations:^(void){
-        self.errorLabel.alpha = 0;
-        self.errorLabel.alpha = 1;
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:1.0 animations:^(void){
-            self.errorLabel.alpha = 1;
-            self.errorLabel.alpha = 0;
-            
-        }];
-    }];
-}
 
 -(void)dismissKeyboard{
     [self.view endEditing:YES];
