@@ -152,6 +152,7 @@
         [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"roles"];
         [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"authorities"];
         [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"password"];
+         [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"register_date"];
         
         [defaults setObject:[result valueForKey:@"DATA"] forKey:@"user"];
         

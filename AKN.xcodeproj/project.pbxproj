@@ -8,8 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */; };
-		6F3FB1971C4D6A7800D47ECB /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FB1961C4D6A7800D47ECB /* AboutUsViewController.m */; };
 		6F3FB19B1C4D6A9100D47ECB /* SaveListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FB19A1C4D6A9100D47ECB /* SaveListTableViewController.m */; };
+		6F87B32A1C59222100B5168E /* AboutUsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F87B3291C59222100B5168E /* AboutUsTableViewController.m */; };
+		6FA307B61C592C7C00F885AB /* facebook55.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B21C592C7C00F885AB /* facebook55.png */; };
+		6FA307B71C592C7C00F885AB /* google116.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B31C592C7C00F885AB /* google116.png */; };
+		6FA307B81C592C7C00F885AB /* linkedin11.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B41C592C7C00F885AB /* linkedin11.png */; };
+		6FA307B91C592C7C00F885AB /* logo95.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B51C592C7C00F885AB /* logo95.png */; };
 		9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618A1C4634D400C3EE40 /* akn-logo white.png */; };
 		9AB961921C46358500C3EE40 /* aboutUsWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */; };
 		9AB961931C46358500C3EE40 /* add99White.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618D1C46358500C3EE40 /* add99White.png */; };
@@ -109,10 +113,14 @@
 		145749F81C434E0700D2FFC0 /* NewsByCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsByCategoryTableViewController.h; sourceTree = "<group>"; };
 		145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsByCategoryTableViewController.m; sourceTree = "<group>"; };
 		689C3458E37E50E1642F30A8 /* libPods-AKN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AKN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F3FB1951C4D6A7800D47ECB /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
-		6F3FB1961C4D6A7800D47ECB /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		6F3FB1991C4D6A9100D47ECB /* SaveListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveListTableViewController.h; sourceTree = "<group>"; };
 		6F3FB19A1C4D6A9100D47ECB /* SaveListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveListTableViewController.m; sourceTree = "<group>"; };
+		6F87B3281C59222100B5168E /* AboutUsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsTableViewController.h; sourceTree = "<group>"; };
+		6F87B3291C59222100B5168E /* AboutUsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsTableViewController.m; sourceTree = "<group>"; };
+		6FA307B21C592C7C00F885AB /* facebook55.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook55.png; sourceTree = "<group>"; };
+		6FA307B31C592C7C00F885AB /* google116.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google116.png; sourceTree = "<group>"; };
+		6FA307B41C592C7C00F885AB /* linkedin11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkedin11.png; sourceTree = "<group>"; };
+		6FA307B51C592C7C00F885AB /* logo95.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo95.png; sourceTree = "<group>"; };
 		6FFF2A141B3F0C438E69616E /* Pods-AKN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.release.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.release.xcconfig"; sourceTree = "<group>"; };
 		774C5044D6DBA11D52D3E913 /* Pods-AKN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.debug.xcconfig"; sourceTree = "<group>"; };
 		9AB9618A1C4634D400C3EE40 /* akn-logo white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo white.png"; sourceTree = "<group>"; };
@@ -270,8 +278,8 @@
 		6F3FB1941C4D6A5500D47ECB /* About Us */ = {
 			isa = PBXGroup;
 			children = (
-				6F3FB1951C4D6A7800D47ECB /* AboutUsViewController.h */,
-				6F3FB1961C4D6A7800D47ECB /* AboutUsViewController.m */,
+				6F87B3281C59222100B5168E /* AboutUsTableViewController.h */,
+				6F87B3291C59222100B5168E /* AboutUsTableViewController.m */,
 			);
 			name = "About Us";
 			sourceTree = "<group>";
@@ -352,6 +360,10 @@
 		A5BE5FBD1C3D0945007025AC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6FA307B21C592C7C00F885AB /* facebook55.png */,
+				6FA307B31C592C7C00F885AB /* google116.png */,
+				6FA307B41C592C7C00F885AB /* linkedin11.png */,
+				6FA307B51C592C7C00F885AB /* logo95.png */,
 				A5DE78B11C4C1443003DCE16 /* folder.png */,
 				A5DE78AF1C4C0891003DCE16 /* kohsontepheap.png */,
 				A5DE78AD1C4C0690003DCE16 /* mungkulkar.png */,
@@ -671,6 +683,7 @@
 				A5BE5FCF1C3D094F007025AC /* profileBackground.png in Resources */,
 				A5BE5FF01C3D0B47007025AC /* view.png in Resources */,
 				A5C6C3501C36B15D0003AA80 /* Main.storyboard in Resources */,
+				6FA307B81C592C7C00F885AB /* linkedin11.png in Resources */,
 				A5BE5FD71C3D094F007025AC /* logout.png in Resources */,
 				A5BE5FD81C3D094F007025AC /* aboutUs.png in Resources */,
 				A5BE5FD91C3D094F007025AC /* setting.png in Resources */,
@@ -681,6 +694,8 @@
 				A5DE78B41C4C1C6C003DCE16 /* save-gray.png in Resources */,
 				A5BE5FA71C3D08C2007025AC /* Sidebar.storyboard in Resources */,
 				A5BE5FD61C3D094F007025AC /* email.png in Resources */,
+				6FA307B91C592C7C00F885AB /* logo95.png in Resources */,
+				6FA307B61C592C7C00F885AB /* facebook55.png in Resources */,
 				A5BE5FD11C3D094F007025AC /* menuBackgroup.png in Resources */,
 				A5BE5FE21C3D0AA0007025AC /* PageMenu.storyboard in Resources */,
 				A5BE5FDB1C3D094F007025AC /* saveList.png in Resources */,
@@ -690,6 +705,7 @@
 				A50231931C4828E0001F6407 /* search-icon.png in Resources */,
 				A5DE78B01C4C0891003DCE16 /* kohsontepheap.png in Resources */,
 				9AB961941C46358500C3EE40 /* homeWhite.png in Resources */,
+				6FA307B71C592C7C00F885AB /* google116.png in Resources */,
 				A5DE78A81C4C03FC003DCE16 /* bnews.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,6 +783,7 @@
 				A5BE60071C3D0BAF007025AC /* viewPageController.m in Sources */,
 				A5BE60061C3D0BAF007025AC /* TablePageViewController.m in Sources */,
 				A5BE5FB71C3D0906007025AC /* SidebarMenuViewController.m in Sources */,
+				6F87B32A1C59222100B5168E /* AboutUsTableViewController.m in Sources */,
 				A5BE5FFA1C3D0B82007025AC /* ViewSourceController.m in Sources */,
 				A5BE5FB61C3D0906007025AC /* MainViewController.m in Sources */,
 				A5DE78A41C4BE9F6003DCE16 /* Utilities.m in Sources */,
@@ -784,7 +801,6 @@
 				A5E53B791C3EC90700DD32FA /* SignUpTableViewController.m in Sources */,
 				6F3FB19B1C4D6A9100D47ECB /* SaveListTableViewController.m in Sources */,
 				A5BE60081C3D0BAF007025AC /* HomeViewCell.m in Sources */,
-				6F3FB1971C4D6A7800D47ECB /* AboutUsViewController.m in Sources */,
 				A55066B11C50C7310073CB63 /* DetailNewsTableViewController.m in Sources */,
 				A5BE5FF61C3D0B5E007025AC /* CAPSPageMenu.m in Sources */,
 				A50A9BE91C521AD7002D250A /* Connectivity.m in Sources */,
