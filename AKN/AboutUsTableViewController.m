@@ -35,21 +35,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
-}
-
 
 #pragma mark - Navigation bar color
 
 -(void)customizePageMenu{
-    self.title = @"PROFILE";
+    self.title = @"ABOUT US";
     
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];

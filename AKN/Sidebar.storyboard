@@ -1063,20 +1063,296 @@
         <scene sceneID="muC-nq-dqJ">
             <objects>
                 <tableViewController id="QmE-Ln-7fw" customClass="AboutUsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rjR-bh-d5T">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rjR-bh-d5T">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="c4N-nS-oRe">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c4N-nS-oRe" id="xXN-pC-pMT">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <sections>
+                            <tableViewSection id="m66-bh-wr3">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="78" id="c4N-nS-oRe">
+                                        <rect key="frame" x="0.0" y="64" width="375" height="78"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c4N-nS-oRe" id="xXN-pC-pMT">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="78"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t79-5J-Ok9">
+                                                    <rect key="frame" x="21" y="70" width="100" height="1"/>
+                                                    <color key="backgroundColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="Ijn-3D-z9u"/>
+                                                        <constraint firstAttribute="height" constant="1" id="s4g-Ky-h7w"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT US" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8xo-fw-UbR">
+                                                    <rect key="frame" x="21" y="41" width="333" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8xo-fw-UbR" firstAttribute="leading" secondItem="xXN-pC-pMT" secondAttribute="leadingMargin" constant="13" id="FRC-o9-tHG"/>
+                                                <constraint firstItem="t79-5J-Ok9" firstAttribute="leading" secondItem="8xo-fw-UbR" secondAttribute="leading" id="GUR-tt-fC3"/>
+                                                <constraint firstItem="8xo-fw-UbR" firstAttribute="top" secondItem="xXN-pC-pMT" secondAttribute="topMargin" constant="33" id="QUe-4X-IGz"/>
+                                                <constraint firstItem="t79-5J-Ok9" firstAttribute="top" secondItem="8xo-fw-UbR" secondAttribute="top" constant="29" id="Y5N-Bm-EqU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8xo-fw-UbR" secondAttribute="trailing" constant="13" id="y4Y-R1-nzM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="247" id="vaC-ob-VK5">
+                                        <rect key="frame" x="0.0" y="142" width="375" height="247"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vaC-ob-VK5" id="QE6-AL-geW">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="247"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bef-LX-ibf">
+                                                    <rect key="frame" x="15" y="7" width="346" height="234"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment>
+                                                            <string key="content">Khmer Academy is the first e-learning platform for knowledge sharing in Cambodia. It is developed by Korea Software HRD Center in 2015. All contents are in Khmer language for easy knowledge acquisition. Most contents are related to IT fields and plan to extend more topics. Our mission is to improve education environments of Cambodia by means of IT technologies. Khmer Academy will be a significant education platform which accumulates and shares all kinds of knowledge on internet.</string>
+                                                            <attributes>
+                                                                <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="6" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Bef-LX-ibf" firstAttribute="centerY" secondItem="QE6-AL-geW" secondAttribute="centerY" id="7eh-rS-9yk"/>
+                                                <constraint firstItem="Bef-LX-ibf" firstAttribute="leading" secondItem="QE6-AL-geW" secondAttribute="leadingMargin" constant="7" id="SJw-PA-Sha"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Bef-LX-ibf" secondAttribute="trailing" constant="6" id="Zhf-Nn-a8s"/>
+                                                <constraint firstItem="Bef-LX-ibf" firstAttribute="centerX" secondItem="QE6-AL-geW" secondAttribute="centerX" constant="0.5" id="i2c-Ys-r5o"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="74" id="uae-Es-TzA">
+                                        <rect key="frame" x="0.0" y="389" width="375" height="74"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uae-Es-TzA" id="hwW-NU-t5X">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hC-oV-x9r">
+                                                    <rect key="frame" x="21" y="65" width="100" height="1"/>
+                                                    <color key="backgroundColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="TO3-G9-GgJ"/>
+                                                        <constraint firstAttribute="height" constant="1" id="qyU-gk-kkZ"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTACT US" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VU-I4-6et">
+                                                    <rect key="frame" x="21" y="36" width="333" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1hC-oV-x9r" firstAttribute="top" secondItem="2VU-I4-6et" secondAttribute="top" constant="29" id="99F-mz-8oN"/>
+                                                <constraint firstItem="2VU-I4-6et" firstAttribute="leading" secondItem="hwW-NU-t5X" secondAttribute="leadingMargin" constant="13" id="BVs-ra-sJ5"/>
+                                                <constraint firstItem="2VU-I4-6et" firstAttribute="top" secondItem="hwW-NU-t5X" secondAttribute="topMargin" constant="28" id="mM6-Un-Jba"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2VU-I4-6et" secondAttribute="trailing" constant="13" id="uy1-29-441"/>
+                                                <constraint firstItem="1hC-oV-x9r" firstAttribute="leading" secondItem="2VU-I4-6et" secondAttribute="leading" id="wib-9o-nd0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="225" id="ZeF-vp-fIG">
+                                        <rect key="frame" x="0.0" y="463" width="375" height="225"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZeF-vp-fIG" id="XUB-ag-p40">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="225"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PxK-Ci-1od">
+                                                    <rect key="frame" x="15" y="143" width="346" height="36"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzD-V4-XB9">
+                                                            <rect key="frame" x="5" y="0.0" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="info.kshrd@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbu-K1-xNt">
+                                                            <rect key="frame" x="45" y="2" width="143" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="phirum.gm@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9Y-bR-iJY">
+                                                            <rect key="frame" x="5" y="19" width="149" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36" id="1RC-Pb-GnC"/>
+                                                    </constraints>
+                                                </view>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OwY-nL-T0N">
+                                                    <rect key="frame" x="15" y="1" width="346" height="145"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="145" id="dbV-F7-ymN"/>
+                                                    </constraints>
+                                                    <attributedString key="attributedText">
+                                                        <fragment>
+                                                            <string key="content">Address: #12, St 323, Sangkat Boeung Kak II,
+KhanToul Kork, Phnom Penh, Cambodia.
+Tel: (855)23 99 13 14
+(855)77 77 12 36 (Khmer, English)
+(855)15 4 5555 2 (Khmer, English)
+</string>
+                                                            <attributes>
+                                                                <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="6" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                    <tabStops>
+                                                                        <textTab alignment="left" location="28">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="56">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="84">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="112">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="140">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="168">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="196">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="224">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="252">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="280">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="308">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="336">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                    </tabStops>
+                                                                </paragraphStyle>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment>
+                                                            <string key="content">(855)17 52 81 69(Korean, English)
+</string>
+                                                            <attributes>
+                                                                <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                    <tabStops>
+                                                                        <textTab alignment="left" location="28">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="56">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="84">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="112">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="140">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="168">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="196">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="224">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="252">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="280">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="308">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="336">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                    </tabStops>
+                                                                </paragraphStyle>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="PxK-Ci-1od" firstAttribute="centerX" secondItem="XUB-ag-p40" secondAttribute="centerX" id="0Vk-jr-qnj"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="PxK-Ci-1od" secondAttribute="bottom" constant="38" id="7So-b1-axi"/>
+                                                <constraint firstItem="PxK-Ci-1od" firstAttribute="top" secondItem="XUB-ag-p40" secondAttribute="top" constant="143" id="7qE-Lk-p4f"/>
+                                                <constraint firstItem="OwY-nL-T0N" firstAttribute="top" secondItem="XUB-ag-p40" secondAttribute="topMargin" constant="-7" id="81Y-He-xrx"/>
+                                                <constraint firstItem="PxK-Ci-1od" firstAttribute="leading" secondItem="XUB-ag-p40" secondAttribute="leadingMargin" constant="7" id="Fwb-n4-iU5"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="PxK-Ci-1od" secondAttribute="trailing" constant="6" id="Tfe-f6-hwh"/>
+                                                <constraint firstItem="OwY-nL-T0N" firstAttribute="centerX" secondItem="XUB-ag-p40" secondAttribute="centerX" id="cPm-2P-GSz"/>
+                                                <constraint firstItem="OwY-nL-T0N" firstAttribute="leading" secondItem="XUB-ag-p40" secondAttribute="leadingMargin" constant="7" id="eA9-p0-Xyq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="OwY-nL-T0N" secondAttribute="trailing" constant="6" id="gAK-Da-nXo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="83" id="jE2-OT-cav">
+                                        <rect key="frame" x="0.0" y="688" width="375" height="83"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jE2-OT-cav" id="nBc-My-8Uq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="83"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="© Copyright 2015. All Rights Reserved. " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7w-Aw-p7U">
+                                                    <rect key="frame" x="8" y="8" width="359" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.62745098040000002" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z83-Ej-FJH">
+                                                    <rect key="frame" x="96" y="44" width="24" height="24"/>
+                                                    <state key="normal" image="facebook55.png"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BpK-5Z-DJk">
+                                                    <rect key="frame" x="147" y="44" width="24" height="24"/>
+                                                    <state key="normal" image="logo95.png"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMs-CT-Pzf">
+                                                    <rect key="frame" x="203" y="44" width="24" height="24"/>
+                                                    <state key="normal" image="google116.png"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMd-g0-Z4L">
+                                                    <rect key="frame" x="254" y="44" width="24" height="24"/>
+                                                    <state key="normal" image="linkedin11.png"/>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="QmE-Ln-7fw" id="0ED-ED-ROY"/>
                             <outlet property="delegate" destination="QmE-Ln-7fw" id="8Ld-nr-Zks"/>
@@ -1084,9 +1360,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="About Us" id="Oqo-YT-vy2">
                         <barButtonItem key="leftBarButtonItem" image="menu.png" id="zPq-an-A6x">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="search-icon.png" id="yUV-CV-M59">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>
@@ -1662,8 +1935,12 @@
         <image name="akn-logo white.png" width="1024" height="1024"/>
         <image name="calendar.png" width="512" height="512"/>
         <image name="email.png" width="64" height="64"/>
+        <image name="facebook55.png" width="24" height="24"/>
+        <image name="google116.png" width="24" height="24"/>
         <image name="guestBackground.png" width="519" height="1136"/>
+        <image name="linkedin11.png" width="24" height="24"/>
         <image name="login.png" width="64" height="64"/>
+        <image name="logo95.png" width="24" height="24"/>
         <image name="menu.png" width="28" height="20"/>
         <image name="profile.png" width="130" height="130"/>
         <image name="sabay.png" width="138" height="134"/>
