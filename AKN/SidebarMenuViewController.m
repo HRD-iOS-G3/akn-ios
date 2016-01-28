@@ -66,7 +66,7 @@
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
     
     self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/user/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
 }
 

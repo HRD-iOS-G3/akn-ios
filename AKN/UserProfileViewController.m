@@ -76,9 +76,7 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
     
-    
-    self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/user/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
     self.nameTextField.text = [user valueForKey:@"username"];
     
@@ -121,6 +119,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+    [imageCache clearMemory];
+    [imageCache clearDisk];
 }
 
 - (IBAction)updateButtonAction:(id)sender {
@@ -204,9 +205,9 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
-    self.profileImageView.image = chosenImage;
+   
     [manager uploadImage:chosenImage urlPath:[NSString stringWithFormat:@"%@?id=%@", @"/api/user/editupload",  [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"]] fileName:@"hrd.jpg"];
-    
+     self.profileImageView.image = chosenImage;
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
     
@@ -232,17 +233,21 @@
             [dictionary setObject:value forKey:key];
         }
         // change
-        [dictionary setObject:[[dataDictionary valueForKey:@"IMAGE"] substringFromIndex:8] forKey:@"image"];
+        [dictionary setObject:[[dataDictionary valueForKey:@"IMAGE"] substringFromIndex:12] forKey:@"image"];
         
         [userDefault setObject:dictionary forKey:@"user"];
         NSLog(@"=========%@", [userDefault objectForKey:@"user"]);
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        [imageCache clearMemory];
+        [imageCache clearDisk];
         
         //open home view
-       // UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         
-        //  determine the initial view controller here and instantiate it with
-      //  UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
-       // [self presentViewController:viewController animated:YES completion:nil];
+          //determine the initial view controller here and instantiate it with
+          UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+         [self presentViewController:viewController animated:YES completion:nil];
+
     }
     else{
         NSLog(@"Fail");
