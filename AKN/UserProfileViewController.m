@@ -173,6 +173,7 @@
             [dictionary setObject:value forKey:key];
         }
         // change
+        [dictionary setObject:self.nameTextField.text forKey:@"username"];
         [dictionary setObject:self.emailTextField.text forKey:@"email"];
         
         [userDefault setObject:dictionary forKey:@"user"];
@@ -204,9 +205,18 @@
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     self.profileImageView.image = chosenImage;
-    [manager uploadImage:chosenImage urlPath:@"/api/user/upload" fileName:@"hrd.jpg"];
+    [manager uploadImage:chosenImage urlPath:[NSString stringWithFormat:@"%@?id=%@", @"/api/user/editupload",  [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"]] fileName:@"hrd.jpg"];
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+    
+    // start animating when choose image
+    [self.activityIndicatorLoading startAnimating];
+   
+ //   self.doneButton.enabled = false;
+    self.updateButton.enabled = false;
+    
+    
 }
 
 -(void)responseImage:(NSDictionary *)dataDictionary{
@@ -228,11 +238,11 @@
         NSLog(@"=========%@", [userDefault objectForKey:@"user"]);
         
         //open home view
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
+       // UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         
         //  determine the initial view controller here and instantiate it with
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
-        [self presentViewController:viewController animated:YES completion:nil];
+      //  UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
+       // [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
         NSLog(@"Fail");

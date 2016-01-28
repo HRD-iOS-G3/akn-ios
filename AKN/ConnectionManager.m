@@ -96,6 +96,7 @@
     NSString *baseURL = @"http://akn.khmeracademy.org";
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", baseURL, path]];
     
+    
     // create request
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     // image
@@ -112,23 +113,27 @@
     [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
     [request addValue:@"Basic YXBpOmFrbm5ld3M=" forHTTPHeaderField:@"Authorization"];
+   
     
     // post body
     NSMutableData *body = [NSMutableData data];
     
     // add params (all params are strings)
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n",name]] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", name]] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    
     // add image data
     [body appendData:[NSData dataWithData:imageData]];
+    
+        // close form
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
     // setting the body of the post to the reqeust
     [request setHTTPBody:body];
     
     // create session
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    
     [[session downloadTaskWithRequest:request completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
         if (!error) {
             NSData *data = [NSData dataWithContentsOfURL:localfile];
