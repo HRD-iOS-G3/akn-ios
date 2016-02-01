@@ -19,6 +19,7 @@
 #import "Connectivity.h"
 #import "UIView+Toast.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <Google/Analytics.h>
 
 @interface MainViewController ()<SWRevealViewControllerDelegate,UISearchBarDelegate>{
     UIView *disableViewOverlay;
@@ -37,6 +38,23 @@
 static MainViewController *this;
 +(MainViewController *)getInstance{
 	return this;
+}
+-(void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	// May return nil if a tracker has not already been initialized with a
+	// property ID.
+	id tracker = [[GAI sharedInstance] defaultTracker];
+	
+	// This screen name value will remain set on the tracker and sent with
+	// hits until it is set to a new value or to nil.
+	[tracker set:kGAIScreenName
+		   value:@"Home Screen"];
+	
+	// Previous V3 SDK versions
+	// [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+	
+	// New SDK versions
+	[tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewDidLoad {

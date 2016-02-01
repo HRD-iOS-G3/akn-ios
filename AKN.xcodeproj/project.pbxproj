@@ -29,6 +29,7 @@
 		A54D5B9C1C57143B008FF1AB /* KhmerOSBattambang-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A54D5B9B1C571403008FF1AB /* KhmerOSBattambang-Bold.ttf */; };
 		A55066B11C50C7310073CB63 /* DetailNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A55066B01C50C7310073CB63 /* DetailNewsTableViewController.m */; };
 		A55066B31C50C7480073CB63 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A55066B21C50C7480073CB63 /* Detail.storyboard */; };
+		A55A981E1C5F022B00FEE8D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A55A981D1C5F022B00FEE8D2 /* GoogleService-Info.plist */; };
 		A56D0E5C1C42C6CA00C8435B /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */; };
 		A578E55C1C43FD8D0053DC8B /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A578E55B1C43FD8D0053DC8B /* left.png */; };
 		A58E32141C5068A500D00C7C /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = A58E32131C5068A500D00C7C /* UIView+Toast.m */; };
@@ -141,6 +142,7 @@
 		A55066AF1C50C7310073CB63 /* DetailNewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNewsTableViewController.h; sourceTree = "<group>"; };
 		A55066B01C50C7310073CB63 /* DetailNewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNewsTableViewController.m; sourceTree = "<group>"; };
 		A55066B21C50C7480073CB63 /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
+		A55A981D1C5F022B00FEE8D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A56D0E5A1C42C6CA00C8435B /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
 		A56D0E5B1C42C6CA00C8435B /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
 		A578E55B1C43FD8D0053DC8B /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				A5BE5FE11C3D0AA0007025AC /* PageMenu.storyboard */,
 				A5C6C3511C36B15D0003AA80 /* Assets.xcassets */,
 				A5C6C3561C36B15D0003AA80 /* Info.plist */,
+				A55A981D1C5F022B00FEE8D2 /* GoogleService-Info.plist */,
 				A5C6C3451C36B15D0003AA80 /* Supporting Files */,
 			);
 			path = AKN;
@@ -669,6 +672,7 @@
 				A5BE5FF11C3D0B47007025AC /* sabay.png in Resources */,
 				A5BE5FD01C3D094F007025AC /* login.png in Resources */,
 				A5BE5FDC1C3D094F007025AC /* menu.png in Resources */,
+				A55A981E1C5F022B00FEE8D2 /* GoogleService-Info.plist in Resources */,
 				A5C6C3521C36B15D0003AA80 /* Assets.xcassets in Resources */,
 				A5BE5FEE1C3D0B47007025AC /* calendar.png in Resources */,
 				A5DE78A91C4C03FC003DCE16 /* cambo-report.png in Resources */,

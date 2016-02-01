@@ -9,6 +9,7 @@ target 'AKN' do
 pod 'AFNetworking', '~> 3.0'
 pod 'SDWebImage', '~>3.7'
 pod 'SVProgressHUD'
+pod 'Google/Analytics'
 
 end
 

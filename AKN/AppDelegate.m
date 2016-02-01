@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Google/Analytics.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
+	[NSThread sleepForTimeInterval:2];
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
 	
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
@@ -32,6 +34,16 @@
 	pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
 	pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
 	pageControl.backgroundColor = [UIColor whiteColor];
+	
+	// Configure tracker from GoogleService-Info.plist.
+	NSError *configureError;
+	[[GGLContext sharedInstance] configureWithError:&configureError];
+	NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+	
+	// Optional: configure GAI options.
+	//	GAI *gai = [GAI sharedInstance];
+	//	gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
+	//	gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
 	
 	
 	return YES;

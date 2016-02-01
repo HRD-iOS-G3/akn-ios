@@ -16,6 +16,8 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "UIView+Toast.h"
 #import "SearchAllTableViewController.h"
+#import <Google/Analytics.h>
+
 @interface NewsByCategoryTableViewController ()<ConnectionManagerDelegate, UISearchBarDelegate>
 {
 	NSURL *url;
@@ -41,6 +43,25 @@
 @end
 
 @implementation NewsByCategoryTableViewController
+
+
+-(void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	// May return nil if a tracker has not already been initialized with a
+	// property ID.
+	id tracker = [[GAI sharedInstance] defaultTracker];
+	
+	// This screen name value will remain set on the tracker and sent with
+	// hits until it is set to a new value or to nil.
+	[tracker set:kGAIScreenName
+		   value:@"Site~Category Screen"];
+	
+	// Previous V3 SDK versions
+	// [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+	
+	// New SDK versions
+	[tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
 
 - (IBAction)buttonSearchClicked:(id)sender {
 	[[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
@@ -295,7 +316,7 @@
 
 -(void)configureCell:(HomeViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath{
 	cell.newsTitle.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsTitle];
-	cell.newsView.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsHitCount];
+	cell.newsView.text=[NSString stringWithFormat:@"%d",_newsList[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_newsList[indexPath.row].newsDateTimestampString]];
 	
 	cell.buttonSave.tag = indexPath.row;
