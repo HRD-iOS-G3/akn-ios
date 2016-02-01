@@ -19,7 +19,7 @@
 		_newsDescription = ([array valueForKeyPath:@"description"]==NULL)?@"":[array valueForKeyPath:@"description"];
 		_newsSource = ([array valueForKeyPath:@"name"]==NULL)?@"":[array valueForKeyPath:@"name"];
 		_newsImageUrl = ([array valueForKeyPath:@"image"]==NULL)?@"":[array valueForKeyPath:@"image"];
-		_newsHitCount = ([array valueForKeyPath:@"hit"]==NULL)?@"":[array valueForKeyPath:@"hit"];
+		_newsHitCount = [[array valueForKeyPath:@"hit"] intValue];
 		_newsDateTimestampString = ([array valueForKeyPath:@"date"]==NULL)?@"":[array valueForKeyPath:@"date"];
 		_newsURL = ([array valueForKey:@"url"]==NULL)?@"":[array valueForKeyPath:@"url"];
 		_saved = ([[array valueForKey:@"saved"] intValue] == 0)?false:true;

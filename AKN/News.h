@@ -18,7 +18,7 @@
 @property(nonatomic, strong)NSString *newsSource;
 @property(nonatomic, strong)NSString *newsImageUrl;
 @property(nonatomic, strong)UIImage *newsImage;
-@property(nonatomic, strong)NSString *newsHitCount;
+@property int newsHitCount;
 @property(nonatomic, strong)NSString *newsDateTimestampString;
 @property BOOL saved;
 

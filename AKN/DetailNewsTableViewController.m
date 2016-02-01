@@ -14,6 +14,8 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "UIView+Toast.h"
 #import "SaveListTableViewController.h"
+#import <Google/Analytics.h>
+
 @interface DetailNewsTableViewController ()<ConnectionManagerDelegate>
 
 {
@@ -33,6 +35,22 @@
 @implementation DetailNewsTableViewController
 -(void)viewWillAppear:(BOOL)animated
 {
+	[super viewWillAppear:animated];
+	// May return nil if a tracker has not already been initialized with a
+	// property ID.
+	id tracker = [[GAI sharedInstance] defaultTracker];
+	
+	// This screen name value will remain set on the tracker and sent with
+	// hits until it is set to a new value or to nil.
+	[tracker set:kGAIScreenName
+		   value:@"Detail Screen"];
+	
+	// Previous V3 SDK versions
+	// [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+	
+	// New SDK versions
+	[tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+	
     [[UIApplication sharedApplication].keyWindow addSubview:lblCpyRight];
     [lblCpyRight setFrame:CGRectMake(self.view.frame.size.width, self.view.frame.size.height-lblCpyRight.frame.size.height, self.view.frame.size.width, lblCpyRight.frame.size.height)];
 
@@ -44,7 +62,32 @@
 	_labelTitle.text = @"";
 	_labelDate.text = @"";
 	_labelDescription.text = @"";
+	
+	if (_news.saved) {
+		self.navigationItem.rightBarButtonItem.enabled = false;
+	}
 
+}
+- (IBAction)actionSave:(id)sender {
+	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
+		//		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+		[sender setEnabled:false];
+		//		_newsList[sender.tag].saved = true;
+		_news.saved = true;
+		ConnectionManager *m = [[ConnectionManager alloc]init];
+		m.delegate = self;
+		
+		int userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"]intValue];
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_news.newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
+																	 duration:2.0
+																	 position:CSToastPositionBottom];
+	}else{
+		
+		[[MainViewController getInstance].navigationController.view makeToast:@"Please login first!"
+																	 duration:3.0
+																	 position:CSToastPositionBottom];
+	}
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [lblCpyRight removeFromSuperview];
@@ -121,6 +164,10 @@
 		}
 		NSLog(@"%d",_news.newsId);
 	}
+}
+
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+	NSLog(@"%@", result);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

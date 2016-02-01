@@ -163,7 +163,7 @@ bool help1 = true;
 
 -(void)configureCell:(HomeViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath{
 	cell.newsTitle.text=[NSString stringWithFormat:@"%@",_listNewsFound[indexPath.row].newsTitle];
-	cell.newsView.text=[NSString stringWithFormat:@"%@",_listNewsFound[indexPath.row].newsHitCount];
+	cell.newsView.text=[NSString stringWithFormat:@"%d",_listNewsFound[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_listNewsFound[indexPath.row].newsDateTimestampString]];
 	
 	cell.buttonSave.tag = indexPath.row;
