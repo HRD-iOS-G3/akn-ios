@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "ConnectionManager.h"
 #import "SVProgressHUD.h"
+#import <Google/Analytics.h>
 
 @interface LoginTableViewController ()<ConnectionManagerDelegate>{
     ConnectionManager *manager;
@@ -24,6 +25,25 @@
     __weak IBOutlet UITextField *txtPwd;
     __weak IBOutlet UITextField *txtEmail;
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	// May return nil if a tracker has not already been initialized with a
+	// property ID.
+	id tracker = [[GAI sharedInstance] defaultTracker];
+	
+	// This screen name value will remain set on the tracker and sent with
+	// hits until it is set to a new value or to nil.
+	[tracker set:kGAIScreenName
+		   value:@"Login Screen"];
+	
+	// Previous V3 SDK versions
+	// [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+	
+	// New SDK versions
+	[tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -155,7 +175,7 @@
          [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"register_date"];
         
         [defaults setObject:[result valueForKey:@"DATA"] forKey:@"user"];
-        
+		
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         

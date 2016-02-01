@@ -31,8 +31,6 @@
 	
 	UIActivityIndicatorView *indicatorFooter;
 	
-	ConnectionManager *manager;
-	
 	NSMutableArray *countHelp;
 	int userId;
 }
@@ -64,7 +62,7 @@ NSString *khmeracademy = @"http://akn.khmeracademy.org";
 	_popularNewsList = [[NSMutableArray alloc]init];
 	_newsList = [[NSMutableArray alloc]init];
 	
-	manager = [[ConnectionManager alloc]init];
+	ConnectionManager *manager = [[ConnectionManager alloc]init];
 	manager.delegate = self;
 	
     kTableHeaderHeight=200.0;
@@ -172,13 +170,26 @@ bool help = true;
 	
 }
 
+bool helpRefreshData = true;
 -(void)refreshData{
-	_currentPageNumber = 1;
-	viewIndicatorTop.tag = 101;
-	
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/",khmeracademy, _currentPageNumber, userId]]];
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/1/5/0/0/%d/",khmeracademy, userId]]];
-	
+	if (helpRefreshData) {
+		NSLog(@"Start Refreshing Data");
+		helpRefreshData = false;
+		_currentPageNumber = 1;
+		viewIndicatorTop.tag = 101;
+		
+		ConnectionManager *manager = [[ConnectionManager alloc]init];
+		manager.delegate = self;
+		NSURL *url2 =[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/",khmeracademy, _currentPageNumber, userId]];
+		NSLog(@"Refresh1 : %@",url2);
+		[manager requestDataWithURL:url2];
+		ConnectionManager *m = [[ConnectionManager alloc]init];
+		m.delegate = self;
+		
+		NSURL *url1 =[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/popular/%d/7/5",khmeracademy, userId]];
+		NSLog(@"Refresh2 : %@",url1);
+		[m requestDataWithURL:url1];
+	}
 }
 
 -(void)refreshTableVeiwList
@@ -196,9 +207,9 @@ bool help = true;
 }
 -(void)fetchNews{
 	//Create connection manager
-//	ConnectionManager *manager = [[ConnectionManager alloc] init];
-//	
-//	manager.delegate = self;
+	ConnectionManager *manager = [[ConnectionManager alloc] init];
+	
+	manager.delegate = self;
 	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/", khmeracademy,_currentPageNumber,userId]]];
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -211,17 +222,37 @@ bool help = true;
 	if (_popularNewsList.count == 0) {
 		[SVProgressHUD show];
 	}
+	ConnectionManager *manager = [[ConnectionManager alloc]init];
+	
+	manager.delegate = self;
 	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/", khmeracademy,_currentPageNumber,userId]]];
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/1/5/0/0/%d/",khmeracademy, userId]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/popular/%d/7/5",khmeracademy, userId]]];
 }
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
-	NSLog(@"%@" , URL.path);
+	//	NSLog(@"%@" , URL);
+	
+	[UIView animateWithDuration:0.3 animations:^{
+		[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
+	} completion:^(BOOL finished) {
+		viewIndicatorTop.tag = 102;
+	}];
+	
 	if (viewIndicatorTop.tag == 101) { // refresh data
-		
+		NSLog(@"Refresh Data Response");
 		[SVProgressHUD dismiss];
-		
+		[UIView animateWithDuration:0.3 animations:^{
+			[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
+		} completion:^(BOOL finished) {
+			viewIndicatorTop.tag = 102;
+		}];
 		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/%d", _currentPageNumber, userId]]) {
+			[UIView animateWithDuration:0.3 animations:^{
+				[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
+			} completion:^(BOOL finished) {
+				viewIndicatorTop.tag = 102;
+			}];
+			NSLog(@"RefreshData1 : %@", URL);
 			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
 			NSMutableArray<News *> *tmp = [NSMutableArray new];
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
@@ -233,10 +264,17 @@ bool help = true;
 			
 			[self.tableView reloadData];
 		}
-		//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
-		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/1/5/0/0/%d", userId]]) {
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/popular/%d/7/5", userId]]) {
+			helpRefreshData = true;
 			
-			NSMutableArray<News *> *tmp = [NSMutableArray new];
+			[UIView animateWithDuration:0.3 animations:^{
+				[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
+			} completion:^(BOOL finished) {
+				viewIndicatorTop.tag = 102;
+			}];
+			
+			NSLog(@"RefreshData2 : %@", URL);
+			NSMutableArray<News *> *tmp = [[NSMutableArray alloc]init];
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
 				[tmp addObject:[[News alloc]initWithData:object]];
 			}
@@ -252,22 +290,23 @@ bool help = true;
 			
 			_popularNewsList = workingArray;
 			
-			countHelp = [NSMutableArray new];
-			for (int i=1; i<_popularNewsList.count-1; i++) {
-				[countHelp addObject:[NSNumber numberWithInt:i]];
-			}
-			if (countHelp.count <= _popularNewsList.count) {
-				[countHelp addObjectsFromArray:countHelp];
+			if (_popularNewsList.count > 0) {
+				countHelp = [NSMutableArray new];
+				for (int i=1; i<_popularNewsList.count-1; i++) {
+					[countHelp addObject:[NSNumber numberWithInt:i]];
+				}
+				if (countHelp.count <= _popularNewsList.count) {
+					[countHelp addObjectsFromArray:countHelp];
+				}
 			}
 		}
-		
+	}
+	else{
 		[UIView animateWithDuration:0.3 animations:^{
 			[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
 		} completion:^(BOOL finished) {
 			viewIndicatorTop.tag = 102;
 		}];
-	}
-	else{
 		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/%d", _currentPageNumber, userId]]) {
 			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
@@ -277,32 +316,39 @@ bool help = true;
 			[self.tableView reloadData];
 		}
 		//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
-		else if([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/1/5/0/0/%d",userId]]) {
+		else if([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/popular/%d/7/5",userId]]) {
 			
+			NSMutableArray<News *> *tmp = [[NSMutableArray alloc]init];
 			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
-				[_popularNewsList addObject:[[News alloc]initWithData:object]];
+				[tmp addObject:[[News alloc]initWithData:object]];
 			}
+			[_popularNewsList removeAllObjects];
+			[_popularNewsList addObjectsFromArray:tmp];
+			
 			[self->collectionViewNews reloadData];
 			
-			id firstItem = [_popularNewsList firstObject];
-			id lastItem = [_popularNewsList lastObject];
-			NSMutableArray *workingArray = [_popularNewsList mutableCopy];
-			[workingArray insertObject:lastItem atIndex:0];
-			[workingArray addObject:firstItem];
-			
-			_popularNewsList = workingArray;
-			
-			countHelp = [NSMutableArray new];
-			for (int i=1; i<_popularNewsList.count-1; i++) {
-				[countHelp addObject:[NSNumber numberWithInt:i]];
+			if (_popularNewsList.count > 0) {
+				id firstItem = [_popularNewsList firstObject];
+				id lastItem = [_popularNewsList lastObject];
+				NSMutableArray *workingArray = [_popularNewsList mutableCopy];
+				[workingArray insertObject:lastItem atIndex:0];
+				[workingArray addObject:firstItem];
+				
+				_popularNewsList = workingArray;
+				
+				countHelp = [[NSMutableArray alloc]init];
+				for (int i=1; i<_popularNewsList.count-1; i++) {
+					[countHelp addObject:[NSNumber numberWithInt:i]];
+				}
+				[countHelp addObjectsFromArray:countHelp];
 			}
-			[countHelp addObjectsFromArray:countHelp];
 		}
 		if (_newsList.count > 0 && _popularNewsList.count > 0) {
 			[SVProgressHUD dismiss];
 		}
 	}
 }
+
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
 	NSLog(@"%@",result);
 }
@@ -343,7 +389,7 @@ bool help = true;
 
 -(void)configureCell:(HomeViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath{
 	cell.newsTitle.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsTitle];
-	cell.newsView.text=[NSString stringWithFormat:@"%@",_newsList[indexPath.row].newsHitCount];
+	cell.newsView.text=[NSString stringWithFormat:@"%d",_newsList[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:_newsList[indexPath.row].newsDateTimestampString]];
 	
 	cell.buttonSave.tag = indexPath.row;

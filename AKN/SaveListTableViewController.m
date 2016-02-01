@@ -81,7 +81,9 @@ id selfobject;
 	if ([[result valueForKeyPath:@"MESSAGE"] isEqualToString:@"NEWS HAS BEEN FOUND"]) {
 		[savedNewsList removeAllObjects];
 		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
-			[savedNewsList addObject:[[News alloc]initWithData:object]];
+			News *news = [[News alloc]initWithData:object];
+			news.saved = true;
+			[savedNewsList addObject:news];
 		}
 		[self.tableView reloadData];
 	}else{
@@ -105,7 +107,7 @@ id selfobject;
 
 -(void)configureCell:(HomeViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath{
 	cell.newsTitle.text=[NSString stringWithFormat:@"%@",savedNewsList[indexPath.row].newsTitle];
-	cell.newsView.text=[NSString stringWithFormat:@"%@",savedNewsList[indexPath.row].newsHitCount];
+	cell.newsView.text=[NSString stringWithFormat:@"%d",savedNewsList[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:savedNewsList[indexPath.row].newsDateTimestampString]];
 	
 	cell.buttonSave.tag = indexPath.row;
