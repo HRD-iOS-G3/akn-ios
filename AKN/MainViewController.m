@@ -18,6 +18,7 @@
 #import "SearchAllTableViewController.h"
 #import "Connectivity.h"
 #import "UIView+Toast.h"
+#import "Utilities.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <Google/Analytics.h>
 
@@ -60,6 +61,7 @@ static MainViewController *this;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	this = self;
+    [Utilities customizeNavigationBar:self.navigationController withTitle:@"ALL KHMER NEWS"];
 	[self customizePageMenu];
     [self customizeSlideOutMenu];
 	
@@ -91,8 +93,12 @@ static MainViewController *this;
                                initWithFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height)];
     disableViewOverlay.backgroundColor=[UIColor blackColor];
     disableViewOverlay.alpha = 0;
-
+    
+    // change SVProgressHUD background color
+    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
+    [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 }
+
 - (IBAction)searchBarTapped:(id)sender {
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"X"];
@@ -125,6 +131,7 @@ static MainViewController *this;
         
     }];
 }
+
 #pragma mark UISearchBarDelegate methods
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
@@ -146,6 +153,7 @@ static MainViewController *this;
     [disableViewOverlay removeFromSuperview];
     self.searchBarField.text=@"";
 }
+
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [disableViewOverlay removeFromSuperview];
     //[self searchBarTextDidEndEditing:searchBar];
@@ -156,6 +164,7 @@ static MainViewController *this;
     //dvc.news = _newsList[indexPath.row];
     [mvc.navigationController pushViewController:svc animated:YES];
 }
+
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     disableViewOverlay.alpha = 0;
     [self.view addSubview:disableViewOverlay];
@@ -165,9 +174,11 @@ static MainViewController *this;
     disableViewOverlay.alpha = 0.6;
     [UIView commitAnimations];
 }
+
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
 //    NSLog(@"End work");
 }
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
 	searchString = searchText;
@@ -179,12 +190,14 @@ static MainViewController *this;
                                                        userInfo:searchText
                                                         repeats:NO];
 }
+
 -(void)doDelayedSearch:(NSTimer *)t
 {
     assert(t == searchDelayer);
     [self request:searchDelayer.userInfo];
     searchDelayer = nil; // important because the timer is about to release and dealloc itself
 }
+
 -(void)request:(NSString *)myString{
 //    NSLog(@"%@",myString);
 }
@@ -198,18 +211,8 @@ static MainViewController *this;
 }
 
 -(void)customizePageMenu{
-	self.title = @"ALL KHMER NEWS";
-	//self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:30.0/255.0 green:30.0/255.0 blue:30.0/255.0 alpha:1.0];
-	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];
-	self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-	//[self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-	//self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-//	self.navigationController.navigationBar.tintColor = [UIColor blueColor];
-	self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
-	
-	
+
 	UIStoryboard *pageMenuStoryboard = [UIStoryboard storyboardWithName:@"PageMenu" bundle:nil];
-	
 	
 	TablePageViewController *controller1 = [pageMenuStoryboard instantiateViewControllerWithIdentifier:@"home"];
 	controller1.title = @"Home";
@@ -258,15 +261,5 @@ static MainViewController *this;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

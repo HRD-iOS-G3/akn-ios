@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "ConnectionManager.h"
 #import "SVProgressHUD.h"
+#import "Utilities.h"
 #import <Google/Analytics.h>
 
 @interface SignUpTableViewController ()<ConnectionManagerDelegate>{
@@ -50,22 +51,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
-    
-    [self customizePageMenu];
+    [Utilities customizeNavigationBar:self.navigationController withTitle:@"Sign Up"];
     
     [self.tableView addGestureRecognizer:gestTab];
-    txtEmail.layer.masksToBounds=YES;
-//    txtEmail.layer.borderColor=[UIColor lightGrayColor].CGColor;
-//    txtEmail.layer.borderWidth=1;
-    txtPwd.layer.masksToBounds=YES;
-//    txtPwd.layer.borderColor=[UIColor lightGrayColor].CGColor;
-//    txtPwd.layer.borderWidth=1;
-    txtFullName.layer.masksToBounds=YES;
-//    txtFullName.layer.borderColor=[UIColor lightGrayColor].CGColor;
-//    txtFullName.layer.borderWidth=1;
-    btnSignUp.layer.cornerRadius=6;
     
+    // Design Style Control
+    txtEmail.layer.masksToBounds=YES;
+    txtPwd.layer.masksToBounds=YES;
+    txtFullName.layer.masksToBounds=YES;
+    btnSignUp.layer.cornerRadius=6;
     
     // border radius for button
     [self.signUpButton.layer setCornerRadius:self.signUpButton.bounds.size.height/2];
@@ -74,42 +68,13 @@
     
     //Set GradienColor for control
     NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
-    [self setGradientColor:self.signUpButton NSArrayColor:gradientColor];
-    
-
+    [Utilities setGradientColor:self.signUpButton NSArrayColor:gradientColor];
     
     //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    
-    
-    // change background color
-    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
-    [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 
-}
-
--(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
-    //Set GradienColor for control
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = control.bounds;
-    gradient.colors = arrayColor;
-    
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(0, 1);
-    [control.layer insertSublayer:gradient atIndex:0];
-}
-
-#pragma mark - Navigation bar color
-
--(void)customizePageMenu{
-    self.title = @"Sign Up";
-    
-    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
 }
 
 - (IBAction)gestTab:(id)sender {
@@ -118,10 +83,6 @@
     [txtEmail endEditing:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark: - Sign Up
 - (IBAction)signUpAction:(id)sender {
@@ -159,21 +120,14 @@
                                            @"email": email,
                                            @"password": password,
                                            @"image": @""
-                                           
                                            };
         
-        
         //Send data to server and insert it
-        [manager requestDataWithURL:dictionaryObject withKey:@"/api/user/" method:@"POST"];
-        
+        [manager requestDataWithURL:dictionaryObject withKey:SIGNUP_URL method:POST];
     }
-    
 }
 
 
--(void)dismissKeyboard{
-    [self.view endEditing:YES];
-}
 
 #pragma mark: - ConnectionManagerDelegate
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
@@ -183,8 +137,9 @@
     // disable login button
     self.signUpButton.enabled =true;
     
-    if([[result valueForKey:@"MESSAGE"] containsString:@"SUCCESS"]){
+    if([[result valueForKey:R_KEY_MESSAGE] containsString:SIGNUP_SUCCESS]){
         [SVProgressHUD dismiss];
+        
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         
@@ -193,8 +148,17 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-         [SVProgressHUD showErrorWithStatus:@"SignUp Failed\nThis username is already created!!!"];
+        [SVProgressHUD showErrorWithStatus:SIGNUP_UNSUCCESS];
     }
+}
+
+-(void)dismissKeyboard{
+    [self.view endEditing:YES];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end
