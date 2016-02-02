@@ -8,18 +8,82 @@
 
 #import "ConnectionManager.h"
 
+// REQUEST METHOD
+NSString * GET  = @"GET";//
+NSString * POST = @"POST";//
+NSString * PUT  = @"PUT";//
+NSString * DELETE = @"DELETE";//
+
+// REQUEST URL
+NSString * LOGIN_URL    = @"/api/user/login";//
+NSString * SIGNUP_URL   = @"/api/user/";//
+NSString * GET_USER     = @"/api/user";
+NSString * UPDATE_USER  = @"/api/user/update";//
+NSString * EDIT_UPLOAD_IMAGE  = @"/api/user/editupload";//
+NSString * IMAGE_URL    = @"/api/uploadfile/upload?url=user";
+
+// RESPONSE KEY
+NSString * R_KEY_MESSAGE    = @"MESSAGE";//
+NSString * R_KEY_DATA   =  @"DATA";//
+
+
+// RESPONSE KEY FOR UER
+NSString * USERID           = @"USERID";
+NSString * PROFILE_IMG_URL  = @"PROFILE_IMG_URL";
+NSString * COVER_IMG_URL    = @"COVER_IMG_URL";
+NSString * EMAIL            = @"EMAIL";
+NSString * USERNAME         = @"USERNAME";
+
+
+// MESSAGE STATE
+NSString * LOGIN_SUCCESS    = @"LOGIN SUCCESS";//
+NSString * LOGIN_UNSUCCESS  = @"Login failed! check email or password and try again!";//
+
+NSString * SIGNUP_SUCCESS   = @"SUCCESS"; //
+NSString * SIGNUP_UNSUCCESS = @"SignUp Failed\nThis username is already created!!!";//
+
+NSString * GET_USER_SECCESS = @"RECORD FOUND";
+
+NSString * UPDATE_USER_SECCESS     = @"SUCCESS";//
+NSString * UPDATE_USER_UNSUCCESS   = @"OPERATION FAIL";//
+
+NSString * UPLOAD_IMAGE_SECCESS    = @"SUCCESS";//
+NSString * UPLOAD_IMAGE_UNSECCESS  = @"OPERATION FAIL";//
+
+// DEFINED KEY
+NSString * LOGIN_KEY = @"login";
+NSString * USER_DEFAULT_KEY = @"user";//
+
+// API KEY
+NSString *API_KEY = @"Authorization";//
+NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
+
+
+
 @implementation ConnectionManager{
     //responseData object
     NSMutableData *responseData;
 }
 
+-(id)init{
+    self = [super init];
+    if (self != nil) {
+        self.basedUrl = @"http://akn.khmeracademy.org";
+    }
+    return self;
+}
+
+#pragma mark: - Request with URL
 -(void)requestDataWithURL:(NSURL *)URL{
+    
+    // create request with url
 	NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc]initWithURL: URL];
 	
-	urlRequest.HTTPMethod = @"GET";
-	[urlRequest addValue:@"Basic YXBpOmFrbm5ld3M=" forHTTPHeaderField:@"Authorization"];
-//	[urlRequest addValue:@"text/html;charset=ISO-8859-1" forHTTPHeaderField:@"Content-Type"];
+    //Set request method and content type
+	urlRequest.HTTPMethod = GET;
+	[urlRequest addValue:HTTP_HEADER forHTTPHeaderField:API_KEY];
 	
+    //Create session
 	NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
 	
 	[[session downloadTaskWithRequest:urlRequest completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
@@ -36,21 +100,20 @@
 	}] resume];
 }
 
+
 #pragma mark: - Request with Method
 -(void)requestDataWithURL:(NSDictionary *)reqDictionary withKey:(NSString *)key method:(NSString *)method{
     
-    //Target URL
-   NSString *baseURL = @"http://akn.khmeracademy.org";
-     // NSString *baseURL = @"http://api-akn.herokuapp.com";
-    NSString *strURL = [NSString stringWithFormat:@"%@%@", baseURL, key];
-  
+    // set url
+    NSString *strURL = [NSString stringWithFormat:@"%@%@", self.basedUrl, key];
     NSURL *url = [NSURL URLWithString:strURL];
     
+    // create request with url
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
     
     //Set request method and content type
     request.HTTPMethod = method;
-    [request addValue:@"Basic YXBpOmFrbm5ld3M=" forHTTPHeaderField:@"Authorization"];
+    [request addValue:HTTP_HEADER forHTTPHeaderField:API_KEY];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     //Create session
@@ -89,22 +152,22 @@
     [task resume];
 }
 
-
--(void)uploadImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name{
-    // url
-    //Target URL
-    NSString *baseURL = @"http://akn.khmeracademy.org";
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", baseURL, path]];
+#pragma mark: - Request with Method
+-(void)uploadWithImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name{
+  
+    // set url
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.basedUrl, path]];
     
     
     // create request
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    
     // image
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [request setHTTPShouldHandleCookies:NO];
     [request setTimeoutInterval:60];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:POST];
     
     NSString *boundary = @"---------------------------14737809831466499882746641449";
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
@@ -112,7 +175,7 @@
     // set content type
     [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    [request addValue:@"Basic YXBpOmFrbm5ld3M=" forHTTPHeaderField:@"Authorization"];
+    [request addValue:HTTP_HEADER forHTTPHeaderField:API_KEY];
    
     
     // post body

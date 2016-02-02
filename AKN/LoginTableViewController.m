@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "ConnectionManager.h"
 #import "SVProgressHUD.h"
+#import "Utilities.h"
 #import <Google/Analytics.h>
 
 @interface LoginTableViewController ()<ConnectionManagerDelegate>{
@@ -47,70 +48,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
-    
-    [self customizePageMenu];
+    [Utilities customizeNavigationBar:self.navigationController withTitle:@"Login"];
     
     // border radius
     [self.loginButton.layer setCornerRadius:self.loginButton.bounds.size.height/2];
     self.loginButton.clipsToBounds = YES;
     
-    
     //Set GradienColor for control
     NSArray *gradientColor  =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
-    [self setGradientColor:self.loginButton NSArrayColor:gradientColor];
-    
+    [Utilities setGradientColor:self.loginButton NSArrayColor:gradientColor];
     
     [self.tableView addGestureRecognizer:gesture];
+    
     // Design Style Control
     txtEmail.layer.masksToBounds=YES;
-//    txtEmail.layer.borderColor=[UIColor lightGrayColor].CGColor;
-//    txtEmail.layer.borderWidth=1;
     txtPwd.layer.masksToBounds=YES;
-//    txtPwd.layer.borderColor=[UIColor lightGrayColor].CGColor;
-//    txtPwd.layer.borderWidth=1;
     btnLogin.layer.cornerRadius=6;
     // Do any additional setup after loading the view.
-    
     
     //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];
     [self.sidebarButton setAction: @selector( revealToggle: )];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    
-    
-    // change background color
-    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
-    [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 }
-
-#pragma mark - Navigation bar color
-
--(void)customizePageMenu{
-    self.title = @"Login";
-    
-    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
-   
-}
-
 
 - (IBAction)gesture:(id)sender {
     [txtEmail endEditing:YES];
     [txtPwd endEditing:YES];
-}
-
--(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
-    //Set GradienColor for control
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = control.bounds;
-    gradient.colors = arrayColor;
-    
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(0, 1);
-    [control.layer insertSublayer:gradient atIndex:0];
 }
 
 #pragma mark: - Login
@@ -146,36 +110,42 @@
         [dictionary setObject:password forKey:@"password"];
         
         // send data to server
-        [manager requestDataWithURL:dictionary withKey:@"/api/user/login" method:@"POST"];
-        
+        [manager requestDataWithURL:dictionary withKey:LOGIN_URL method:POST];
         
     }
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 #pragma mark: - ConnectionManagerDelegate
-
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-      [self.view setUserInteractionEnabled:true];
-    [self.activityIndicatorLoading stopAnimating];
-     self.loginButton.enabled = true;
     
-    if([[result valueForKey:@"MESSAGE"] isEqualToString:@"LOGIN SUCCESS"]){
+    // enable view, button and stop activityIndicatorLoading
+    [self.view setUserInteractionEnabled:true];
+    [self.activityIndicatorLoading stopAnimating];
+    self.loginButton.enabled = true;
+    
+    // check return message
+    if([[result valueForKey:R_KEY_MESSAGE] isEqualToString:LOGIN_SUCCESS]){
+        
         //create NSUserDefaults object then add respone data to it
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"roles"];
-        [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"authorities"];
-        [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"password"];
-         [[result valueForKey:@"DATA"] setObject:@"na" forKey:@"register_date"];
         
-        [defaults setObject:[result valueForKey:@"DATA"] forKey:@"user"];
-		
+        // create tempDictionary for storing null value
+        NSMutableDictionary * tempDictionary =[[NSMutableDictionary alloc]init];
+        
+        // Find null value
+        for (NSString* key in [result valueForKey:R_KEY_DATA])
+            if([[result valueForKey:R_KEY_DATA] objectForKey:key] == [ NSNull null ])
+                 [tempDictionary setObject:@"N/A" forKey:key];
+        
+        // set null value to NSString N/A
+        for(NSString* key in tempDictionary)
+              [[result valueForKey:R_KEY_DATA] setObject:@"N/A" forKey:key];
+        
+        NSLog(@"%@", [result valueForKey:R_KEY_DATA] );
+        // set userdefault
+        [defaults setObject:[result valueForKey:R_KEY_DATA] forKey:USER_DEFAULT_KEY];
+        
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         
@@ -184,13 +154,18 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-        [SVProgressHUD showErrorWithStatus:[result valueForKey:@"MESSAGE"]];
+        // display error message
+        [SVProgressHUD showErrorWithStatus:LOGIN_UNSUCCESS];
     }
 }
 
-
 -(void)dismissKeyboard{
     [self.view endEditing:YES];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end
