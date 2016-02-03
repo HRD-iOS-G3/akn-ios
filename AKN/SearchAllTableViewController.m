@@ -61,7 +61,7 @@
 -(void)fetchNews{
 	ConnectionManager *manager = [[ConnectionManager alloc] init];
 	manager.delegate = self;
-	[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":[NSNumber numberWithInt:_cId], @"sid":[NSNumber numberWithInt:_sId], @"uid":[NSNumber numberWithInt:_userId]} withKey:@"/api/article/search" method:@"POST"];
+	[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":[NSNumber numberWithInt:_cId], @"sid":[NSNumber numberWithInt:_sId], @"uid":[NSNumber numberWithInt:_userId]} withKey:SEARCH_NEWS method:POST];
 }
 
 bool help1 = true;
@@ -82,7 +82,7 @@ bool help1 = true;
 	[SVProgressHUD dismiss];
 	NSLog(@"%@",result);
 	NSMutableArray<News *> *temp = [NSMutableArray new];
-	for (NSDictionary *news in [result valueForKey:@"RESPONSE_DATA"]) {
+	for (NSDictionary *news in [result valueForKey:R_KEY_RESPONSE_DATA]) {
 		[temp addObject:[[News alloc] initWithData:news]];
 	}
 	_totalPages = [[result valueForKey:@"TOTAL_PAGES"] intValue];
@@ -125,14 +125,14 @@ bool help1 = true;
 	_listNewsFound = [NSMutableArray new];
 	
 	int userId = 0;
-	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
-		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
+	if ([[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY]) {
+		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
 	}
 	
 	if (_listNewsFound.count == 0) {
 		ConnectionManager *manager = [ConnectionManager new];
 		manager.delegate = self;
-		[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":[NSNumber numberWithInt:_cId], @"sid":[NSNumber numberWithInt:_sId], @"uid":[NSNumber numberWithInt:_userId]} withKey:@"/api/article/search" method:@"POST"];
+		[manager requestDataWithURL:@{@"key":_searchKey, @"page":[NSNumber numberWithInt:_currentPageNumber], @"row":@10, @"cid":[NSNumber numberWithInt:_cId], @"sid":[NSNumber numberWithInt:_sId], @"uid":[NSNumber numberWithInt:_userId]} withKey:SEARCH_NEWS method:POST];
 		
 	}
 	
@@ -219,7 +219,7 @@ bool help1 = true;
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		NSLog(@"Clicked!");
-		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_listNewsFound[sender.tag].newsId], @"userid":[NSNumber numberWithInt:_userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_listNewsFound[sender.tag].newsId], @"userid":[NSNumber numberWithInt:_userId]} withKey:SAVE_LIST method:POST];
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];

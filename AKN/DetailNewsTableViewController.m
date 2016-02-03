@@ -69,16 +69,15 @@
 
 }
 - (IBAction)actionSave:(id)sender {
-	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
+	if ([[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY]) {
 		//		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
 		[sender setEnabled:false];
 		//		_newsList[sender.tag].saved = true;
 		_news.saved = true;
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
-		
-		int userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"]intValue];
-		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_news.newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		int userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue];
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_news.newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:SAVE_LIST method:POST];
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];
@@ -121,13 +120,13 @@
 	
 	NSLog(@"%d", _news.newsId);
 	int userId= 0;
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
 		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
 	}
 	
     ConnectionManager *con=[[ConnectionManager alloc]init];
     con.delegate=self;
-    [con requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/%d",_news.newsId, userId]]];
+    [con requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org%@/%d/%d", GET_ARTICLE ,_news.newsId, userId]]];
 	
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -138,11 +137,11 @@
 	NSLog(@"%@", URL);
 	[SVProgressHUD dismiss];
 	if ([[result valueForKey:@"STATUS"]  isEqual: @404]) {
-		[self.navigationController.view makeToast:[result valueForKey:@"MESSAGE"] duration:3 position:CSToastPositionCenter];
+		[self.navigationController.view makeToast:[result valueForKey:R_KEY_MESSAGE] duration:3 position:CSToastPositionCenter];
 		[SVProgressHUD dismiss];
 	}else{
-		NSDictionary *results=((NSDictionary *)result)[@"RESPONSE_DATA"];
-		NSString *str = [[result valueForKey:@"RESPONSE_DATA"] valueForKey:@"content"];
+		NSDictionary *results=((NSDictionary *)result)[R_KEY_RESPONSE_DATA];
+		NSString *str = [[result valueForKey:R_KEY_RESPONSE_DATA] valueForKey:@"content"];
 		if (str != (id)[NSNull null]) {
 			if (![str  isEqualToString: @""] || ![str isEqualToString:@"null"]) {
 			_labelDescription.text=[NSString stringWithFormat:@"%@",[results[@"content"] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];

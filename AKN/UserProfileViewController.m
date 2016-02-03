@@ -133,7 +133,7 @@
     [self.activityIndicatorLoading stopAnimating];
     self.updateButton.enabled = true;
     
-    if([[result valueForKey:R_KEY_MESSAGE] containsString:UPDATE_USER_SECCESS]){
+    if([[result valueForKey:R_KEY_MESSAGE] containsString:UPDATE_USER_SUCCESS]){
         
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
         
@@ -156,7 +156,7 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-       [SVProgressHUD showErrorWithStatus:[result valueForKey:UPDATE_USER_SECCESS]];
+       [SVProgressHUD showErrorWithStatus:[result valueForKey:UPDATE_USER_SUCCESS]];
     }
     
 }
@@ -192,7 +192,7 @@
     [self.activityIndicatorLoading stopAnimating];
     self.updateButton.enabled = true;
     NSLog(@"--------%@", dataDictionary);
-    if([[dataDictionary valueForKey:R_KEY_MESSAGE] containsString:UPLOAD_IMAGE_SECCESS]){
+    if([[dataDictionary valueForKey:R_KEY_MESSAGE] containsString:UPLOAD_IMAGE_SUCCESS]){
         
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
         

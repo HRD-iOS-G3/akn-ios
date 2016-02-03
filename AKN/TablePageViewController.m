@@ -33,7 +33,10 @@
 	
 	NSMutableArray *countHelp;
 	int userId;
+    
+    ConnectionManager *manager;
 }
+
 @property (strong, nonatomic) NSMutableArray<News *> *newsList;
 @property (strong, nonatomic) NSMutableArray<News *> *popularNewsList;
 
@@ -43,8 +46,6 @@
 @end
 
 @implementation TablePageViewController
-
-NSString *khmeracademy = @"http://akn.khmeracademy.org";
 
 -(void)viewDidLayoutSubviews
 {
@@ -62,7 +63,7 @@ NSString *khmeracademy = @"http://akn.khmeracademy.org";
 	_popularNewsList = [[NSMutableArray alloc]init];
 	_newsList = [[NSMutableArray alloc]init];
 	
-	ConnectionManager *manager = [[ConnectionManager alloc]init];
+	manager = [[ConnectionManager alloc]init];
 	manager.delegate = self;
 	
     kTableHeaderHeight=200.0;
@@ -178,15 +179,13 @@ bool helpRefreshData = true;
 		_currentPageNumber = 1;
 		viewIndicatorTop.tag = 101;
 		
-		ConnectionManager *manager = [[ConnectionManager alloc]init];
-		manager.delegate = self;
-		NSURL *url2 =[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/",khmeracademy, _currentPageNumber, userId]];
+		NSURL *url2 =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/0/0/%d/",manager.basedUrl, GET_ARTICLE ,_currentPageNumber, userId]];
 		NSLog(@"Refresh1 : %@",url2);
 		[manager requestDataWithURL:url2];
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		
-		NSURL *url1 =[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/popular/%d/7/5",khmeracademy, userId]];
+		NSURL *url1 =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/7/5",manager.basedUrl, GET_ARTICLE_POPULAR, userId]];
 		NSLog(@"Refresh2 : %@",url1);
 		[m requestDataWithURL:url1];
 	}
@@ -207,26 +206,21 @@ bool helpRefreshData = true;
 }
 -(void)fetchNews{
 	//Create connection manager
-	ConnectionManager *manager = [[ConnectionManager alloc] init];
-	
-	manager.delegate = self;
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/", khmeracademy,_currentPageNumber,userId]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/0/0/%d/", manager.basedUrl, GET_ARTICLE, _currentPageNumber,userId]]];
 }
 -(void)viewWillDisappear:(BOOL)animated{
 	[SVProgressHUD dismiss];
 }
 -(void)viewDidAppear:(BOOL)animated{
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
-		userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:@"user"] valueForKey:@"id"]intValue];
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
+		userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue];
 	}
 	if (_popularNewsList.count == 0) {
 		[SVProgressHUD show];
 	}
-	ConnectionManager *manager = [[ConnectionManager alloc]init];
-	
-	manager.delegate = self;
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/%d/10/0/0/%d/", khmeracademy,_currentPageNumber,userId]]];
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/article/popular/%d/7/5",khmeracademy, userId]]];
+    
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/0/0/%d/", manager.basedUrl, GET_ARTICLE,_currentPageNumber,userId]]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/7/5",manager.basedUrl, GET_ARTICLE_POPULAR, userId]]];
 }
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
@@ -246,7 +240,7 @@ bool helpRefreshData = true;
 		} completion:^(BOOL finished) {
 			viewIndicatorTop.tag = 102;
 		}];
-		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/%d", _currentPageNumber, userId]]) {
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"%@/%d/10/0/0/%d",GET_ARTICLE, _currentPageNumber, userId]]) {
 			[UIView animateWithDuration:0.3 animations:^{
 				[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
 			} completion:^(BOOL finished) {
@@ -255,7 +249,7 @@ bool helpRefreshData = true;
 			NSLog(@"RefreshData1 : %@", URL);
 			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
 			NSMutableArray<News *> *tmp = [NSMutableArray new];
-			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+			for (NSDictionary *object in [result valueForKeyPath:R_KEY_RESPONSE_DATA]) {
 				[tmp addObject:[[News alloc]initWithData:object]];
 			}
 			help = true;
@@ -264,7 +258,7 @@ bool helpRefreshData = true;
 			
 			[self.tableView reloadData];
 		}
-		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/popular/%d/7/5", userId]]) {
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"%@/%d/7/5", GET_ARTICLE_POPULAR, userId]]) {
 			helpRefreshData = true;
 			
 			[UIView animateWithDuration:0.3 animations:^{
@@ -275,7 +269,7 @@ bool helpRefreshData = true;
 			
 			NSLog(@"RefreshData2 : %@", URL);
 			NSMutableArray<News *> *tmp = [[NSMutableArray alloc]init];
-			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+			for (NSDictionary *object in [result valueForKeyPath:R_KEY_RESPONSE_DATA]) {
 				[tmp addObject:[[News alloc]initWithData:object]];
 			}
 			[_popularNewsList removeAllObjects];
@@ -307,19 +301,19 @@ bool helpRefreshData = true;
 		} completion:^(BOOL finished) {
 			viewIndicatorTop.tag = 102;
 		}];
-		if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/0/0/%d", _currentPageNumber, userId]]) {
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"%@/%d/10/0/0/%d", GET_ARTICLE,_currentPageNumber, userId]]) {
 			_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
-			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+			for (NSDictionary *object in [result valueForKeyPath:R_KEY_RESPONSE_DATA]) {
 				[_newsList addObject:[[News alloc]initWithData:object]];
 			}
 			help = true;
 			[self.tableView reloadData];
 		}
 		//	if ([URL.path isEqualToString:@"/api/article/popular/0"]) {
-		else if([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/popular/%d/7/5",userId]]) {
+		else if([URL.path isEqualToString:[NSString stringWithFormat:@"%@/%d/7/5", GET_ARTICLE_POPULAR, userId]]) {
 			
 			NSMutableArray<News *> *tmp = [[NSMutableArray alloc]init];
-			for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+			for (NSDictionary *object in [result valueForKeyPath:R_KEY_RESPONSE_DATA]) {
 				[tmp addObject:[[News alloc]initWithData:object]];
 			}
 			[_popularNewsList removeAllObjects];
@@ -436,14 +430,14 @@ bool helpRefreshData = true;
 	}
 }
 -(void)buttonSaveClick:(UIButton *)sender{
-	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
+	if ([[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY]) {
 		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
 		[sender setEnabled:false];
 		_newsList[sender.tag].saved = true;
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		
-		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:SAVE_LIST method:POST];
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];
