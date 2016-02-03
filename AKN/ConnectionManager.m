@@ -17,14 +17,18 @@ NSString * DELETE = @"DELETE";//
 // REQUEST URL
 NSString * LOGIN_URL    = @"/api/user/login";//
 NSString * SIGNUP_URL   = @"/api/user/";//
-NSString * GET_USER     = @"/api/user";
 NSString * UPDATE_USER  = @"/api/user/update";//
 NSString * EDIT_UPLOAD_IMAGE  = @"/api/user/editupload";//
 NSString * IMAGE_URL    = @"/api/uploadfile/upload?url=user";
 
+NSString * SEARCH_NEWS  = @"/api/article/search";//
+
+NSString * SAVE_LIST    = @"/api/article/savelist";//
+
 // RESPONSE KEY
 NSString * R_KEY_MESSAGE    = @"MESSAGE";//
 NSString * R_KEY_DATA   =  @"DATA";//
+NSString * R_KEY_RESPONSE_DATA   =  @"RESPONSE_DATA";//
 
 
 // RESPONSE KEY FOR UER
@@ -42,7 +46,6 @@ NSString * LOGIN_UNSUCCESS  = @"Login failed! check email or password and try ag
 NSString * SIGNUP_SUCCESS   = @"SUCCESS"; //
 NSString * SIGNUP_UNSUCCESS = @"SignUp Failed\nThis username is already created!!!";//
 
-NSString * GET_USER_SECCESS = @"RECORD FOUND";
 
 NSString * UPDATE_USER_SECCESS     = @"SUCCESS";//
 NSString * UPDATE_USER_UNSUCCESS   = @"OPERATION FAIL";//
@@ -51,7 +54,6 @@ NSString * UPLOAD_IMAGE_SECCESS    = @"SUCCESS";//
 NSString * UPLOAD_IMAGE_UNSECCESS  = @"OPERATION FAIL";//
 
 // DEFINED KEY
-NSString * LOGIN_KEY = @"login";
 NSString * USER_DEFAULT_KEY = @"user";//
 
 // API KEY
@@ -91,7 +93,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
 			if ([urlRequest.URL isEqual:URL] ) {
 				NSData *data = [NSData dataWithContentsOfURL:localfile];
 				NSArray *root = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-				[self.delegate connectionManagerDidReturnResult:root FromURL:URL];
+				[self.delegate connectionManagerDidReturnResult:root FromURL: URL];
 			}
 		}else{
 			NSLog(@"Error request data : %@", error);

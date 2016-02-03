@@ -18,14 +18,19 @@ extern NSString * DELETE;
 // REQUEST URL
 extern NSString * LOGIN_URL;
 extern NSString * SIGNUP_URL;
-extern NSString * GET_USER;
 extern NSString * UPDATE_USER;
 extern NSString * EDIT_UPLOAD_IMAGE;
 extern NSString * IMAGE_URL;
 
+extern NSString * SEARCH_NEWS;
+
+extern NSString * SAVE_LIST;
+
+
 // RESPONSE KEY
 extern NSString * R_KEY_MESSAGE;
 extern NSString * R_KEY_DATA;
+extern NSString * R_KEY_RESPONSE_DATA;
 
 // RESPONSE KEY FOR USER
 extern NSString * USERID;
@@ -42,8 +47,6 @@ extern NSString * LOGIN_UNSUCCESS;
 extern NSString * SIGNUP_SUCCESS;
 extern NSString * SIGNUP_UNSUCCESS;
 
-extern NSString * GET_USER_SECCESS;
-
 extern NSString * UPDATE_USER_SECCESS;
 extern NSString * UPDATE_USER_UNSUCCESS;
 
@@ -51,7 +54,6 @@ extern NSString * UPLOAD_IMAGE_SECCESS;
 extern NSString * UPLOAD_IMAGE_UNSECCESS;
 
 // DEFINED KEY
-extern NSString * LOGIN_KEY;
 extern NSString * USER_DEFAULT_KEY;
 
 // API KEY
