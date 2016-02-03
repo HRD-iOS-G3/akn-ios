@@ -30,6 +30,8 @@
 	NSTimer *searchDelayer;
 	UIView *disableViewOverlay;
 	NSString *searchString;
+    
+    ConnectionManager *manager;
 }
 @property (strong, nonatomic) NSMutableArray<News *> *newsList;
 
@@ -166,8 +168,8 @@
 	//    NSLog(@"%@",myString);
 }
 -(void)viewDidAppear:(BOOL)animated{
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
-		userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:@"user"] valueForKey:@"id"]intValue];
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
+		userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue];
 	}
 	if (_newsList.count ==0) {
 		[SVProgressHUD show];
@@ -188,7 +190,7 @@
 	_currentPageNumber = 1;
 	_newsList = [[NSMutableArray<News *> alloc]init];
 	
-	ConnectionManager *manager = [ConnectionManager new];
+	manager = [ConnectionManager new];
 	manager.delegate = self;
 	
 	//if it have url, means that it's site screen
@@ -203,7 +205,7 @@
 	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
 		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
 	}
-	url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/1/10/%d/%d/%d/", cid, sid, userId]];
+	url =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/1/10/%d/%d/%d/", manager.basedUrl, GET_ARTICLE, cid, sid, userId]];
 	
 	[manager requestDataWithURL:url];
 	[self initializeRefreshControl];
@@ -255,7 +257,7 @@
 		[indicatorFooter stopAnimating];
 	}else{
 		_currentPageNumber++;
-		url =[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/%d/10/%d/%d/%d/", _currentPageNumber,cid, sid, userId]];
+		url =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/%d/%d/%d/", manager.basedUrl, GET_ARTICLE, _currentPageNumber,cid, sid, userId]];
 		
 		[self fetchNews];
 	}
@@ -263,19 +265,15 @@
 	//	[self.tableView setContentOffset:(CGPointMake(0,self.tableView.contentOffset.y-indicatorFooter.frame.size.height)) animated:YES];
 }
 -(void)fetchNews{
-	//Create connection manager
-	ConnectionManager *manager = [[ConnectionManager alloc] init];
-
-	manager.delegate = self;
 	[manager requestDataWithURL:url];
 }
 
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	NSLog(@"%@" , URL.path);
-	if ([URL.path isEqualToString:[NSString stringWithFormat:@"/api/article/%d/10/%d/%d/%d", _currentPageNumber, cid, sid, userId]]) {
+	if ([URL.path isEqualToString:[NSString stringWithFormat:@"%@/%d/10/%d/%d/%d", GET_ARTICLE,_currentPageNumber, cid, sid, userId]]) {
 		_totalPages = [[result valueForKeyPath:@"TOTAL_PAGES"] intValue];
-		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+		for (NSDictionary *object in [result valueForKeyPath:R_KEY_RESPONSE_DATA]) {
 			[_newsList addObject:[[News alloc]initWithData:object]];
 		}
 		if (_newsList.count == 0) {
@@ -372,7 +370,7 @@
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		
-		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:@"/api/article/savelist" method:@"POST"];
+		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:SAVE_LIST method:POST];
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];

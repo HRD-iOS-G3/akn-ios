@@ -13,6 +13,7 @@
 @interface CategoryTableViewController ()<ConnectionManagerDelegate>
 {
 	NSMutableArray *categories;
+    ConnectionManager *manager;
 }
 @end
 
@@ -22,6 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+    manager = [ConnectionManager new];
+    manager.delegate = self;
 	categories = [[NSMutableArray alloc]init];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -32,14 +35,13 @@
 	[self getCategoryList];
 }
 -(void)getCategoryList{
-	ConnectionManager *manager = [ConnectionManager new];
-	manager.delegate = self;
+
 	
-	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/category/"]];
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", manager.basedUrl, GET_ARTICLE_CATEGORY]]];
 }
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 //	NSLog(@"%@", result);
-	categories = [result valueForKey:@"DATA"];
+	categories = [result valueForKey:R_KEY_DATA];
 	[self.tableView reloadData];
 }
 

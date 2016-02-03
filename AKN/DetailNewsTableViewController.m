@@ -118,7 +118,7 @@
 	UIFont *customFont2 = [UIFont fontWithName:@"KhmerOSBattambang-Bold" size:17];
 	self.labelTitle.font = customFont2;
 	
-	NSLog(@"kp%d", _news.newsId);
+	NSLog(@"%d", _news.newsId);
 	int userId= 0;
 	if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
 		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];

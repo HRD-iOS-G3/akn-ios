@@ -105,14 +105,14 @@
         
         // request dictionary
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        [dictionary setObject:[[userDefault objectForKey:@"user"] valueForKey:@"id"] forKey:@"id"];
+        [dictionary setObject:[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] forKey:@"id"];
         
         [dictionary setObject:newPassword forKey:@"newpass"];
         [dictionary setObject:oldPassword forKey:@"oldpass"];
         NSLog(@"%@", dictionary);
         
         //Send data to server and insert it
-        [manager requestDataWithURL:dictionary withKey:@"/api/user/changepwd" method:@"PUT"];
+        [manager requestDataWithURL:dictionary withKey:CHANGE_USER_PASSWORD_URL method:PUT];
     
     }
 }
@@ -124,7 +124,7 @@
     [self.activityIndicatorLoading stopAnimating];
     self.changePasswordButton.enabled = true;
     
-    if([[result valueForKey:@"MESSAGE"] containsString:@"CHANGED"]){
+    if([[result valueForKey:R_KEY_MESSAGE] containsString:CHANGE_USER_PASSWORD_SUCCESS]){
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         
@@ -133,7 +133,7 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }
     else{
-         [SVProgressHUD showErrorWithStatus:@"You old password is incorrect"];
+         [SVProgressHUD showErrorWithStatus:CHANGE_USER_PASSWORD_UNSUCCESS];
     }
     
 }

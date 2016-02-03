@@ -19,13 +19,19 @@ NSString * LOGIN_URL    = @"/api/user/login";//
 NSString * SIGNUP_URL   = @"/api/user/";//
 NSString * UPDATE_USER  = @"/api/user/update";//
 NSString * EDIT_UPLOAD_IMAGE  = @"/api/user/editupload";//
-NSString * IMAGE_URL    = @"/api/uploadfile/upload?url=user";
+NSString * IMAGE_USER_URL    = @"/resources/images/user";//
+NSString * CHANGE_USER_PASSWORD_URL = @"/api/user/changepwd";//
 
 NSString * SEARCH_NEWS  = @"/api/article/search";//
 
 NSString * SAVE_LIST    = @"/api/article/savelist";//
 
 NSString * GET_ARTICLE  = @"/api/article";//
+NSString * GET_ARTICLE_POPULAR  = @"/api/article/popular";//
+
+NSString * GET_ARTICLE_SITE     = @"/api/article/site/";//
+
+NSString * GET_ARTICLE_CATEGORY = @"/api/article/category/";
 
 // RESPONSE KEY
 NSString * R_KEY_MESSAGE    = @"MESSAGE";//
@@ -48,12 +54,14 @@ NSString * LOGIN_UNSUCCESS  = @"Login failed! check email or password and try ag
 NSString * SIGNUP_SUCCESS   = @"SUCCESS"; //
 NSString * SIGNUP_UNSUCCESS = @"SignUp Failed\nThis username is already created!!!";//
 
-
 NSString * UPDATE_USER_SUCCESS     = @"SUCCESS";//
 NSString * UPDATE_USER_UNSUCCESS   = @"OPERATION FAIL";//
 
 NSString * UPLOAD_IMAGE_SUCCESS    = @"SUCCESS";//
 NSString * UPLOAD_IMAGE_UNSECCESS  = @"OPERATION FAIL";//
+
+NSString * CHANGE_USER_PASSWORD_SUCCESS     = @"CHANGED";//
+NSString * CHANGE_USER_PASSWORD_UNSUCCESS   = @"You old password is incorrect";//
 
 NSString * GET_NEWS_SUCCESS        =@"NEWS HAS BEEN FOUND";//
 

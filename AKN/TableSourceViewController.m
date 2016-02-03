@@ -14,13 +14,16 @@
 @interface TableSourceViewController () <ConnectionManagerDelegate>
 {
 	NSMutableArray *sources;
+    ConnectionManager *manager;
 }
 @end
 
 @implementation TableSourceViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    manager = [[ConnectionManager alloc]init];
+    manager.delegate = self;
+    
 	sources = [[NSMutableArray alloc]init];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -30,13 +33,12 @@
 	[self getSourceList];
 }
 -(void)getSourceList{
-	ConnectionManager *manager = [[ConnectionManager alloc]init];
-	manager.delegate = self;
-	[manager requestDataWithURL:[NSURL URLWithString:@"http://akn.khmeracademy.org/api/article/site/"]];
+
+	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", manager.basedUrl, GET_ARTICLE_SITE]]];
 }
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 //	NSLog(@"%@", result);
-	sources = [result valueForKey:@"DATA"];
+	sources = [result valueForKey:R_KEY_DATA];
 	[self.tableView reloadData];
 }
 

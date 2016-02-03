@@ -20,13 +20,19 @@ extern NSString * LOGIN_URL;
 extern NSString * SIGNUP_URL;
 extern NSString * UPDATE_USER;
 extern NSString * EDIT_UPLOAD_IMAGE;
-extern NSString * IMAGE_URL;
+extern NSString * IMAGE_USER_URL;
+extern NSString * CHANGE_USER_PASSWORD_URL;
 
 extern NSString * SEARCH_NEWS;
 
 extern NSString * SAVE_LIST;
 
 extern NSString * GET_ARTICLE;
+extern NSString * GET_ARTICLE_POPULAR;
+
+extern NSString * GET_ARTICLE_SITE;
+
+extern NSString * GET_ARTICLE_CATEGORY;
 
 
 // RESPONSE KEY
@@ -54,6 +60,9 @@ extern NSString * UPDATE_USER_UNSUCCESS;
 
 extern NSString * UPLOAD_IMAGE_SUCCESS;
 extern NSString * UPLOAD_IMAGE_UNSECCESS;
+
+extern NSString * CHANGE_USER_PASSWORD_SUCCESS;
+extern NSString * CHANGE_USER_PASSWORD_UNSUCCESS;
 
 extern NSString * GET_NEWS_SUCCESS;
 

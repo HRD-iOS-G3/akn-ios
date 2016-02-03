@@ -441,7 +441,7 @@
         <scene sceneID="CCe-J6-5pc">
             <objects>
                 <tableViewController id="efB-We-NXY" customClass="UserProfileViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="DrS-RL-rsh">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="DrS-RL-rsh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -687,7 +687,7 @@
         <scene sceneID="7oR-3h-NXO">
             <objects>
                 <tableViewController id="IWa-Ct-lBr" customClass="ChangePasswordTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="LFT-Yy-vOt">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="LFT-Yy-vOt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1063,7 +1063,7 @@
         <scene sceneID="muC-nq-dqJ">
             <objects>
                 <tableViewController id="QmE-Ln-7fw" customClass="AboutUsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rjR-bh-d5T">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rjR-bh-d5T">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1108,7 +1108,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="247"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bef-LX-ibf">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bef-LX-ibf">
                                                     <rect key="frame" x="15" y="7" width="346" height="234"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <attributedString key="attributedText">
@@ -1195,7 +1195,7 @@
                                                         <constraint firstAttribute="height" constant="36" id="1RC-Pb-GnC"/>
                                                     </constraints>
                                                 </view>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OwY-nL-T0N">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwY-nL-T0N">
                                                     <rect key="frame" x="15" y="1" width="346" height="145"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1211,46 +1211,7 @@ Tel: (855)23 99 13 14
 </string>
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="6" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                    <tabStops>
-                                                                        <textTab alignment="left" location="28">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="56">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="84">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="112">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="140">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="168">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="196">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="224">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="252">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="280">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="308">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="336">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                    </tabStops>
-                                                                </paragraphStyle>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="6" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment>
@@ -1258,46 +1219,7 @@ Tel: (855)23 99 13 14
 </string>
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                    <tabStops>
-                                                                        <textTab alignment="left" location="28">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="56">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="84">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="112">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="140">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="168">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="196">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="224">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="252">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="280">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="308">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="336">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                    </tabStops>
-                                                                </paragraphStyle>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>

@@ -29,6 +29,8 @@
     self.sidebarMenuTableView.delegate=self;
     self.sidebarMenuTableView.dataSource=self;
     
+    manager = [[ConnectionManager alloc]init];
+    manager.delegate = self;
     
     menuItems = @[@"home", @"saveList", @"setting", @"logout", @"aboutUs"];
     menuTitle = @[@"Home", @"Save List", @"Setting", @"Logout", @"About us"];
@@ -49,8 +51,8 @@
     [self.profileImageView.layer setBorderWidth: 2.0];
     
     NSUserDefaults *userDefaul = [NSUserDefaults standardUserDefaults];
-    self.nameLabel.text=[[userDefaul objectForKey:@"user"]valueForKey:@"username"];
-    self.emailLabel.text=[[userDefaul objectForKey:@"user"]valueForKey:@"email"];
+    self.nameLabel.text=[[userDefaul objectForKey:USER_DEFAULT_KEY]valueForKey:@"username"];
+    self.emailLabel.text=[[userDefaul objectForKey:USER_DEFAULT_KEY]valueForKey:@"email"];
     
     
 }
@@ -63,10 +65,10 @@
     
     //set image
     userDefault = [NSUserDefaults standardUserDefaults];
-    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:@"user"]];
+    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
     
     self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/resources/images/user/%@",[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@r/%@", manager.basedUrl, IMAGE_USER_URL, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
 }
 
@@ -125,7 +127,7 @@
     if(indexPath.row == 3)
     {
         NSUserDefaults *userDefaul = [NSUserDefaults standardUserDefaults];
-        [userDefaul removeObjectForKey:@"user"];
+        [userDefaul removeObjectForKey:USER_DEFAULT_KEY];
         [self.revealViewController performSegueWithIdentifier:SWSegueGuestIdentifier sender:nil];
     }
 }
