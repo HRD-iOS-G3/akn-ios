@@ -26,6 +26,8 @@ extern NSString * SEARCH_NEWS;
 
 extern NSString * SAVE_LIST;
 
+extern NSString * GET_ARTICLE;
+
 
 // RESPONSE KEY
 extern NSString * R_KEY_MESSAGE;
@@ -47,11 +49,13 @@ extern NSString * LOGIN_UNSUCCESS;
 extern NSString * SIGNUP_SUCCESS;
 extern NSString * SIGNUP_UNSUCCESS;
 
-extern NSString * UPDATE_USER_SECCESS;
+extern NSString * UPDATE_USER_SUCCESS;
 extern NSString * UPDATE_USER_UNSUCCESS;
 
-extern NSString * UPLOAD_IMAGE_SECCESS;
+extern NSString * UPLOAD_IMAGE_SUCCESS;
 extern NSString * UPLOAD_IMAGE_UNSECCESS;
+
+extern NSString * GET_NEWS_SUCCESS;
 
 // DEFINED KEY
 extern NSString * USER_DEFAULT_KEY;

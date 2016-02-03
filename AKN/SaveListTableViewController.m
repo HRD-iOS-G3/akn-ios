@@ -31,10 +31,9 @@ id selfobject;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	selfobject = self;
-    [self customizePageMenu];
+    [Utilities customizeNavigationBar:self.navigationController withTitle:@"SAVE LIST"];
 	savedNewsList = [[NSMutableArray alloc]init];
 	userId = 0;
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
     
     //Set SWReveal
     [self.sidebarButton setTarget: self.revealViewController];
@@ -42,26 +41,17 @@ id selfobject;
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 -(void)viewDidAppear:(BOOL)animated{
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
-		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
+		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
 	}
 	if (savedNewsList.count == 0) {
 		ConnectionManager *manager = [[ConnectionManager alloc]init];
 		manager.delegate = self;
-		[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org/api/article/savelist/%d", userId]]];
+		[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org%@/%d/10/1", SAVE_LIST, userId]]]; // need to create pagination with this url
 		[SVProgressHUD showWithStatus:@"Loading..."];
 	}
 }
-#pragma mark - Navigation bar color
 
--(void)customizePageMenu{
-    self.title = @"SAVE LIST";
-    
-    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -78,16 +68,16 @@ id selfobject;
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	[SVProgressHUD dismiss];
 	NSLog(@"%@",result);
-	if ([[result valueForKeyPath:@"MESSAGE"] isEqualToString:@"NEWS HAS BEEN FOUND"]) {
+	if ([[result valueForKeyPath:R_KEY_MESSAGE] isEqualToString:GET_NEWS_SUCCESS]) {
 		[savedNewsList removeAllObjects];
-		for (NSDictionary *object in [result valueForKeyPath:@"RESPONSE_DATA"]) {
+		for (NSDictionary *object in [result valueForKeyPath:R_KEY_RESPONSE_DATA]) {
 			News *news = [[News alloc]initWithData:object];
 			news.saved = true;
 			[savedNewsList addObject:news];
 		}
 		[self.tableView reloadData];
 	}else{
-		[self.navigationController.view makeToast:[result valueForKeyPath:@"MESAGE"] duration:3 position:CSToastPositionCenter];
+		[self.navigationController.view makeToast:[result valueForKeyPath:R_KEY_MESSAGE] duration:3 position:CSToastPositionCenter];
 	}
 }
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
@@ -152,7 +142,7 @@ id selfobject;
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		
-		[m requestDataWithURL:@{} withKey:[NSString stringWithFormat:@"/api/article/savelist/%d/%d", savedNewsList[sender.tag].newsId,userId] method:@"DELETE"];
+		[m requestDataWithURL:@{} withKey:[NSString stringWithFormat:@"%@/%d/%d", SAVE_LIST ,savedNewsList[sender.tag].newsId,userId] method:DELETE];
 		
 		[self.navigationController.view makeToast:@"Deleted!"
 																	 duration:2.0

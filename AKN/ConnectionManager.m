@@ -25,6 +25,8 @@ NSString * SEARCH_NEWS  = @"/api/article/search";//
 
 NSString * SAVE_LIST    = @"/api/article/savelist";//
 
+NSString * GET_ARTICLE  = @"/api/article";//
+
 // RESPONSE KEY
 NSString * R_KEY_MESSAGE    = @"MESSAGE";//
 NSString * R_KEY_DATA   =  @"DATA";//
@@ -47,11 +49,13 @@ NSString * SIGNUP_SUCCESS   = @"SUCCESS"; //
 NSString * SIGNUP_UNSUCCESS = @"SignUp Failed\nThis username is already created!!!";//
 
 
-NSString * UPDATE_USER_SECCESS     = @"SUCCESS";//
+NSString * UPDATE_USER_SUCCESS     = @"SUCCESS";//
 NSString * UPDATE_USER_UNSUCCESS   = @"OPERATION FAIL";//
 
-NSString * UPLOAD_IMAGE_SECCESS    = @"SUCCESS";//
+NSString * UPLOAD_IMAGE_SUCCESS    = @"SUCCESS";//
 NSString * UPLOAD_IMAGE_UNSECCESS  = @"OPERATION FAIL";//
+
+NSString * GET_NEWS_SUCCESS        =@"NEWS HAS BEEN FOUND";//
 
 // DEFINED KEY
 NSString * USER_DEFAULT_KEY = @"user";//
