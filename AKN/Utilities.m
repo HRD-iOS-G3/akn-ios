@@ -44,4 +44,19 @@
     navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
 }
 
+#pragma mark - Border Radius
++(void)setBorderRadius:(UIView *)control{
+    // border radius
+    [control.layer setCornerRadius:control.bounds.size.height/2];
+    control.clipsToBounds = YES;
+}
+
+#pragma mark - SWReveal Sidebar Button
++(void)setSWRevealSidebarButton:(UIBarButtonItem *)button :(SWRevealViewController *)swRevealViewController :(UIView *)view {
+    //Set SWReveal
+    [button setTarget: swRevealViewController];
+    [button setAction: @selector( revealToggle: )];
+    [view addGestureRecognizer:swRevealViewController.panGestureRecognizer];
+}
+
 @end

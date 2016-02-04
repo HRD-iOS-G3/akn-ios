@@ -40,13 +40,6 @@ extern NSString * R_KEY_MESSAGE;
 extern NSString * R_KEY_DATA;
 extern NSString * R_KEY_RESPONSE_DATA;
 
-// RESPONSE KEY FOR USER
-extern NSString * USERID;
-extern NSString * PROFILE_IMG_URL;
-extern NSString * COVER_IMG_URL;
-extern NSString * EMAIL;
-extern NSString * USERNAME;
-
 
 // MESSAGE STATE
 extern NSString * LOGIN_SUCCESS;

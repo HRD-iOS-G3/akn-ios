@@ -20,7 +20,6 @@
     ConnectionManager *manager ;
 }
 
-
 @end
 
 @implementation UserProfileViewController
@@ -37,34 +36,26 @@
     manager.delegate = self;
     
     // border radius
-    [self.updateButton.layer setCornerRadius:self.updateButton.bounds.size.height/2];
-    self.updateButton.clipsToBounds = YES;
-    
-    [self.changePasswordButton.layer setCornerRadius:self.updateButton.bounds.size.height/2];
-    self.changePasswordButton.clipsToBounds = YES;
-    
+    [Utilities setBorderRadius:self.updateButton];
+    [Utilities setBorderRadius:self.changePasswordButton];
     
     //Set GradienColor for control
-    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    NSArray *gradientColor = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
     
     [Utilities setGradientColor:self.updateButton NSArrayColor:gradientColor];
     [Utilities setGradientColor:self.changePasswordButton NSArrayColor:gradientColor];
     [Utilities setGradientColor:self.profileBackgroundImageView NSArrayColor:gradientColor];
     
-    [self.profileImageView.layer setCornerRadius:self.profileImageView.bounds.size.height/2];
-    self.profileImageView.clipsToBounds = YES;
+    [Utilities setBorderRadius:self.profileImageView];
     [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.profileImageView.layer setBorderWidth: 2.0];
     
     //Set SWReveal
-    [self.sidebarButton setTarget: self.revealViewController];
-    [self.sidebarButton setAction: @selector( revealToggle: )];
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    [Utilities setSWRevealSidebarButton:self.sidebarButton :self.revealViewController :self.view];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];;
-    
-    
+        
     // change background color
     [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
     [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
@@ -75,7 +66,7 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
     
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/resources/images/user/%@", manager.basedUrl, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", manager.basedUrl, IMAGE_USER_URL,[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
     self.nameTextField.text = [user valueForKey:@"username"];
     
@@ -83,7 +74,6 @@
 }
 
 #pragma mark - Keyboard Did Show and Hide
-
 - (void)keyboardDidShow:(NSNotification *)sender {
     self.profileTableView.scrollEnabled = YES;
     [self.profileTableView setContentOffset:CGPointMake(0, self.profileTableView.bounds.size.height * 0.1) animated:YES];
@@ -109,9 +99,9 @@
          [SVProgressHUD showErrorWithStatus:@"Please complete email"];
     }else{
         
-        [self.view setUserInteractionEnabled:false];
-        [self.activityIndicatorLoading startAnimating];
-        self.updateButton.enabled = false;
+        // start animating when choose image
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD show];
         
         // request dictionary
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
@@ -121,39 +111,32 @@
         
         //Send data to server and insert it
         [manager requestDataWithURL:dictionary withKey:UPDATE_USER method:PUT];
-        
     }
-    
 }
 
 #pragma mark: - ConnectionManagerDelegate
-
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    [self.view setUserInteractionEnabled:true];
-    [self.activityIndicatorLoading stopAnimating];
-    self.updateButton.enabled = true;
     
+    [SVProgressHUD dismiss];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    
+    // check return message
     if([[result valueForKey:R_KEY_MESSAGE] containsString:UPDATE_USER_SUCCESS]){
         
+        // init dictionary for storing temp value of user defualt
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        
-        for (NSString* key in [[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
-            id value = [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:key];
+        for (NSString* key in [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
+            id value = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] objectForKey:key];
             [dictionary setObject:value forKey:key];
         }
         
-        // change
+        // change value of temp dictionary
         [dictionary setObject:self.nameTextField.text forKey:@"username"];
-        [dictionary setObject:self.emailTextField.text forKey:@"email"];
         
+        // set new value for user default
         [userDefault setObject:dictionary forKey:USER_DEFAULT_KEY];
-        
-        //open home view
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
-        
-       //  determine the initial view controller here and instantiate it with
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
-        [self presentViewController:viewController animated:YES completion:nil];
+        [SVProgressHUD showSuccessWithStatus:UPDATE_USER_SUCCESS];
+      
     }
     else{
        [SVProgressHUD showErrorWithStatus:[result valueForKey:UPDATE_USER_SUCCESS]];
@@ -181,41 +164,40 @@
     
     
     // start animating when choose image
-    [self.activityIndicatorLoading startAnimating];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD show];
    
-    self.updateButton.enabled = false;
-    
-    
 }
 
 -(void)responseImage:(NSDictionary *)dataDictionary{
-    [self.activityIndicatorLoading stopAnimating];
-    self.updateButton.enabled = true;
+    
+    [SVProgressHUD dismiss];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     NSLog(@"--------%@", dataDictionary);
+    
+    // check respone data
     if([[dataDictionary valueForKey:R_KEY_MESSAGE] containsString:UPLOAD_IMAGE_SUCCESS]){
         
+        // init dictionary for storing temp value of user defualt
         NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        
         for (NSString* key in [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
             id value = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] objectForKey:key];
             [dictionary setObject:value forKey:key];
         }
-        // change
+        
+        // change value of temp dictionary
         [dictionary setObject:[[dataDictionary valueForKey:@"IMAGE"] substringFromIndex:12] forKey:@"image"];
         
+        // set new value for user default
         [userDefault setObject:dictionary forKey:USER_DEFAULT_KEY];
+        
         NSLog(@"=========%@", [userDefault objectForKey:USER_DEFAULT_KEY]);
+        
+        // clear cache
         SDImageCache *imageCache = [SDImageCache sharedImageCache];
         [imageCache clearMemory];
         [imageCache clearDisk];
-        
-        //open home view
-         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
-        
-          //determine the initial view controller here and instantiate it with
-          UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
-         [self presentViewController:viewController animated:YES completion:nil];
-
+        [SVProgressHUD showSuccessWithStatus:UPLOAD_IMAGE_SUCCESS];
     }
     else{
        [SVProgressHUD showErrorWithStatus:[[dataDictionary valueForKey:R_KEY_MESSAGE] valueForKey:UPLOAD_IMAGE_UNSECCESS]];
