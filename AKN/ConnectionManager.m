@@ -88,10 +88,13 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
 }
 
 #pragma mark: - Request with URL
--(void)requestDataWithURL:(NSURL *)URL{
+-(void)requestDataWithURL:(NSString *)URL{
+    
+    // set url
+    NSURL *strUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.basedUrl, URL]];
     
     // create request with url
-	NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc]initWithURL: URL];
+	NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc]initWithURL: strUrl];
 	
     //Set request method and content type
 	urlRequest.HTTPMethod = GET;
@@ -102,10 +105,10 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
 	
 	[[session downloadTaskWithRequest:urlRequest completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
 		if (!error) {
-			if ([urlRequest.URL isEqual:URL] ) {
+			if ([urlRequest.URL isEqual:strUrl] ) {
 				NSData *data = [NSData dataWithContentsOfURL:localfile];
 				NSArray *root = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-				[self.delegate connectionManagerDidReturnResult:root FromURL: URL];
+				[self.delegate connectionManagerDidReturnResult:root FromURL: strUrl];
 			}
 		}else{
 			NSLog(@"Error request data : %@", error);

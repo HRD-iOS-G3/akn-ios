@@ -178,14 +178,17 @@ bool helpRefreshData = true;
 		helpRefreshData = false;
 		_currentPageNumber = 1;
 		viewIndicatorTop.tag = 101;
-		
-		NSURL *url2 =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/0/0/%d/",manager.basedUrl, GET_ARTICLE ,_currentPageNumber, userId]];
+        ConnectionManager *m1 = [[ConnectionManager alloc]init];
+        m1.delegate = self;
+        
+		NSString *url2 =[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE ,_currentPageNumber, userId];
 		NSLog(@"Refresh1 : %@",url2);
-		[manager requestDataWithURL:url2];
+		[m1 requestDataWithURL:url2];
+        
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		
-		NSURL *url1 =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/7/5",manager.basedUrl, GET_ARTICLE_POPULAR, userId]];
+		NSString *url1 =[NSString stringWithFormat:@"%@/%d/7/5", GET_ARTICLE_POPULAR, userId];
 		NSLog(@"Refresh2 : %@",url1);
 		[m requestDataWithURL:url1];
 	}
@@ -206,7 +209,7 @@ bool helpRefreshData = true;
 }
 -(void)fetchNews{
 	//Create connection manager
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/0/0/%d/", manager.basedUrl, GET_ARTICLE, _currentPageNumber,userId]]];
+	[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE, _currentPageNumber,userId]];
 }
 -(void)viewWillDisappear:(BOOL)animated{
 	[SVProgressHUD dismiss];
@@ -219,8 +222,8 @@ bool helpRefreshData = true;
 		[SVProgressHUD show];
 	}
     
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/0/0/%d/", manager.basedUrl, GET_ARTICLE,_currentPageNumber,userId]]];
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/7/5",manager.basedUrl, GET_ARTICLE_POPULAR, userId]]];
+	[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE,_currentPageNumber,userId]];
+	[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/7/5", GET_ARTICLE_POPULAR, userId]];
 }
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
@@ -240,7 +243,7 @@ bool helpRefreshData = true;
 		} completion:^(BOOL finished) {
 			viewIndicatorTop.tag = 102;
 		}];
-		if ([URL.path isEqualToString:[NSString stringWithFormat:@"%@/%d/10/0/0/%d",GET_ARTICLE, _currentPageNumber, userId]]) {
+		if ([URL.path isEqualToString:[NSString stringWithFormat:@"%@/%d/10/0/0/%d", GET_ARTICLE, _currentPageNumber, userId]]) {
 			[UIView animateWithDuration:0.3 animations:^{
 				[viewIndiTop setFrame:CGRectMake(viewIndicatorTop.frame.origin.x,-37, viewIndicator.frame.size.width, viewIndiTop.frame.size.height)];
 			} completion:^(BOOL finished) {

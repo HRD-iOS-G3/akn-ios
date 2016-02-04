@@ -20,7 +20,7 @@
 
 @interface NewsByCategoryTableViewController ()<ConnectionManagerDelegate, UISearchBarDelegate>
 {
-	NSURL *url;
+	NSString *url;
 	int cid;
 	int sid;
 	int userId;
@@ -205,7 +205,7 @@
 	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"user"]) {
 		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
 	}
-	url =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/1/10/%d/%d/%d/", manager.basedUrl, GET_ARTICLE, cid, sid, userId]];
+	url =[NSString stringWithFormat:@"%@/1/10/%d/%d/%d/", GET_ARTICLE, cid, sid, userId];
 	
 	[manager requestDataWithURL:url];
 	[self initializeRefreshControl];
@@ -257,7 +257,7 @@
 		[indicatorFooter stopAnimating];
 	}else{
 		_currentPageNumber++;
-		url =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%d/10/%d/%d/%d/", manager.basedUrl, GET_ARTICLE, _currentPageNumber,cid, sid, userId]];
+		url =[NSString stringWithFormat:@"%@/%d/10/%d/%d/%d/", GET_ARTICLE, _currentPageNumber,cid, sid, userId];
 		
 		[self fetchNews];
 	}

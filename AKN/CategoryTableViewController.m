@@ -37,7 +37,7 @@
 -(void)getCategoryList{
 
 	
-	[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", manager.basedUrl, GET_ARTICLE_CATEGORY]]];
+	[manager requestDataWithURL: GET_ARTICLE_CATEGORY];
 }
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 //	NSLog(@"%@", result);
