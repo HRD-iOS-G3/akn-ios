@@ -47,7 +47,7 @@ id selfobject;
 	if (savedNewsList.count == 0) {
 		ConnectionManager *manager = [[ConnectionManager alloc]init];
 		manager.delegate = self;
-		[manager requestDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://akn.khmeracademy.org%@/%d/10/1", SAVE_LIST, userId]]]; // need to create pagination with this url
+		[manager requestDataWithURL1:[NSString stringWithFormat:@"%@/%d/10/1", SAVE_LIST, userId]]; // need to create pagination with this url
 		[SVProgressHUD showWithStatus:@"Loading..."];
 	}
 }
