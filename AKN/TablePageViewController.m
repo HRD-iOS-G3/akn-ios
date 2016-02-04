@@ -183,14 +183,14 @@ bool helpRefreshData = true;
         
 		NSString *url2 =[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE ,_currentPageNumber, userId];
 		NSLog(@"Refresh1 : %@",url2);
-		[m1 requestDataWithURL1:url2];
+		[m1 requestDataWithURL:url2];
         
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		
 		NSString *url1 =[NSString stringWithFormat:@"%@/%d/7/5", GET_ARTICLE_POPULAR, userId];
 		NSLog(@"Refresh2 : %@",url1);
-		[m requestDataWithURL1:url1];
+		[m requestDataWithURL:url1];
 	}
 }
 
@@ -209,7 +209,7 @@ bool helpRefreshData = true;
 }
 -(void)fetchNews{
 	//Create connection manager
-	[manager requestDataWithURL1:[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE, _currentPageNumber,userId]];
+	[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE, _currentPageNumber,userId]];
 }
 -(void)viewWillDisappear:(BOOL)animated{
 	[SVProgressHUD dismiss];
@@ -222,8 +222,8 @@ bool helpRefreshData = true;
 		[SVProgressHUD show];
 	}
     
-	[manager requestDataWithURL1:[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE,_currentPageNumber,userId]];
-	[manager requestDataWithURL1:[NSString stringWithFormat:@"%@/%d/7/5", GET_ARTICLE_POPULAR, userId]];
+	[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/0/0/%d/", GET_ARTICLE,_currentPageNumber,userId]];
+	[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/7/5", GET_ARTICLE_POPULAR, userId]];
 }
 
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{

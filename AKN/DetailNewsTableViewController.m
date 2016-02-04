@@ -126,7 +126,7 @@
 	
     ConnectionManager *con=[[ConnectionManager alloc]init];
     con.delegate=self;
-    [con requestDataWithURL1:[NSString stringWithFormat:@"%@/%d/%d", GET_ARTICLE ,_news.newsId, userId]];
+    [con requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%d", GET_ARTICLE ,_news.newsId, userId]];
 	
 }
 -(void)viewDidAppear:(BOOL)animated{

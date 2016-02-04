@@ -34,7 +34,7 @@
 }
 -(void)getSourceList{
 
-	[manager requestDataWithURL1: GET_ARTICLE_SITE];
+	[manager requestDataWithURL: GET_ARTICLE_SITE];
 }
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 //	NSLog(@"%@", result);

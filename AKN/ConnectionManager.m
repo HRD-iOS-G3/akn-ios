@@ -88,7 +88,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
 }
 
 #pragma mark: - Request with URL
--(void)requestDataWithURL1:(NSString *)URL{
+-(void)requestDataWithURL:(NSString *)URL{
     
     // set url
     NSURL *strUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.basedUrl, URL]];

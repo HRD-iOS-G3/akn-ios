@@ -85,7 +85,7 @@ extern NSString * HTTP_HEADER;
 
 //Request Method
 -(void)requestDataWithURL:(NSDictionary *)reqDictionary withKey:(NSString *)key method:(NSString *)method;
--(void)requestDataWithURL1:(NSString *)URL;
+-(void)requestDataWithURL:(NSString *)URL;
 -(void)uploadWithImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name;
 
 @end

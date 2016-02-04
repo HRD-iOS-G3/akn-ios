@@ -207,7 +207,7 @@
 	}
 	url =[NSString stringWithFormat:@"%@/1/10/%d/%d/%d/", GET_ARTICLE, cid, sid, userId];
 	
-	[manager requestDataWithURL1:url];
+	[manager requestDataWithURL:url];
 	[self initializeRefreshControl];
 	
 	//search bar
@@ -265,7 +265,7 @@
 	//	[self.tableView setContentOffset:(CGPointMake(0,self.tableView.contentOffset.y-indicatorFooter.frame.size.height)) animated:YES];
 }
 -(void)fetchNews{
-	[manager requestDataWithURL1:url];
+	[manager requestDataWithURL:url];
 }
 
 
