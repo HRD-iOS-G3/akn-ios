@@ -142,8 +142,8 @@ id selfobject;
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		
-		[m requestDataWithURL:@{} withKey:[NSString stringWithFormat:@"%@/%d/%d", SAVE_LIST ,savedNewsList[sender.tag].newsId,userId] method:DELETE];
-		
+        [m requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%d", SAVE_LIST ,savedNewsList[sender.tag].newsId,userId] data:@{} method:DELETE];
+        		
 		[self.navigationController.view makeToast:@"Deleted!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];

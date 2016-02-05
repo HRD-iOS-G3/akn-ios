@@ -104,13 +104,11 @@
         [SVProgressHUD show];
         
         // request dictionary
-        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        [dictionary setObject:[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] forKey:@"id"];
-        
-        [dictionary setObject:self.nameTextField.text forKey:@"username"];
+        NSDictionary * param = @{@"id":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"],
+                                 @"username":self.nameTextField.text};
         
         //Send data to server and insert it
-        [manager requestDataWithURL:dictionary withKey:UPDATE_USER method:PUT];
+        [manager requestDataWithURL:UPDATE_USER data:param method:PUT];
     }
 }
 

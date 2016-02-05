@@ -111,14 +111,14 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
 
 
 #pragma mark: - Request with Method
--(void)requestDataWithURL:(NSDictionary *)reqDictionary withKey:(NSString *)key method:(NSString *)method{
+-(void)requestDataWithURL:(NSString *)url data:(NSDictionary *)data method:(NSString *)method{
     
     // set url
-    NSString *strURL = [NSString stringWithFormat:@"%@%@", self.basedUrl, key];
-    NSURL *url = [NSURL URLWithString:strURL];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@", self.basedUrl, url];
+    NSURL *nsRrl = [NSURL URLWithString:strURL];
     
     // create request with url
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: nsRrl];
     
     //Set request method and content type
     request.HTTPMethod = method;
@@ -130,7 +130,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
-    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:reqDictionary options:0 error:nil];
+    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
     
     NSString *urlString = [[NSString alloc] initWithData:jsonObject encoding:NSUTF8StringEncoding];
     
@@ -143,7 +143,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
         
         if (!error) {
-            if ([request.URL isEqual:url] ) {
+            if ([request.URL isEqual:nsRrl] ) {
                 NSData *data = [NSData dataWithContentsOfURL:localfile];
                
                 //init responseData object

@@ -369,8 +369,12 @@
 		_newsList[sender.tag].saved = true;
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
-		
-		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:SAVE_LIST method:POST];
+        
+        // request dictionary
+        NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_newsList[sender.tag].newsId],
+                                 @"userid":[NSNumber numberWithInt:userId]};
+
+        [m requestDataWithURL:SAVE_LIST data:param method:POST];
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];

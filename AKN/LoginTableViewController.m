@@ -105,11 +105,11 @@
         manager.delegate = self;
         
         // request dictionary
-        NSDictionary * dictionary = @{@"email": email,
-                                      @"password":password};
+        NSDictionary * param = @{@"email": email,
+                                 @"password":password};
         
         // send data to server
-        [manager requestDataWithURL:dictionary withKey:LOGIN_URL method:POST];
+        [manager requestDataWithURL:LOGIN_URL data:param method:POST];
     }
 }
 

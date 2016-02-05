@@ -116,7 +116,7 @@ bool help1 = true;
                              @"sid":[NSNumber numberWithInt:_sId],
                              @"uid":[NSNumber numberWithInt:_userId]};
     
-	[manager requestDataWithURL:param withKey:SEARCH_NEWS method:POST];
+    [manager requestDataWithURL:SEARCH_NEWS data:param method:POST];
 }
 
 #pragma mark: - respone data
@@ -257,8 +257,8 @@ bool help1 = true;
         NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_listNewsFound[sender.tag].newsId],
                                  @"userid":[NSNumber numberWithInt:_userId]};
 
-		[manager requestDataWithURL:param withKey:SAVE_LIST method:POST];
-		
+        [manager requestDataWithURL:SAVE_LIST data:param method:POST];
+        
         [[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];

@@ -90,16 +90,12 @@
         manager.delegate = self;
         
         // request dictionary
-        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        [dictionary setObject:[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] forKey:@"id"];
-        
-        [dictionary setObject:newPassword forKey:@"newpass"];
-        [dictionary setObject:oldPassword forKey:@"oldpass"];
-        NSLog(@"%@", dictionary);
+        NSDictionary * param = @{@"id":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"],
+                                 @"newpass":newPassword,
+                                 @"oldpass":oldPassword};
         
         //Send data to server and insert it
-        [manager requestDataWithURL:dictionary withKey:CHANGE_USER_PASSWORD_URL method:PUT];
-        
+        [manager requestDataWithURL:CHANGE_USER_PASSWORD_URL data:param method:PUT];
     }
 }
 
