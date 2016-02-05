@@ -13,8 +13,10 @@
 @interface Utilities : NSObject
 
 +(NSString*)timestamp2date:(NSString*)timestamp;
-+(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor;
+
 +(void)customizeNavigationBar:(UINavigationController *)view withTitle:(NSString *)title;
+
 +(void)setBorderRadius:(UIView *)control;
++(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor;
 +(void)setSWRevealSidebarButton:(UIBarButtonItem *)button :(SWRevealViewController *)swRevealViewController :(UIView *)view;
 @end

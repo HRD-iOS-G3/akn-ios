@@ -51,7 +51,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Create connection object
+    manager = [[ConnectionManager alloc] init];
+    
+    //Set delegate
+    manager.delegate = self;
+    
     [Utilities customizeNavigationBar:self.navigationController withTitle:@"Sign Up"];
+    
+    // border radius for button
+    [Utilities setBorderRadius:self.signUpButton];
     
     [self.tableView addGestureRecognizer:gestTab];
     
@@ -60,21 +69,22 @@
     txtPwd.layer.masksToBounds=YES;
     txtFullName.layer.masksToBounds=YES;
     btnSignUp.layer.cornerRadius=6;
-    
-    // border radius for button
-    [self.signUpButton.layer setCornerRadius:self.signUpButton.bounds.size.height/2];
-    self.signUpButton.clipsToBounds = YES;
-    
-    
+        
     //Set GradienColor for control
-    NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    NSArray *gradientColor  = [NSArray arrayWithObjects:
+                               (id)[[UIColor colorWithRed:(200/255.0)
+                                                    green:(38/255.0)
+                                                     blue:(38/255.0)
+                                                    alpha:1.00] CGColor],
+                               (id)[[UIColor colorWithRed:(140/225.0)
+                                                    green:(30/255.0)
+                                                     blue:(30/255.0)
+                                                    alpha:1.00] CGColor], nil];
+
     [Utilities setGradientColor:self.signUpButton NSArrayColor:gradientColor];
     
     //Set SWReveal
-    [self.sidebarButton setTarget: self.revealViewController];
-    [self.sidebarButton setAction: @selector( revealToggle: )];
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-
+    [Utilities setSWRevealSidebarButton:self.sidebarButton :self.revealViewController :self.view];
 }
 
 - (IBAction)gestTab:(id)sender {
@@ -84,7 +94,7 @@
 }
 
 
-#pragma mark: - Sign Up
+#pragma mark: - sign up event
 - (IBAction)signUpAction:(id)sender {
      // dismiss keyboard
     [self dismissKeyboard];
@@ -102,24 +112,14 @@
     }else if ([password isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"Please complete pasword"];
     }else{
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
         [SVProgressHUD show];
-        [self.view setUserInteractionEnabled:false];
-        
-        // disable login button
-        self.signUpButton.enabled = false;
-               
-        //Create connection object
-        manager = [[ConnectionManager alloc] init];
-        
-        //Set delegate
-        manager.delegate = self;
         
         //Create dictionary for store article detail input from user
         NSDictionary * param = @{ @"username": name,
                                   @"email": email,
                                   @"password": password,
-                                  @"image": @""
-                                  };
+                                  @"image": @""};
         
         //Send data to server and insert it
         [manager requestDataWithURL:SIGNUP_URL data:param method:POST];
@@ -130,15 +130,11 @@
 
 #pragma mark: - ConnectionManagerDelegate
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+    [SVProgressHUD dismiss];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
-    [self.view setUserInteractionEnabled:true];
-    
-    // disable login button
-    self.signUpButton.enabled =true;
-    
+    // check sign up status
     if([[result valueForKey:R_KEY_MESSAGE] containsString:SIGNUP_SUCCESS]){
-        [SVProgressHUD dismiss];
-        
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         

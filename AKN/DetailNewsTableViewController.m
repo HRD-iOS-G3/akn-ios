@@ -19,20 +19,60 @@
 @interface DetailNewsTableViewController ()<ConnectionManagerDelegate>
 
 {
-	NSString *imageFile;
-	NSString *title;
-	NSString *date;
-	NSString *description;
+	NSString * imageFile;
+	NSString * title;
+	NSString * date;
+	NSString * description;
 	
-    IBOutlet UIView *cellContentOfDesc;
-    IBOutlet UILabel *lblCpyRight;
-	IBOutlet NSLayoutConstraint *imageHeaderCenterY;
+    IBOutlet UIView * cellContentOfDesc;
+    IBOutlet UILabel * lblCpyRight;
+	IBOutlet NSLayoutConstraint * imageHeaderCenterY;
+    
+    ConnectionManager * manager;
 
 }
 
 @end
 
 @implementation DetailNewsTableViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [Utilities customizeNavigationBar:self.navigationController withTitle:@"News Details" ];
+    
+    title = _news.newsTitle;
+    date = [Utilities timestamp2date:_news.newsDateTimestampString];
+    //	description = _news.newsDescription;
+    
+    // custom font
+    UIFont *customFont = [UIFont fontWithName:@"KhmerOSBattambang" size:17];
+    self.labelDescription.font = customFont;
+    
+    UIFont *customFont2 = [UIFont fontWithName:@"KhmerOSBattambang-Bold" size:17];
+    self.labelTitle.font = customFont2;
+    
+    // set user id
+    int userId= 0;
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
+        userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
+    }
+    
+    // init connection manager then request news
+    manager = [[ConnectionManager alloc]init];
+    manager.delegate=self;
+    [manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%d", GET_ARTICLE ,_news.newsId, userId]];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [SVProgressHUD showWithStatus:@"Loading..."];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [lblCpyRight removeFromSuperview];
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
@@ -66,23 +106,66 @@
 	if (_news.saved) {
 		self.navigationItem.rightBarButtonItem.enabled = false;
 	}
-
 }
+
+#pragma mark - respone news details
+-(void)connectionManagerDidReturnResult:(NSArray *) result FromURL:(NSURL *)URL
+{
+    NSLog(@"%@", URL);
+    [SVProgressHUD dismiss];
+    
+    // check
+    if ([[result valueForKey:@"STATUS"]  isEqual: @404]) {
+        [self.navigationController.view makeToast:[result valueForKey:R_KEY_MESSAGE] duration:3 position:CSToastPositionCenter];
+        [SVProgressHUD dismiss];
+    }else{
+        
+        // create dictionary for store result
+        NSDictionary *results=((NSDictionary *)result)[R_KEY_RESPONSE_DATA];
+        NSString *str = [[result valueForKey:R_KEY_RESPONSE_DATA] valueForKey:@"content"];
+        
+        // check content
+        if (str != (id)[NSNull null]) {
+            if (![str isEqualToString: @""] || ![str isEqualToString:@"null"]) {
+                _labelDescription.text = [NSString stringWithFormat:@"%@",[results[@"content"] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+                _news.newsDescription = _labelDescription.text;
+                _labelTitle.text = title;
+                _labelDate.text = date;
+                
+                if (_news.newsImage) {
+                    _imageViewNews.image = _news.newsImage;
+                }else{
+                    [_imageViewNews sd_setImageWithURL:[NSURL URLWithString:_news.newsImageUrl]];
+                }
+                [SVProgressHUD dismiss];
+                [self.tableView reloadData ];
+            }
+        }else{
+            [self.navigationController.view makeToast:@"News not found!" duration:2 position:CSToastPositionCenter];
+            [SVProgressHUD dismiss];
+        }
+        NSLog(@"%d",_news.newsId);
+    }
+}
+
+
+#pragma mark - save event
 - (IBAction)actionSave:(id)sender {
+    
+    // check user exist
 	if ([[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY]) {
-		//		[sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+        
+		//sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+        
 		[sender setEnabled:false];
-		//		_newsList[sender.tag].saved = true;
+        
 		_news.saved = true;
-		ConnectionManager *m = [[ConnectionManager alloc]init];
-		m.delegate = self;
-		int userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue];
         
         // request dictionary
         NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_news.newsId],
-                                 @"userid":[NSNumber numberWithInt:userId]} ;
+                                 @"userid":[NSNumber numberWithInt:[[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue]]} ;
         
-        [m requestDataWithURL:SAVE_LIST data:param method:POST];
+        [manager requestDataWithURL:SAVE_LIST data:param method:POST];
         
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
@@ -94,89 +177,10 @@
 																	 position:CSToastPositionBottom];
 	}
 }
--(void)viewWillDisappear:(BOOL)animated{
-    [lblCpyRight removeFromSuperview];
-}
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	
-//	NSArray *fontFamilies = [UIFont familyNames];
-//	for (int i = 0; i < [fontFamilies count]; i++)
-//	{
-//		NSString *fontFamily = [fontFamilies objectAtIndex:i];
-//		NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
-//		NSLog (@"%@: %@", fontFamily, fontNames);
-//	}
-	
-	self.title = _pageTitle;
-	
-	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
-	self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
-	
-	title = _news.newsTitle;
-	date = [Utilities timestamp2date:_news.newsDateTimestampString];
-//	description = _news.newsDescription;
-	
-	UIFont *customFont = [UIFont fontWithName:@"KhmerOSBattambang" size:17];
-	self.labelDescription.font = customFont;
-
-	UIFont *customFont2 = [UIFont fontWithName:@"KhmerOSBattambang-Bold" size:17];
-	self.labelTitle.font = customFont2;
-	
-	NSLog(@"%d", _news.newsId);
-	int userId= 0;
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
-		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] valueForKey:@"id"] intValue];
-	}
-	
-    ConnectionManager *con=[[ConnectionManager alloc]init];
-    con.delegate=self;
-    [con requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%d", GET_ARTICLE ,_news.newsId, userId]];
-	
-}
--(void)viewDidAppear:(BOOL)animated{
-	[SVProgressHUD showWithStatus:@"Loading..."];
-}
--(void)connectionManagerDidReturnResult:(NSArray *) result FromURL:(NSURL *)URL
-{
-	NSLog(@"%@", URL);
-	[SVProgressHUD dismiss];
-	if ([[result valueForKey:@"STATUS"]  isEqual: @404]) {
-		[self.navigationController.view makeToast:[result valueForKey:R_KEY_MESSAGE] duration:3 position:CSToastPositionCenter];
-		[SVProgressHUD dismiss];
-	}else{
-		NSDictionary *results=((NSDictionary *)result)[R_KEY_RESPONSE_DATA];
-		NSString *str = [[result valueForKey:R_KEY_RESPONSE_DATA] valueForKey:@"content"];
-		if (str != (id)[NSNull null]) {
-			if (![str  isEqualToString: @""] || ![str isEqualToString:@"null"]) {
-			_labelDescription.text=[NSString stringWithFormat:@"%@",[results[@"content"] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
-			_news.newsDescription = _labelDescription.text;
-			_labelTitle.text = title;
-			_labelDate.text = date;
-			
-			if (_news.newsImage) {
-				_imageViewNews.image = _news.newsImage;
-			}else{
-				[_imageViewNews sd_setImageWithURL:[NSURL URLWithString:_news.newsImageUrl]];
-			}
-			[SVProgressHUD dismiss];
-			[self.tableView reloadData ];
-			}
-		}else{
-			[self.navigationController.view makeToast:@"News not found!" duration:2 position:CSToastPositionCenter];
-			[SVProgressHUD dismiss];
-		}
-		NSLog(@"%d",_news.newsId);
-	}
-}
-
+#pragma mark - respone save event
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-	NSLog(@"%@", result);
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"save event ====== %@", result);
 }
 
 - (IBAction)backAction:(id)sender {
@@ -188,12 +192,10 @@
 		MainViewController *mvc = [MainViewController getInstance];
 		[mvc.navigationController popViewControllerAnimated:YES];
 	}
-//	[mvc.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
 #pragma mark - Table view data source
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 	switch (indexPath.row) {
 		case 0:
@@ -215,8 +217,10 @@
 			break;
 	}
 }
+
+#pragma mark - heightForText for display content
 -(CGFloat)heightForText:(NSString*)text font:(UIFont*)font withinWidth:(CGFloat)width {
-	
+	// find font height
 	CGSize constraint = CGSizeMake(width, 20000.0f);
 	CGSize size;
 	
@@ -230,21 +234,27 @@
 	return size.height;
 }
 
+#pragma mark - calculateHeightForString for display content
 -(int)calculateHeightForString:(NSString *)string{
+    
 	NSAttributedString *attr = [[NSAttributedString alloc]initWithString:string];
 	return [attr boundingRectWithSize:CGSizeMake(300.0, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height * 2;
 }
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat y=-scrollView.contentOffset.y;
-	if (y>64)
-	{
-		imageHeaderCenterY.constant=0;
-	}
-	else
-	{
-		imageHeaderCenterY.constant=(64-y)/2;
-	}
+    CGFloat y = -scrollView.contentOffset.y;
+    if (y > 64){
+        imageHeaderCenterY.constant = 0;
+    }
+    else{
+        imageHeaderCenterY.constant = (64-y)/2;
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*

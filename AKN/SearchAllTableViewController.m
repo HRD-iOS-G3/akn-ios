@@ -43,9 +43,9 @@
     _listNewsFound = [NSMutableArray new];
     
     // get user id
-    int userId = 0;
+     _userId = 0;
     if ([[NSUserDefaults standardUserDefaults]objectForKey: USER_DEFAULT_KEY]) {
-        userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
+        _userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
     }
     
     manager = [[ConnectionManager alloc]init];
@@ -256,6 +256,7 @@ bool help1 = true;
 		
         NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_listNewsFound[sender.tag].newsId],
                                  @"userid":[NSNumber numberWithInt:_userId]};
+        NSLog(@"%@", param);
 
         [manager requestDataWithURL:SAVE_LIST data:param method:POST];
         

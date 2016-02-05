@@ -134,6 +134,7 @@
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="BTm-vP-Cdk">
+                            <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                             <connections>
                                 <action selector="actionSave:" destination="RtJ-Lz-wcW" id="v8x-CJ-WnD"/>
                             </connections>

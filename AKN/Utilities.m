@@ -9,6 +9,7 @@
 #import "Utilities.h"
 
 @implementation Utilities
+
 +(NSString*)timestamp2date:(NSString*)timestamp{
 	NSString * timeStampString =timestamp;
 	//[timeStampString stringByAppendingString:@"000"];   //convert to ms
@@ -17,18 +18,6 @@
 	NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
 	[_formatter setDateFormat:@"dd-MM-yyyy"];
 	return [_formatter stringFromDate:date];
-}
-
-#pragma mark: -  Gradien Color
-+(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
-    //Set GradienColor for control
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = control.bounds;
-    gradient.colors = arrayColor;
-    
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(0, 1);
-    [control.layer insertSublayer:gradient atIndex:0];
 }
 
 #pragma mark - Navigation bar
@@ -49,6 +38,18 @@
     // border radius
     [control.layer setCornerRadius:control.bounds.size.height/2];
     control.clipsToBounds = YES;
+}
+
+#pragma mark: -  Gradien Color
++(void)setGradientColor:(UIView *)control NSArrayColor:(NSArray *)arrayColor{
+    //Set GradienColor for control
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = control.bounds;
+    gradient.colors = arrayColor;
+    
+    gradient.startPoint = CGPointMake(0, 0);
+    gradient.endPoint = CGPointMake(0, 1);
+    [control.layer insertSublayer:gradient atIndex:0];
 }
 
 #pragma mark - SWReveal Sidebar Button

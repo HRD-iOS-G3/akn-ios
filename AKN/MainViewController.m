@@ -40,6 +40,7 @@ static MainViewController *this;
 +(MainViewController *)getInstance{
 	return this;
 }
+
 -(void)viewWillAppear:(BOOL)animated{
 	[super viewWillAppear:animated];
 	// May return nil if a tracker has not already been initialized with a
@@ -62,7 +63,7 @@ static MainViewController *this;
     [super viewDidLoad];
 	this = self;
     [Utilities customizeNavigationBar:self.navigationController withTitle:@"ALL KHMER NEWS"];
-	[self customizePageMenu];
+	[self customizeTapBarTitle];
     [self customizeSlideOutMenu];
 	
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlack; // change status color
@@ -99,6 +100,7 @@ static MainViewController *this;
     [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 }
 
+#pragma mark: - search bar tap event
 - (IBAction)searchBarTapped:(id)sender {
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"X"];
@@ -112,7 +114,6 @@ static MainViewController *this;
     textFieldInsideSearchBar.textColor=[UIColor whiteColor];
     [UIView animateWithDuration:0.1 animations:^{
         self.searchButton.alpha = 0.0f;
-        
         
     } completion:^(BOOL finished) {
         
@@ -154,6 +155,7 @@ static MainViewController *this;
     self.searchBarField.text=@"";
 }
 
+#pragma mark: - search bar button event
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [disableViewOverlay removeFromSuperview];
     //[self searchBarTextDidEndEditing:searchBar];
@@ -210,8 +212,8 @@ static MainViewController *this;
         self.visualEffectView.layer.zPosition = 0;
 }
 
--(void)customizePageMenu{
-
+#pragma mark - set tap tar title
+-(void)customizeTapBarTitle{
 	UIStoryboard *pageMenuStoryboard = [UIStoryboard storyboardWithName:@"PageMenu" bundle:nil];
 	
 	TablePageViewController *controller1 = [pageMenuStoryboard instantiateViewControllerWithIdentifier:@"home"];
@@ -233,6 +235,7 @@ static MainViewController *this;
 
 }
 
+#pragma mark - SlideOutMenu
 -(void) customizeSlideOutMenu{
     // INITIAL APPEARANCE: Configure the initial position of the menu and content views
     self.revealViewController.frontViewPosition = FrontViewPositionLeft; // FrontViewPositionLeft (only content), FrontViewPositionRight(menu and content), FrontViewPositionRightMost(only menu), see others at library documentation...

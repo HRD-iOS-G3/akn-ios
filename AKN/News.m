@@ -10,6 +10,7 @@
 
 @implementation News
 
+#pragma mark: - init with data
 -(id)initWithData:(NSDictionary *)array{
 	self = [super init];
 	if (self != nil) {
