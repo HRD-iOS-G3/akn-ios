@@ -16,58 +16,72 @@
 #import "Utilities.h"
 #import "MainViewController.h"
 #import "DetailNewsTableViewController.h"
+#import "UIImageView+WebCache.h"
+
+
 @interface SaveListTableViewController ()<ConnectionManagerDelegate>
 {
-	int userId;
 	NSMutableArray<News *> *savedNewsList;
+    ConnectionManager * manager;
 }
+
 @end
 
 @implementation SaveListTableViewController
+
 id selfobject;
 +(SaveListTableViewController *)getInstance{
 	return selfobject;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	selfobject = self;
-    [Utilities customizeNavigationBar:self.navigationController withTitle:@"SAVE LIST"];
-	savedNewsList = [[NSMutableArray alloc]init];
-	userId = 0;
     
+    savedNewsList = [[NSMutableArray alloc]init];
+    
+    manager = [[ConnectionManager alloc]init];
+    manager.delegate = self;
+	selfobject = self;
+    
+    // set navigation bar
+    [Utilities customizeNavigationBar:self.navigationController withTitle:@"SAVE LIST"];
+	
     //Set SWReveal
-    [self.sidebarButton setTarget: self.revealViewController];
-    [self.sidebarButton setAction: @selector( revealToggle: )];
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    [Utilities setSWRevealSidebarButton:self.sidebarButton :self.revealViewController :self.view];
 }
+
+
 -(void)viewDidAppear:(BOOL)animated{
+    
+    // set user id
+    _userId = 0;
 	if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
-		userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
+		_userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
 	}
+    
+    // fetch news
 	if (savedNewsList.count == 0) {
-		ConnectionManager *manager = [[ConnectionManager alloc]init];
-		manager.delegate = self;
-		[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/1", SAVE_LIST, userId]]; // need to create pagination with this url
+		[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/1", SAVE_LIST, _userId]]; // need to create pagination with this url
 		[SVProgressHUD showWithStatus:@"Loading..."];
 	}
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return savedNewsList.count;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 126;
+}
+
+
 #pragma mark - Connection manager delegate
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
 	[SVProgressHUD dismiss];
-	NSLog(@"%@",result);
+	NSLog(@"Result >>>>>>> %@",result);
+    
+    // add news to list when success
 	if ([[result valueForKeyPath:R_KEY_MESSAGE] isEqualToString:GET_NEWS_SUCCESS]) {
 		[savedNewsList removeAllObjects];
 		for (NSDictionary *object in [result valueForKeyPath:R_KEY_RESPONSE_DATA]) {
@@ -80,10 +94,8 @@ id selfobject;
 		[self.navigationController.view makeToast:[result valueForKeyPath:R_KEY_MESSAGE] duration:3 position:CSToastPositionCenter];
 	}
 }
--(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-	NSLog(@"%@",result);
-}
 
+#pragma mark - cellForRowAtIndexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"saveListCell"];
 	cell.viewCell.layer.cornerRadius=5;
@@ -92,19 +104,23 @@ id selfobject;
 	[self configureCell:cell AtIndexPath:indexPath];
 	
 	return cell;
-
 }
 
+#pragma mark - custom cell
 -(void)configureCell:(HomeViewCell *)cell AtIndexPath:(NSIndexPath *)indexPath{
+    
+    // set title, view, and date
 	cell.newsTitle.text=[NSString stringWithFormat:@"%@",savedNewsList[indexPath.row].newsTitle];
 	cell.newsView.text=[NSString stringWithFormat:@"%d",savedNewsList[indexPath.row].newsHitCount];
 	cell.newsDate.text=[NSString stringWithFormat:@"%@", [Utilities timestamp2date:savedNewsList[indexPath.row].newsDateTimestampString]];
 	
+    // set tag for save button
 	cell.buttonSave.tag = indexPath.row;
 	[cell.buttonSave addTarget:self action:@selector(buttonSaveClick:) forControlEvents:UIControlEventTouchUpInside];
 	
 	[cell.buttonSave setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-	
+    
+    // set image by source
 	switch (savedNewsList[indexPath.row].newsSourceId) {
 			
 		case 1: //sabay
@@ -128,58 +144,22 @@ id selfobject;
 		default:
 			break;
 	}
-	
-	if (savedNewsList[indexPath.row].newsImage){
-		cell.newsImage.image = savedNewsList[indexPath.row].newsImage;
-	}else{
-		cell.newsImage.image = [UIImage imageNamed:@"akn-logo-red"];
-		// download image in background
-		[self downloadImageInBackground:savedNewsList[indexPath.row] forIndexPath:indexPath];
-	}
-}
--(void)buttonSaveClick:(UIButton *)sender{
-	if ([[NSUserDefaults standardUserDefaults]objectForKey:@"user"]) {
-		ConnectionManager *m = [[ConnectionManager alloc]init];
-		m.delegate = self;
-		
-        [m requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%d", SAVE_LIST ,savedNewsList[sender.tag].newsId,userId] data:@{} method:DELETE];
-        		
-		[self.navigationController.view makeToast:@"Deleted!"
-																	 duration:2.0
-																	 position:CSToastPositionBottom];
-		[savedNewsList removeObjectAtIndex:sender.tag];
-		[self.tableView reloadData];
-	}else{
-		
-		[self.navigationController.view makeToast:@"Error occurred!"
-																	 duration:3.0
-																	 position:CSToastPositionBottom];
-	}
+    
+    // download image
+    if (savedNewsList[indexPath.row].newsImage){
+        cell.newsImage.image = savedNewsList[indexPath.row].newsImage;
+    }else{
+
+        // download image
+        [cell.newsImage sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString: savedNewsList[indexPath.row].newsImageUrl]
+                                                 placeholderImage:[UIImage imageNamed:@"akn-logo-red"]
+                                                          options:SDWebImageRefreshCached progress:nil
+                                                        completed:nil];
+    }
 }
 
-- (void)downloadImageInBackground:(News *)news forIndexPath:(NSIndexPath *)indexPath {
-	
-	dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-	
-	dispatch_async(concurrentQueue, ^{
-		__block NSData *dataImage = nil;
-		
-		dispatch_sync(concurrentQueue, ^{
-			NSURL *urlImage = [NSURL URLWithString:news.newsImageUrl];
-			dataImage = [NSData dataWithContentsOfURL:urlImage];
-		});
-		
-		dispatch_async(dispatch_get_main_queue(), ^{
-			HomeViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-			savedNewsList[indexPath.row].newsImage = [UIImage imageWithData:dataImage];
-			cell.newsImage.image = savedNewsList[indexPath.row].newsImage;
-		});
-	});
-}
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	return 126;
-}
+#pragma mark - didSelectRowAtIndexPath
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
@@ -187,6 +167,38 @@ id selfobject;
 	dvc.news = (News *)savedNewsList[indexPath.row];
 	dvc.sourceViewController = @"SaveList";
 	[self.navigationController pushViewController:dvc animated:YES];
+}
+
+#pragma mark - save news button event
+-(void)buttonSaveClick:(UIButton *)sender{
+    
+    // check user existed
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY]) {
+        
+        // request to delete
+        [manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%d", SAVE_LIST ,savedNewsList[sender.tag].newsId, _userId] data:@{} method:DELETE];
+        
+        [self.navigationController.view makeToast:@"Deleted!"
+                                         duration:2.0
+                                         position:CSToastPositionBottom];
+        [savedNewsList removeObjectAtIndex:sender.tag];
+        [self.tableView reloadData];
+    }else{
+        
+        [self.navigationController.view makeToast:@"Error occurred!"
+                                         duration:3.0
+                                         position:CSToastPositionBottom];
+    }
+}
+
+#pragma mark - respone when delete
+-(void)connectionManagerDidReturnResult:(NSDictionary *)result{
+    NSLog(@"Delete ====== %@",result);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*

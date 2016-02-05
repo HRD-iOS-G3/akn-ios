@@ -24,12 +24,16 @@
     
     [Utilities customizeNavigationBar:self.navigationController withTitle:@"ALL KHMER NEWS"];
     
+    // set tab view controller title
     TablePageViewController *controller1 = [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
     controller1.title = @"Home";
+    
     viewPageController *controller2 =[self.storyboard instantiateViewControllerWithIdentifier:@"category"];
     controller2.title = @"Category";
+    
     TableSourceViewController *controller3=[self.storyboard instantiateViewControllerWithIdentifier:@"source"];
     controller3.title=@"Source";
+    
     NSLog(@"I love Cambodia");
     NSArray *controllerArray = @[controller1, controller2,controller3];
     NSDictionary *parameters = @{CAPSPageMenuOptionMenuItemSeparatorWidth: @(0),

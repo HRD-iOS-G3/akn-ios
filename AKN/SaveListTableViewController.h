@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface SaveListTableViewController : UITableViewController
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+
+@property int userId;
 
 +(SaveListTableViewController *)getInstance;
 @end

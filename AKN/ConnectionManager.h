@@ -39,6 +39,7 @@ extern NSString * GET_ARTICLE_CATEGORY;
 extern NSString * R_KEY_MESSAGE;
 extern NSString * R_KEY_DATA;
 extern NSString * R_KEY_RESPONSE_DATA;
+extern NSString * R_KEY_STATUS;
 
 
 // MESSAGE STATE

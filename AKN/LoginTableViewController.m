@@ -48,14 +48,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Create connection object
+    manager = [[ConnectionManager alloc] init];
+    
+    //Set delegate
+    manager.delegate = self;
+    
+    // set sidebar color
     [Utilities customizeNavigationBar:self.navigationController withTitle:@"Login"];
     
     // border radius
-    [self.loginButton.layer setCornerRadius:self.loginButton.bounds.size.height/2];
-    self.loginButton.clipsToBounds = YES;
+    [Utilities setBorderRadius: self.loginButton];
     
     //Set GradienColor for control
-    NSArray *gradientColor  =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
+    NSArray *gradientColor  = [NSArray arrayWithObjects:
+                               (id)[[UIColor colorWithRed:(200/255.0)
+                                                    green:(38/255.0)
+                                                     blue:(38/255.0)
+                                                    alpha:1.00] CGColor],
+                               (id)[[UIColor colorWithRed:(140/225.0)
+                                                    green:(30/255.0)
+                                                     blue:(30/255.0)
+                                                    alpha:1.00] CGColor], nil];
+    
     [Utilities setGradientColor:self.loginButton NSArrayColor:gradientColor];
     
     [self.tableView addGestureRecognizer:gesture];
@@ -64,12 +79,11 @@
     txtEmail.layer.masksToBounds=YES;
     txtPwd.layer.masksToBounds=YES;
     btnLogin.layer.cornerRadius=6;
-    // Do any additional setup after loading the view.
     
+    // Do any additional setup after loading the view.
+
     //Set SWReveal
-    [self.sidebarButton setTarget: self.revealViewController];
-    [self.sidebarButton setAction: @selector( revealToggle: )];
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    [Utilities setSWRevealSidebarButton:self.sidebarButton :self.revealViewController :self.view];
 }
 
 - (IBAction)gesture:(id)sender {
@@ -77,7 +91,7 @@
     [txtPwd endEditing:YES];
 }
 
-#pragma mark: - Login
+#pragma mark: - login
 - (IBAction)actionLogin:(id)sender {
     // dismiss keyboard
     [self dismissKeyboard];
@@ -97,12 +111,6 @@
         // disable login button
         [self.activityIndicatorLoading startAnimating];
         self.loginButton.enabled = false;
-        
-        //Create connection object
-        manager = [[ConnectionManager alloc] init];
-        
-        //Set delegate
-        manager.delegate = self;
         
         // request dictionary
         NSDictionary * param = @{@"email": email,
@@ -139,7 +147,7 @@
         for(NSString* key in tempDictionary)
               [[result valueForKey:R_KEY_DATA] setObject:@"N/A" forKey:key];
         
-         [[result valueForKey:R_KEY_DATA] setObject:@"default.jpg" forKey:@"image"];
+        [[result valueForKey:R_KEY_DATA] setObject:@"default.jpg" forKey:@"image"];
         NSLog(@"%@", [result valueForKey:R_KEY_DATA] );
         // set userdefault
         [defaults setObject:[result valueForKey:R_KEY_DATA] forKey:USER_DEFAULT_KEY];
