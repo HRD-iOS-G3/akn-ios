@@ -11,6 +11,7 @@
 #import "UserProfileViewController.h"
 #import "ConnectionManager.h"
 #import "UIImageView+WebCache.h"
+#import "Utilities.h"
 
 
 @interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource,ConnectionManagerDelegate>{
@@ -29,7 +30,7 @@
     menuItems = @[@"home", @"saveList", @"setting", @"logout", @"aboutUs"];
     menuTitle = @[@"Home", @"Save List", @"Setting", @"Logout", @"About us"];
     
-    //Set color for button login
+    //Set color for profile background
     CAGradientLayer *gradient1 = [CAGradientLayer layer];
     gradient1.frame = self.profileBackgroundView.bounds;
     gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
@@ -38,8 +39,8 @@
     gradient1.endPoint = CGPointMake(0, 1);
     [self.profileBackgroundView.layer insertSublayer:gradient1 atIndex:0];
     
-    [self.profileImageView.layer setCornerRadius:self.profileImageView.bounds.size.height/2];
-    self.profileImageView.clipsToBounds = YES;
+    // set color and border for image profile
+    [Utilities setBorderRadius:self.profileImageView];
     [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.profileImageView.layer setBorderWidth: 2.0];
 }
@@ -50,15 +51,17 @@
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     [self.revealViewController.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
-    //set image
+    // init object
     ConnectionManager * manager = [[ConnectionManager alloc]init];
     NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
     manager.delegate = self;
     
+    // set text
     self.nameLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"username"];
     self.emailLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"email"];
     
+    // set image
     self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
     [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", manager.basedUrl, IMAGE_USER_URL, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
@@ -66,27 +69,15 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:YES];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     return menuItems.count;
 }
 
@@ -94,6 +85,7 @@
     NSString *CellIdentifier = [menuItems objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    // custom cell
     cell.imageView.image = [UIImage imageNamed:[menuItems objectAtIndex:indexPath.row]];
     cell.imageView.highlightedImage = [UIImage imageNamed:  [NSString stringWithFormat:@"%@White", [menuItems objectAtIndex:indexPath.row]]];
     
@@ -109,13 +101,11 @@
     bgColorView.backgroundColor = [UIColor colorWithRed:(160/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00];
     [cell setSelectedBackgroundView:bgColorView];
     
-    
     return cell;
 }
 
-
+#pragma mark - logout cell click
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     if(indexPath.row == 3)
     {
         NSUserDefaults *userDefaul = [NSUserDefaults standardUserDefaults];
@@ -123,7 +113,6 @@
         [self.revealViewController performSegueWithIdentifier:SWSegueGuestIdentifier sender:nil];
     }
 }
-
 
 // set cell height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,7 +127,6 @@
     UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
     destViewController.title = [[menuItems objectAtIndex:indexPath.row] capitalizedString];
     
-    // Set the photo if it navigates to the PhotoView
     if ([segue.identifier isEqualToString:@"showHome"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NSNotificationCenterHomeClick" object:nil];
     }
@@ -149,5 +137,11 @@
         //        UserProfileController.photoFilename = photoFilename;
     }
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 
 @end

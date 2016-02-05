@@ -19,40 +19,33 @@
 @end
 
 @implementation TableSourceViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     manager = [[ConnectionManager alloc]init];
     manager.delegate = self;
     
 	sources = [[NSMutableArray alloc]init];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	[self getSourceList];
 }
--(void)getSourceList{
 
+#pragma mark - request source
+-(void)getSourceList{
 	[manager requestDataWithURL: GET_ARTICLE_SITE];
 }
+
+#pragma mark - respone source
 -(void)connectionManagerDidReturnResult:(NSArray *)result FromURL:(NSURL *)URL{
-//	NSLog(@"%@", result);
 	sources = [result valueForKey:R_KEY_DATA];
 	[self.tableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return sources.count;
 }
 
+#pragma mark - cellForRowAtIndexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
@@ -62,7 +55,6 @@
 	cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width/2;
 	cell.imageView.layer.masksToBounds = YES;
 	switch ([[sources[indexPath.row] valueForKeyPath:@"id"] intValue]) {
-			
 		case 1: //sabay
 			cell.imageView.image = [UIImage imageNamed:@"sabay"];
 			break;
@@ -88,8 +80,7 @@
 }
 
 
-#pragma mark - Table view delegate
-
+#pragma mark - didSelectRowAtIndexPath
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
@@ -99,48 +90,10 @@
 	view.categoryOrSource = sources[indexPath.row];
 	[mvc.navigationController pushViewController:view animated:YES];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

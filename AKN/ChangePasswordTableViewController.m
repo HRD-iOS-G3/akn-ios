@@ -41,7 +41,6 @@
 }
 
 #pragma mark - Keyboard Did Show and Hide
-
 - (void)keyboardDidShow:(NSNotification *)sender {
     self.changePasswordTableView.scrollEnabled = YES;
 }
@@ -100,7 +99,6 @@
 }
 
 #pragma mark: - ConnectionManagerDelegate
-
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
     [SVProgressHUD dismiss];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
