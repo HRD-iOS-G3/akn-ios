@@ -40,13 +40,6 @@ extern NSString * R_KEY_MESSAGE;
 extern NSString * R_KEY_DATA;
 extern NSString * R_KEY_RESPONSE_DATA;
 
-// RESPONSE KEY FOR USER
-extern NSString * USERID;
-extern NSString * PROFILE_IMG_URL;
-extern NSString * COVER_IMG_URL;
-extern NSString * EMAIL;
-extern NSString * USERNAME;
-
 
 // MESSAGE STATE
 extern NSString * LOGIN_SUCCESS;
@@ -84,7 +77,7 @@ extern NSString * HTTP_HEADER;
 @property(nonatomic, strong)NSString *basedUrl;
 
 //Request Method
--(void)requestDataWithURL:(NSDictionary *)reqDictionary withKey:(NSString *)key method:(NSString *)method;
+-(void)requestDataWithURL:(NSString *)url data:(NSDictionary *)data method:(NSString *)method;
 -(void)requestDataWithURL:(NSString *)URL;
 -(void)uploadWithImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name;
 

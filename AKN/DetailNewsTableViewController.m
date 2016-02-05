@@ -77,7 +77,13 @@
 		ConnectionManager *m = [[ConnectionManager alloc]init];
 		m.delegate = self;
 		int userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue];
-		[m requestDataWithURL:@{@"newsid":[NSNumber numberWithInt:_news.newsId], @"userid":[NSNumber numberWithInt:userId]} withKey:SAVE_LIST method:POST];
+        
+        // request dictionary
+        NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_news.newsId],
+                                 @"userid":[NSNumber numberWithInt:userId]} ;
+        
+        [m requestDataWithURL:SAVE_LIST data:param method:POST];
+        
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
 																	 duration:2.0
 																	 position:CSToastPositionBottom];

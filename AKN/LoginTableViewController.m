@@ -83,11 +83,11 @@
     [self dismissKeyboard];
     
     // Get value from text field
-    NSString * username = self.usernameTextField.text;
+    NSString * email = self.usernameTextField.text;
     NSString * password = self.passwordTextField.text;
     
     // validate text field
-    if ([username isEqualToString:@""]) {
+    if ([email isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"Please complete username"];
     }else if ([password isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"Please complete pasword"];
@@ -105,15 +105,12 @@
         manager.delegate = self;
         
         // request dictionary
-        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        [dictionary setObject:username forKey:@"email"];
-        [dictionary setObject:password forKey:@"password"];
+        NSDictionary * param = @{@"email": email,
+                                 @"password":password};
         
         // send data to server
-        [manager requestDataWithURL:dictionary withKey:LOGIN_URL method:POST];
-        
+        [manager requestDataWithURL:LOGIN_URL data:param method:POST];
     }
-    
 }
 
 #pragma mark: - ConnectionManagerDelegate
@@ -142,6 +139,7 @@
         for(NSString* key in tempDictionary)
               [[result valueForKey:R_KEY_DATA] setObject:@"N/A" forKey:key];
         
+         [[result valueForKey:R_KEY_DATA] setObject:@"default.jpg" forKey:@"image"];
         NSLog(@"%@", [result valueForKey:R_KEY_DATA] );
         // set userdefault
         [defaults setObject:[result valueForKey:R_KEY_DATA] forKey:USER_DEFAULT_KEY];

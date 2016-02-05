@@ -115,15 +115,14 @@
         manager.delegate = self;
         
         //Create dictionary for store article detail input from user
-        NSDictionary *dictionaryObject = @{
-                                           @"username": name,
-                                           @"email": email,
-                                           @"password": password,
-                                           @"image": @""
-                                           };
+        NSDictionary * param = @{ @"username": name,
+                                  @"email": email,
+                                  @"password": password,
+                                  @"image": @""
+                                  };
         
         //Send data to server and insert it
-        [manager requestDataWithURL:dictionaryObject withKey:SIGNUP_URL method:POST];
+        [manager requestDataWithURL:SIGNUP_URL data:param method:POST];
     }
 }
 

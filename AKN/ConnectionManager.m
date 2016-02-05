@@ -15,55 +15,47 @@ NSString * PUT  = @"PUT";//
 NSString * DELETE = @"DELETE";//
 
 // REQUEST URL
-NSString * LOGIN_URL    = @"/api/user/login";//
-NSString * SIGNUP_URL   = @"/api/user/";//
-NSString * UPDATE_USER  = @"/api/user/update";//
-NSString * EDIT_UPLOAD_IMAGE  = @"/api/user/editupload";//
-NSString * IMAGE_USER_URL    = @"/resources/images/user";//
-NSString * CHANGE_USER_PASSWORD_URL = @"/api/user/changepwd";//
+NSString * LOGIN_URL    = @"/api/user/login";
+NSString * SIGNUP_URL   = @"/api/user/";
+NSString * UPDATE_USER  = @"/api/user/update";
+NSString * EDIT_UPLOAD_IMAGE  = @"/api/user/editupload";
+NSString * IMAGE_USER_URL    = @"/resources/images/user";
+NSString * CHANGE_USER_PASSWORD_URL = @"/api/user/changepwd";
 
-NSString * SEARCH_NEWS  = @"/api/article/search";//
+NSString * SEARCH_NEWS  = @"/api/article/search";
 
-NSString * SAVE_LIST    = @"/api/article/savelist";//
+NSString * SAVE_LIST    = @"/api/article/savelist";
 
-NSString * GET_ARTICLE  = @"/api/article";//
-NSString * GET_ARTICLE_POPULAR  = @"/api/article/popular";//
+NSString * GET_ARTICLE  = @"/api/article";
+NSString * GET_ARTICLE_POPULAR  = @"/api/article/popular";
 
-NSString * GET_ARTICLE_SITE     = @"/api/article/site/";//
+NSString * GET_ARTICLE_SITE     = @"/api/article/site/";
 
 NSString * GET_ARTICLE_CATEGORY = @"/api/article/category/";
 
 // RESPONSE KEY
-NSString * R_KEY_MESSAGE    = @"MESSAGE";//
-NSString * R_KEY_DATA   =  @"DATA";//
-NSString * R_KEY_RESPONSE_DATA   =  @"RESPONSE_DATA";//
-
-
-// RESPONSE KEY FOR UER
-NSString * USERID           = @"USERID";
-NSString * PROFILE_IMG_URL  = @"PROFILE_IMG_URL";
-NSString * COVER_IMG_URL    = @"COVER_IMG_URL";
-NSString * EMAIL            = @"EMAIL";
-NSString * USERNAME         = @"USERNAME";
+NSString * R_KEY_MESSAGE    = @"MESSAGE";
+NSString * R_KEY_DATA   =  @"DATA";
+NSString * R_KEY_RESPONSE_DATA   =  @"RESPONSE_DATA";
 
 
 // MESSAGE STATE
-NSString * LOGIN_SUCCESS    = @"LOGIN SUCCESS";//
-NSString * LOGIN_UNSUCCESS  = @"Login failed! check email or password and try again!";//
+NSString * LOGIN_SUCCESS    = @"LOGIN SUCCESS";
+NSString * LOGIN_UNSUCCESS  = @"Login failed! check email or password and try again!";
 
-NSString * SIGNUP_SUCCESS   = @"SUCCESS"; //
-NSString * SIGNUP_UNSUCCESS = @"SignUp Failed\nThis username is already created!!!";//
+NSString * SIGNUP_SUCCESS   = @"SUCCESS";
+NSString * SIGNUP_UNSUCCESS = @"SignUp Failed\nThis username is already created!!!";
 
-NSString * UPDATE_USER_SUCCESS     = @"SUCCESS";//
-NSString * UPDATE_USER_UNSUCCESS   = @"OPERATION FAIL";//
+NSString * UPDATE_USER_SUCCESS     = @"SUCCESS";
+NSString * UPDATE_USER_UNSUCCESS   = @"OPERATION FAIL";
 
-NSString * UPLOAD_IMAGE_SUCCESS    = @"SUCCESS";//
-NSString * UPLOAD_IMAGE_UNSECCESS  = @"OPERATION FAIL";//
+NSString * UPLOAD_IMAGE_SUCCESS    = @"SUCCESS";
+NSString * UPLOAD_IMAGE_UNSECCESS  = @"OPERATION FAIL";
 
-NSString * CHANGE_USER_PASSWORD_SUCCESS     = @"CHANGED";//
-NSString * CHANGE_USER_PASSWORD_UNSUCCESS   = @"You old password is incorrect";//
+NSString * CHANGE_USER_PASSWORD_SUCCESS     = @"CHANGED";
+NSString * CHANGE_USER_PASSWORD_UNSUCCESS   = @"You old password is incorrect";
 
-NSString * GET_NEWS_SUCCESS        =@"NEWS HAS BEEN FOUND";//
+NSString * GET_NEWS_SUCCESS        =@"NEWS HAS BEEN FOUND";
 
 // DEFINED KEY
 NSString * USER_DEFAULT_KEY = @"user";//
@@ -119,14 +111,14 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
 
 
 #pragma mark: - Request with Method
--(void)requestDataWithURL:(NSDictionary *)reqDictionary withKey:(NSString *)key method:(NSString *)method{
+-(void)requestDataWithURL:(NSString *)url data:(NSDictionary *)data method:(NSString *)method{
     
     // set url
-    NSString *strURL = [NSString stringWithFormat:@"%@%@", self.basedUrl, key];
-    NSURL *url = [NSURL URLWithString:strURL];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@", self.basedUrl, url];
+    NSURL *nsRrl = [NSURL URLWithString:strURL];
     
     // create request with url
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: nsRrl];
     
     //Set request method and content type
     request.HTTPMethod = method;
@@ -138,7 +130,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
-    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:reqDictionary options:0 error:nil];
+    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
     
     NSString *urlString = [[NSString alloc] initWithData:jsonObject encoding:NSUTF8StringEncoding];
     
@@ -151,7 +143,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
         
         if (!error) {
-            if ([request.URL isEqual:url] ) {
+            if ([request.URL isEqual:nsRrl] ) {
                 NSData *data = [NSData dataWithContentsOfURL:localfile];
                
                 //init responseData object

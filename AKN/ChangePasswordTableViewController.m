@@ -9,6 +9,7 @@
 #import "ChangePasswordTableViewController.h"
 #import "ConnectionManager.h"
 #import "SVProgressHUD.h"
+#import "Utilities.h"
 
 @interface ChangePasswordTableViewController ()<ConnectionManagerDelegate>{
     NSUserDefaults *userDefault;
@@ -25,12 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self customizePageMenu];
+    // custom navigation bar color
+    [Utilities customizeNavigationBar:self.navigationController withTitle:@"CHANGE PASSWORD"];
     
-    [self.changePasswordButton.layer setCornerRadius:self.changePasswordButton.bounds.size.height/2];
-    
-    self.changePasswordButton.clipsToBounds = YES;
-    
+    [Utilities setBorderRadius:self.changePasswordButton];
     
     //Set GradienColor for control
     NSArray *gradientColor =[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00] CGColor], (id)[[UIColor colorWithRed:(140/225.0) green:(30/255.0) blue:(30/255.0) alpha:1.00] CGColor], nil];
@@ -39,17 +38,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];;
 
-}
-
-#pragma mark - Navigation bar color
-
--(void)customizePageMenu{
-    self.title = @"Change Password";
-    
-    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:193.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0];[UIColor redColor];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Arial-Bold" size:0.0]};
 }
 
 #pragma mark - Keyboard Did Show and Hide
@@ -76,10 +64,9 @@
     [self dismissKeyboard];
     
     // Get value from text field
-    
     NSString * oldPassword = self.oldPasswordTextField.text;
     NSString * newPassword = self.nnewPasworldTextField.text;
-     NSString * comfirmPassword = self.comfirmPasswordTextField.text;
+    NSString * comfirmPassword = self.comfirmPasswordTextField.text;
     
     // validate text field
     if ([oldPassword isEqualToString:@""]) {
@@ -93,9 +80,8 @@
     }else{
         userDefault = [[NSUserDefaults standardUserDefaults] init];
         
-        [self.view setUserInteractionEnabled:false];
-        [self.activityIndicatorLoading startAnimating];
-        self.changePasswordButton.enabled = false;
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD show];
         
         //Create connection object
         manager = [[ConnectionManager alloc] init];
@@ -104,33 +90,27 @@
         manager.delegate = self;
         
         // request dictionary
-        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-        [dictionary setObject:[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] forKey:@"id"];
-        
-        [dictionary setObject:newPassword forKey:@"newpass"];
-        [dictionary setObject:oldPassword forKey:@"oldpass"];
-        NSLog(@"%@", dictionary);
+        NSDictionary * param = @{@"id":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"],
+                                 @"newpass":newPassword,
+                                 @"oldpass":oldPassword};
         
         //Send data to server and insert it
-        [manager requestDataWithURL:dictionary withKey:CHANGE_USER_PASSWORD_URL method:PUT];
-    
+        [manager requestDataWithURL:CHANGE_USER_PASSWORD_URL data:param method:PUT];
     }
 }
 
 #pragma mark: - ConnectionManagerDelegate
 
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-     [self.view setUserInteractionEnabled:true];
-    [self.activityIndicatorLoading stopAnimating];
-    self.changePasswordButton.enabled = true;
+    [SVProgressHUD dismiss];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     
     if([[result valueForKey:R_KEY_MESSAGE] containsString:CHANGE_USER_PASSWORD_SUCCESS]){
-        //open home view
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
-        
-        //  determine the initial view controller here and instantiate it with
-        UIViewController *viewController =  [storyboard instantiateViewControllerWithIdentifier:@"Sidebar"];
-        [self presentViewController:viewController animated:YES completion:nil];
+         [SVProgressHUD showSuccessWithStatus:CHANGE_USER_PASSWORD_SUCCESS];
+        // Delay 2 seconds
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
     }
     else{
          [SVProgressHUD showErrorWithStatus:CHANGE_USER_PASSWORD_UNSUCCESS];

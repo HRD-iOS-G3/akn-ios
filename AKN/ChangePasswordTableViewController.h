@@ -15,7 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *comfirmPasswordTextField;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorLoading;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 @end

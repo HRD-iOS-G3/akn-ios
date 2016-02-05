@@ -15,4 +15,5 @@
 @property int cId;
 @property int sId;
 @property int userId;
+
 @end

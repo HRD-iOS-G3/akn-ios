@@ -15,9 +15,6 @@
 
 @interface SidebarMenuViewController ()<UITableViewDelegate, UITableViewDataSource,ConnectionManagerDelegate>{
     NSArray *menuItems, *menuTitle;
-    NSUserDefaults *userDefault;
-    NSMutableDictionary *user;
-    ConnectionManager *manager;
 }
 
 @end
@@ -29,12 +26,8 @@
     self.sidebarMenuTableView.delegate=self;
     self.sidebarMenuTableView.dataSource=self;
     
-    manager = [[ConnectionManager alloc]init];
-    manager.delegate = self;
-    
     menuItems = @[@"home", @"saveList", @"setting", @"logout", @"aboutUs"];
     menuTitle = @[@"Home", @"Save List", @"Setting", @"Logout", @"About us"];
-    
     
     //Set color for button login
     CAGradientLayer *gradient1 = [CAGradientLayer layer];
@@ -49,12 +42,6 @@
     self.profileImageView.clipsToBounds = YES;
     [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     [self.profileImageView.layer setBorderWidth: 2.0];
-    
-    NSUserDefaults *userDefaul = [NSUserDefaults standardUserDefaults];
-    self.nameLabel.text=[[userDefaul objectForKey:USER_DEFAULT_KEY]valueForKey:@"username"];
-    self.emailLabel.text=[[userDefaul objectForKey:USER_DEFAULT_KEY]valueForKey:@"email"];
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -64,11 +51,16 @@
     [self.revealViewController.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     //set image
-    userDefault = [NSUserDefaults standardUserDefaults];
-    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
+    ConnectionManager * manager = [[ConnectionManager alloc]init];
+    NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
+    manager.delegate = self;
+    
+    self.nameLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"username"];
+    self.emailLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"email"];
     
     self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@r/%@", manager.basedUrl, IMAGE_USER_URL, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", manager.basedUrl, IMAGE_USER_URL, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pbg-Yr-oUs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pbg-Yr-oUs">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -600,19 +600,9 @@
                                                         <action selector="updateButtonAction:" destination="efB-We-NXY" eventType="touchUpInside" id="QkZ-Bl-jfK"/>
                                                     </connections>
                                                 </button>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2bs-9b-VhS">
-                                                    <rect key="frame" x="317" y="22" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="Smm-7U-Io5"/>
-                                                        <constraint firstAttribute="height" constant="20" id="tfw-LD-ZpN"/>
-                                                    </constraints>
-                                                    <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="2bs-9b-VhS" firstAttribute="trailing" secondItem="SSj-OX-adg" secondAttribute="trailing" constant="-15" id="SIH-Jw-54I"/>
                                                 <constraint firstItem="SSj-OX-adg" firstAttribute="leading" secondItem="uq5-08-yj5" secondAttribute="leading" constant="22" id="T7R-r2-Nfd"/>
-                                                <constraint firstItem="2bs-9b-VhS" firstAttribute="centerY" secondItem="SSj-OX-adg" secondAttribute="centerY" id="W8v-0b-4cy"/>
                                                 <constraint firstItem="SSj-OX-adg" firstAttribute="top" secondItem="uq5-08-yj5" secondAttribute="top" constant="12" id="dc3-qS-QjK"/>
                                                 <constraint firstAttribute="trailing" secondItem="SSj-OX-adg" secondAttribute="trailing" constant="23" id="w18-3K-Nfa"/>
                                             </constraints>
@@ -666,7 +656,6 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="activityIndicatorLoading" destination="2bs-9b-VhS" id="0b3-wh-IA5"/>
                         <outlet property="changePasswordButton" destination="rHg-6J-VmE" id="wgD-a2-SXH"/>
                         <outlet property="changePictureButton" destination="Yju-Dz-0n8" id="rDd-sh-LOl"/>
                         <outlet property="emailTextField" destination="M8p-Be-d4d" id="d1P-qq-e49"/>
@@ -824,21 +813,11 @@
                                                         <action selector="changePasswordButtonAction:" destination="IWa-Ct-lBr" eventType="touchUpInside" id="tKR-6n-B10"/>
                                                     </connections>
                                                 </button>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bs5-nU-3CS">
-                                                    <rect key="frame" x="325" y="18" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="EAE-gU-VCg"/>
-                                                        <constraint firstAttribute="height" constant="20" id="Orh-Gy-fQD"/>
-                                                    </constraints>
-                                                    <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="tGu-ML-rH4" secondAttribute="bottom" constant="8" id="Dwu-kp-LJm"/>
                                                 <constraint firstItem="tGu-ML-rH4" firstAttribute="leading" secondItem="3rW-xg-vho" secondAttribute="leading" constant="22" id="Gdh-Xp-VMz"/>
-                                                <constraint firstItem="Bs5-nU-3CS" firstAttribute="centerY" secondItem="tGu-ML-rH4" secondAttribute="centerY" id="LsV-rm-6aJ"/>
                                                 <constraint firstItem="tGu-ML-rH4" firstAttribute="top" secondItem="3rW-xg-vho" secondAttribute="top" constant="8" id="ahU-M4-gr0"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Bs5-nU-3CS" secondAttribute="trailing" constant="22" id="hWC-5v-evc"/>
                                                 <constraint firstAttribute="trailing" secondItem="tGu-ML-rH4" secondAttribute="trailing" constant="23" id="rqY-1d-1FU"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -860,7 +839,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicatorLoading" destination="Bs5-nU-3CS" id="q31-n6-bUa"/>
                         <outlet property="changePasswordButton" destination="tGu-ML-rH4" id="P6j-iT-c6G"/>
                         <outlet property="changePasswordTableView" destination="LFT-Yy-vOt" id="CDM-TT-xFh"/>
                         <outlet property="comfirmPasswordTextField" destination="olp-jW-4Si" id="lVI-E8-KNR"/>
