@@ -118,8 +118,7 @@
         //Create dictionary for store article detail input from user
         NSDictionary * param = @{ @"username": name,
                                   @"email": email,
-                                  @"password": password,
-                                  @"image": @""};
+                                  @"password": password};
         
         //Send data to server and insert it
         [manager requestDataWithURL:SIGNUP_URL data:param method:POST];
