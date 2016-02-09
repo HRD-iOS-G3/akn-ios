@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TableSourceViewController : UITableViewController
+@property (strong, nonatomic) IBOutlet UITableView *customTableView;
 
 @end
