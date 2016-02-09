@@ -18,7 +18,7 @@ NSString * DELETE   = @"DELETE";
 NSString * LOGIN_URL            = @"/api/authentication/mobilelogin";
 NSString * SIGNUP_URL           = @"/api/user/";
 NSString * UPDATE_USER          = @"/api/user";
-NSString * EDIT_UPLOAD_IMAGE    = @"/api/user/editupload";
+NSString * EDIT_UPLOAD_IMAGE    = @"/api/uploadfile/upload";
 NSString * IMAGE_USER_URL       = @"/resources/images/user";
 NSString * CHANGE_USER_PASSWORD_URL = @"/api/user/changepassword";
 
@@ -50,7 +50,7 @@ NSString * SIGNUP_UNSUCCESS        = @"SignUp Failed\nThis username is already c
 NSString * UPDATE_USER_SUCCESS     = @"User has been updated.";
 NSString * UPDATE_USER_UNSUCCESS   = @"OPERATION FAIL";
 
-NSString * UPLOAD_IMAGE_SUCCESS    = @"SUCCESS";
+NSString * UPLOAD_IMAGE_SUCCESS    = @"IMAGE HAS BEEN INSERTED";
 NSString * UPLOAD_IMAGE_UNSECCESS  = @"OPERATION FAIL";
 
 NSString * CHANGE_USER_PASSWORD_SUCCESS     = @"Password has been changed.";
@@ -166,7 +166,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
 -(void)uploadWithImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name{
   
     // set url
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.basedUrl, path]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.khmeracademy.org%@", path]];
     
     
     // create request
@@ -185,7 +185,7 @@ NSString *HTTP_HEADER = @"Basic YXBpOmFrbm5ld3M=";//
     // set content type
     [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    [request addValue:HTTP_HEADER forHTTPHeaderField:API_KEY];
+    [request addValue:@"Basic S0FBUEkhQCMkOiFAIyRLQUFQSQ==" forHTTPHeaderField:@"Authorization"];
    
     
     // post body

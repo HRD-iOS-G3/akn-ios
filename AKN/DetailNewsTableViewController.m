@@ -53,15 +53,15 @@
     self.labelTitle.font = customFont2;
     
     // set user id
-    int userId= 0;
+    NSString * userId;
     if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
-        userId = [[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"] intValue];
+        userId = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"USERID"];
     }
     
     // init connection manager then request news
     manager = [[ConnectionManager alloc]init];
     manager.delegate=self;
-    [manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%d", GET_ARTICLE ,_news.newsId, userId]];
+    [manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/%@", GET_ARTICLE ,_news.newsId, userId]];
     
 }
 
@@ -163,8 +163,8 @@
         
         // request dictionary
         NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_news.newsId],
-                                 @"userid":[NSNumber numberWithInt:[[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue]]} ;
-        
+                                 @"userid":[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"USERID"]} ;
+    
         [manager requestDataWithURL:SAVE_LIST data:param method:POST];
         
 		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"

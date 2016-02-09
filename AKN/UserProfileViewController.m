@@ -35,6 +35,9 @@
     //Set delegate
     manager.delegate = self;
     
+    userDefault = [NSUserDefaults standardUserDefaults];
+    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
+    
     // border radius
     [Utilities setBorderRadius:self.updateButton];
     [Utilities setBorderRadius:self.changePasswordButton];
@@ -60,15 +63,13 @@
     [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
     [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
 
+    // load image
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"http://api.khmeracademy.org",@"/resources/upload/file/", [user valueForKey:@"PROFILE_IMG_URL"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    userDefault = [NSUserDefaults standardUserDefaults];
-    user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
-    
-    
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"http://api.khmeracademy.org",@"/resources/upload/file/",[user valueForKey:@"PROFILE_IMG_URL"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
-    
+
+-(void)viewWillAppear:(BOOL)animated{
     self.nameTextField.text = [user valueForKey:@"USERNAME"];
     
     self.emailTextField.text = [user valueForKey:@"EMAIL"];
@@ -164,11 +165,12 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
-   
-    [manager uploadWithImage:chosenImage urlPath:[NSString stringWithFormat:@"%@?id=%@", EDIT_UPLOAD_IMAGE,  [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]] fileName:@"hrd.jpg"];
-     self.profileImageView.image = chosenImage;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+      self.profileImageView.image = chosenImage;
     
+    [manager uploadWithImage:chosenImage urlPath:[NSString stringWithFormat:@"%@?url=user", EDIT_UPLOAD_IMAGE] fileName:@"hrd.jpg"];
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+
     
     // start animating when choose image
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
@@ -180,7 +182,6 @@
     
     [SVProgressHUD dismiss];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-    NSLog(@"--------%@", dataDictionary);
     
     // check respone data
     if([[dataDictionary valueForKey:R_KEY_MESSAGE] containsString:UPLOAD_IMAGE_SUCCESS]){
@@ -192,18 +193,19 @@
             [dictionary setObject:value forKey:key];
         }
         
-        // change value of temp dictionary
-        [dictionary setObject:[[dataDictionary valueForKey:@"IMAGE"] substringFromIndex:12] forKey:@"image"];
+       
+        // change value of temp dictionary PROFILE_IMG_URL"
+        [dictionary setObject:[[dataDictionary valueForKey:@"IMG"] substringFromIndex:23] forKey:@"PROFILE_IMG_URL"];
         
         // set new value for user default
         [userDefault setObject:dictionary forKey:USER_DEFAULT_KEY];
-        
-        NSLog(@"=========%@", [userDefault objectForKey:USER_DEFAULT_KEY]);
         
         // clear cache
         SDImageCache *imageCache = [SDImageCache sharedImageCache];
         [imageCache clearMemory];
         [imageCache clearDisk];
+       
+//
         [SVProgressHUD showSuccessWithStatus:UPLOAD_IMAGE_SUCCESS];
     }
     else{
