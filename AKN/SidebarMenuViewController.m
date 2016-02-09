@@ -58,12 +58,11 @@
     manager.delegate = self;
     
     // set text
-    self.nameLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"username"];
-    self.emailLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"email"];
+    self.nameLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"USERNAME"];
+    self.emailLabel.text=[[userDefault objectForKey:USER_DEFAULT_KEY]valueForKey:@"EMAIL"];
     
     // set image
-    self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", manager.basedUrl, IMAGE_USER_URL, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"http://api.khmeracademy.org",@"/resources/upload/file/",[user valueForKey:@"PROFILE_IMG_URL"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
 }
 

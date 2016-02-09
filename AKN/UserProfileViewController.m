@@ -66,11 +66,12 @@
     userDefault = [NSUserDefaults standardUserDefaults];
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
     
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", manager.basedUrl, IMAGE_USER_URL,[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
-    self.nameTextField.text = [user valueForKey:@"username"];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"http://api.khmeracademy.org",@"/resources/upload/file/",[user valueForKey:@"PROFILE_IMG_URL"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
-    self.emailTextField.text = [user valueForKey:@"email"];
+    self.nameTextField.text = [user valueForKey:@"USERNAME"];
+    
+    self.emailTextField.text = [user valueForKey:@"EMAIL"];
 }
 
 #pragma mark - Keyboard Did Show and Hide
@@ -104,17 +105,25 @@
         [SVProgressHUD show];
         
         // request dictionary
-        NSDictionary * param = @{@"id":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"],
-                                 @"username":self.nameTextField.text};
+        NSDictionary * param = @{
+                                 @"username":self.nameTextField.text,
+                                 @"gender": @"ប្រុស",
+                                 @"dateOfBirth": @"2016-02-09T02:03:51.883Z",
+                                 @"phoneNumber": @"012345678",
+                                 @"userImageUrl": [[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"PROFILE_IMG_URL"],
+                                 @"universityId": @"MQ==",
+                                 @"departmentId": @"MQ==",
+                                 @"userId":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"USERID"]};
         
+        NSLog(@"%@", param);
         //Send data to server and insert it
-        [manager requestDataWithURL:UPDATE_USER data:param method:PUT];
+        [manager kaRequestDataWithURL:UPDATE_USER data:param method:PUT];
     }
 }
 
 #pragma mark: - ConnectionManagerDelegate
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    
+  
     [SVProgressHUD dismiss];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     
@@ -129,8 +138,8 @@
         }
         
         // change value of temp dictionary
-        [dictionary setObject:self.nameTextField.text forKey:@"username"];
-        
+        [dictionary setObject:self.nameTextField.text forKey:@"USERNAME"];
+
         // set new value for user default
         [userDefault setObject:dictionary forKey:USER_DEFAULT_KEY];
         [SVProgressHUD showSuccessWithStatus:UPDATE_USER_SUCCESS];

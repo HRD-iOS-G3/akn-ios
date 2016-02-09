@@ -89,12 +89,11 @@
         manager.delegate = self;
         
         // request dictionary
-        NSDictionary * param = @{@"id":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"],
-                                 @"newpass":newPassword,
-                                 @"oldpass":oldPassword};
-        
-        //Send data to server and insert it
-        [manager requestDataWithURL:CHANGE_USER_PASSWORD_URL data:param method:PUT];
+        NSDictionary * param = @{@"newPassword":newPassword,
+                                 @"oldPassword":oldPassword,
+                                 @"userId":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"USERID"]};
+         //Send data to server and insert it
+        [manager kaRequestDataWithURL:CHANGE_USER_PASSWORD_URL data:param method:POST];
     }
 }
 
@@ -102,7 +101,7 @@
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
     [SVProgressHUD dismiss];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-    
+
     if([[result valueForKey:R_KEY_MESSAGE] containsString:CHANGE_USER_PASSWORD_SUCCESS]){
          [SVProgressHUD showSuccessWithStatus:CHANGE_USER_PASSWORD_SUCCESS];
         // Delay 2 seconds

@@ -80,6 +80,7 @@ extern NSString * HTTP_HEADER;
 //Request Method
 -(void)requestDataWithURL:(NSString *)url data:(NSDictionary *)data method:(NSString *)method;
 -(void)requestDataWithURL:(NSString *)URL;
+-(void)kaRequestDataWithURL:(NSString *)url data:(NSDictionary *)data method:(NSString *)method;
 -(void)uploadWithImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name;
 
 @end

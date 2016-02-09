@@ -114,10 +114,9 @@
         
         // request dictionary
         NSDictionary * param = @{@"email": email,
-                                 @"password":password};
-        
+                                 @"password": password};
         // send data to server
-        [manager requestDataWithURL:LOGIN_URL data:param method:POST];
+        [manager kaRequestDataWithURL:LOGIN_URL data:param method:POST];
     }
 }
 
@@ -139,19 +138,18 @@
         NSMutableDictionary * tempDictionary =[[NSMutableDictionary alloc]init];
         
         // Find null value
-        for (NSString* key in [result valueForKey:R_KEY_DATA])
-            if([[result valueForKey:R_KEY_DATA] objectForKey:key] == [ NSNull null ])
+        for (NSString* key in result)
+            if([result objectForKey:key] == [ NSNull null ])
                  [tempDictionary setObject:@"N/A" forKey:key];
         
         // set null value to NSString N/A
         for(NSString* key in tempDictionary)
-              [[result valueForKey:R_KEY_DATA] setObject:@"N/A" forKey:key];
-        
-        [[result valueForKey:R_KEY_DATA] setObject:@"default.jpg" forKey:@"image"];
-        NSLog(@"%@", [result valueForKey:R_KEY_DATA] );
+            [result setValue:@"N/A" forKey:key];
+                
         // set userdefault
-        [defaults setObject:[result valueForKey:R_KEY_DATA] forKey:USER_DEFAULT_KEY];
+        [defaults setObject:result forKey:USER_DEFAULT_KEY];
         
+        NSLog(@"%@", [defaults valueForKey:USER_DEFAULT_KEY]);
         //open home view
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Sidebar" bundle:nil];
         

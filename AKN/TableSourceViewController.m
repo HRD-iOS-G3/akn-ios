@@ -45,13 +45,16 @@
     return sources.count;
 }
 
+
+
+
 #pragma mark - cellForRowAtIndexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     // Configure the cell...
 	cell.textLabel.text = [sources[indexPath.row] valueForKeyPath:@"name"];
-	
+    NSLog(@"%@",[sources[indexPath.row] valueForKeyPath:@"name"]);
 	cell.imageView.layer.cornerRadius = cell.imageView.frame.size.width/2;
 	cell.imageView.layer.masksToBounds = YES;
 	switch ([[sources[indexPath.row] valueForKeyPath:@"id"] intValue]) {
@@ -73,6 +76,21 @@
 		case 12://Mungkulkar
 			cell.imageView.image = [UIImage imageNamed:@"mungkulkar"];
 			break;
+        case 17://Biz Khmer
+            cell.imageView.image = [UIImage imageNamed:@"bizkhmer"];
+            break;
+        case 18://Business Cambodia
+            cell.imageView.image = [UIImage imageNamed:@"businesscambodia.jpg"];
+            break;
+        case 19://IOS Khmer
+            cell.imageView.image = [UIImage imageNamed:@"ioskhmer"];
+            break;
+        case 21://Khmer Note
+            cell.imageView.image = [UIImage imageNamed:@"khmernote"];
+            break;
+        case 22://rfa
+            cell.imageView.image = [UIImage imageNamed:@"rfa"];
+            break;
 	default:
 			break;
 	}
