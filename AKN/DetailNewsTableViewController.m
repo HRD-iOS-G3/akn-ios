@@ -102,10 +102,6 @@
 	_labelTitle.text = @"";
 	_labelDate.text = @"";
 	_labelDescription.text = @"";
-	
-	if (_news.saved) {
-		self.navigationItem.rightBarButtonItem.enabled = false;
-	}
 }
 
 #pragma mark - respone news details
@@ -151,31 +147,75 @@
 
 #pragma mark - save event
 - (IBAction)actionSave:(id)sender {
+    lblCpyRight.hidden = true;
+    UIAlertController * view=   [UIAlertController
+                                 alertControllerWithTitle:@"More"
+                                 message:@"Share to Facebook or Save News"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
     
-    // check user exist
-	if ([[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY]) {
-        
-		//sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
-        
-		[sender setEnabled:false];
-        
-		_news.saved = true;
-        
-        // request dictionary
-        NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_news.newsId],
-                                 @"userid":[NSNumber numberWithInt:[[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue]]} ;
-        
-        [manager requestDataWithURL:SAVE_LIST data:param method:POST];
-        
-		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
-																	 duration:2.0
-																	 position:CSToastPositionBottom];
-	}else{
-		
-		[[MainViewController getInstance].navigationController.view makeToast:@"Please login first!"
-																	 duration:3.0
-																	 position:CSToastPositionBottom];
-	}
+    UIAlertAction* shareFacebook = [UIAlertAction
+                                    actionWithTitle:@"Share to Facebook"
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action)
+                                    {
+                                        //Do some thing here
+                                        [view dismissViewControllerAnimated:YES completion:nil];
+                                         lblCpyRight.hidden = false;
+                                        
+                                    }];
+    
+    UIAlertAction* saveNews = [UIAlertAction
+                               actionWithTitle:@"Save News"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action)
+                               {
+                                       // check user exist
+                                   	if ([[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY]) {
+                                   
+                                   		//sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
+                                   
+                                   		[sender setEnabled:false];
+                                   
+                                   		_news.saved = true;
+                                   
+                                           // request dictionary
+                                           NSDictionary * param = @{@"newsid":[NSNumber numberWithInt:_news.newsId],
+                                                                    @"userid":[NSNumber numberWithInt:[[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue]]} ;
+                                   
+                                           [manager requestDataWithURL:SAVE_LIST data:param method:POST];
+                                           
+                                   		[[MainViewController getInstance].navigationController.view makeToast:@"Saved!"
+                                   																	 duration:2.0
+                                   																	 position:CSToastPositionBottom];
+                                   	}else{
+                                   		
+                                   		[[MainViewController getInstance].navigationController.view makeToast:@"Please login first!"
+                                   																	 duration:3.0
+                                   																	 position:CSToastPositionBottom];
+                                   	}
+                                   [view dismissViewControllerAnimated:YES completion:nil];
+                                    lblCpyRight.hidden = false;
+                                   
+                               }];
+    
+    if (_news.saved) {
+        saveNews.enabled = false;
+    }
+    
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleCancel
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [view dismissViewControllerAnimated:YES completion:nil];
+                                  lblCpyRight.hidden = false;
+                                 
+                             }];
+    
+    [view addAction:shareFacebook];
+    [view addAction:saveNews];
+    [view addAction:cancel];
+    [self presentViewController:view animated:YES completion:nil];
 }
 
 #pragma mark - respone save event
