@@ -20,8 +20,10 @@ NSString * SIGNUP_URL           = @"/api/user/";
 NSString * UPDATE_USER          = @"/api/user/update";
 NSString * EDIT_USER_PROFILE_IMAGER   = @"/api/uploadfile/update";
 NSString * UPLOAD_USER_PROFILE_IMAGER = @"/api/uploadfile/upload";
-NSString * IMAGE_USER_URL       = @"/resources/upload/file/user";
 NSString * CHANGE_USER_PASSWORD_URL = @"/api/user/changepwd";
+
+NSString * IMAGE_USER_URL       = @"/resources/upload/file/user";
+NSString * SOURCE_URL           = @"/resources/images/logo";
 
 NSString * SEARCH_NEWS          = @"/api/article/search";
 
@@ -57,7 +59,7 @@ NSString * UPLOAD_IMAGE_UNSECCESS  = @"IMAGE HAS NOT BEEN INSERTED";
 NSString * UPDATE_IMAGE_SUCCESS    = @"IMAGE HAS BEEN UPDATED";
 NSString * UPDATE_IMAGE_UNSECCESS   = @"IMAGE HAS NOT BEEN UPDATED";
 
-NSString * CHANGE_USER_PASSWORD_SUCCESS     = @"CHANGED";
+NSString * CHANGE_USER_PASSWORD_SUCCESS     = @"PASSWORD HAVE BEEN CHANGED";
 NSString * CHANGE_USER_PASSWORD_UNSUCCESS   = @"You old password is incorrect";
 
 NSString * GET_NEWS_SUCCESS        = @"NEWS HAS BEEN FOUND";

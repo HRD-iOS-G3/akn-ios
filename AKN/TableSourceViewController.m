@@ -11,6 +11,7 @@
 #import "NewsByCategoryTableViewController.h"
 #import "ConnectionManager.h"
 #import "CustomSourceTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface TableSourceViewController () <ConnectionManagerDelegate>
 {
@@ -51,57 +52,13 @@
 
 #pragma mark - cellForRowAtIndexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    
-   
     
     // Has image
-    
     CustomSourceTableViewCell *cell = [_customTableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.labelTitle.text = [sources[indexPath.row] valueForKeyPath:@"name"];
     
     // Configure the cell...
-    NSLog(@"%@",[sources[indexPath.row] valueForKeyPath:@"name"]);
-
-    
-  
-	switch ([[sources[indexPath.row] valueForKeyPath:@"id"] intValue]) {
-		case 1: //sabay
-			cell.imageViewImage.image = [UIImage imageNamed:@"sabay"];
-			break;
-		case 2://koh sontepheap
-			cell.imageViewImage.image = [UIImage imageNamed:@"kohsontepheap"];
-			break;
-		case 5:///the b news
-			cell.imageViewImage.image = [UIImage imageNamed:@"bnews.jpg"];
-			break;
-		case 6://AKN news
-			cell.imageViewImage.image = [UIImage imageNamed:@"akn-logo-red.png"];
-			break;
-		case 10://Cambo report
-			cell.imageViewImage.image = [UIImage imageNamed:@"cambo-report"];
-			break;
-		case 12://Mungkulkar
-			cell.imageViewImage.image = [UIImage imageNamed:@"mungkulkar"];
-			break;
-        case 17://Biz Khmer
-            cell.imageViewImage.image = [UIImage imageNamed:@"bizkhmer"];
-            break;
-        case 18://Business Cambodia
-            cell.imageViewImage.image = [UIImage imageNamed:@"businesscambodia.jpg"];
-            break;
-        case 19://IOS Khmer
-            cell.imageViewImage.image = [UIImage imageNamed:@"ioskhmer"];
-            break;
-        case 21://Khmer Note
-            cell.imageViewImage.image = [UIImage imageNamed:@"khmernote"];
-            break;
-        case 22://rfa
-            cell.imageViewImage.image = [UIImage imageNamed:@"rfa"];
-            break;
-	default:
-			break;
-	}
+    [cell.imageViewImage sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", manager.basedUrl , SOURCE_URL, [sources[indexPath.row] valueForKeyPath:@"logo"]]] placeholderImage:[UIImage imageNamed:@"akn-logo-red.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
     
     cell.imageViewImage.layer.cornerRadius = cell.imageViewImage.frame.size.width/2;
     cell.imageViewImage.layer.masksToBounds = YES;
