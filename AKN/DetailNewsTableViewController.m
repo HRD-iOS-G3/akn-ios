@@ -174,7 +174,7 @@
                                    
                                    		//sender setImage:[UIImage imageNamed:@"save-gray"] forState:UIControlStateNormal];
                                    
-                                   		[sender setEnabled:false];
+                                   		//[sender setEnabled:false];
                                    
                                    		_news.saved = true;
                                    
