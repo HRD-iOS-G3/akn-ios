@@ -19,7 +19,8 @@ extern NSString * DELETE;
 extern NSString * LOGIN_URL;
 extern NSString * SIGNUP_URL;
 extern NSString * UPDATE_USER;
-extern NSString * EDIT_UPLOAD_IMAGE;
+extern NSString * EDIT_USER_PROFILE_IMAGER;
+extern NSString * UPLOAD_USER_PROFILE_IMAGER;
 extern NSString * IMAGE_USER_URL;
 extern NSString * CHANGE_USER_PASSWORD_URL;
 
@@ -55,6 +56,9 @@ extern NSString * UPDATE_USER_UNSUCCESS;
 extern NSString * UPLOAD_IMAGE_SUCCESS;
 extern NSString * UPLOAD_IMAGE_UNSECCESS;
 
+extern NSString * UPDATE_IMAGE_SUCCESS;
+extern NSString * UPDATE_IMAGE_UNSECCESS;
+
 extern NSString * CHANGE_USER_PASSWORD_SUCCESS;
 extern NSString * CHANGE_USER_PASSWORD_UNSUCCESS;
 
@@ -80,7 +84,7 @@ extern NSString * HTTP_HEADER;
 //Request Method
 -(void)requestDataWithURL:(NSString *)url data:(NSDictionary *)data method:(NSString *)method;
 -(void)requestDataWithURL:(NSString *)URL;
--(void)uploadWithImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name;
+-(void)uploadUserImageWithImage:(UIImage *)image urlPath:(NSString *)path fileName:(NSString *)name;
 
 @end
 

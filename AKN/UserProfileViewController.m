@@ -59,18 +59,19 @@
     // change background color
     [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
     [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
-
-}
-
--(void)viewDidAppear:(BOOL)animated{
+    
     userDefault = [NSUserDefaults standardUserDefaults];
     user = [[NSMutableDictionary alloc]initWithDictionary:[userDefault valueForKey:USER_DEFAULT_KEY]];
     
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", manager.basedUrl, IMAGE_USER_URL,[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", @"http://api.khmeracademy.org", IMAGE_USER_URL,[user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
     
     self.nameTextField.text = [user valueForKey:@"username"];
     
     self.emailTextField.text = [user valueForKey:@"email"];
+
 }
 
 #pragma mark - Keyboard Did Show and Hide
@@ -104,17 +105,25 @@
         [SVProgressHUD show];
         
         // request dictionary
-        NSDictionary * param = @{@"id":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"],
-                                 @"username":self.nameTextField.text};
+        NSDictionary * param = @{
+                                 @"username":self.nameTextField.text,
+                                 @"gender": @"ប្រុស",
+                                 @"dateOfBirth": @"2016-02-09T02:03:51.883Z",
+                                 @"phoneNumber": @"012345678",
+                                 @"userImageUrl": [[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"image"],
+                                 @"universityId": @"MQ==",
+                                 @"departmentId": @"MQ==",
+                                 @"userId":[[userDefault objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]};
         
+         NSLog(@"param %@", param);
         //Send data to server and insert it
-        [manager requestDataWithURL:UPDATE_USER data:param method:PUT];
+        [manager requestDataWithURL:UPDATE_USER data:param method:PUT];        
     }
 }
 
 #pragma mark: - ConnectionManagerDelegate
 -(void)connectionManagerDidReturnResult:(NSDictionary *)result{
-    
+    NSLog(@"%@", result);
     [SVProgressHUD dismiss];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     
@@ -155,11 +164,18 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
-   
-    [manager uploadWithImage:chosenImage urlPath:[NSString stringWithFormat:@"%@?id=%@", EDIT_UPLOAD_IMAGE,  [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]] fileName:@"hrd.jpg"];
-     self.profileImageView.image = chosenImage;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
     
+    // upload new image for first image of user
+    if([[[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] valueForKey:@"image"] isEqualToString:@"avatar.jpg"]){
+        [manager uploadUserImageWithImage:chosenImage urlPath:[NSString stringWithFormat:@"%@?url=%@", UPLOAD_USER_PROFILE_IMAGER, @"user"] fileName:@"hrd.jpg"];
+        
+        // update image of current user
+    }else{
+        [manager uploadUserImageWithImage:chosenImage urlPath:[NSString stringWithFormat:@"%@?url=%@&filename=%@", EDIT_USER_PROFILE_IMAGER, @"user",[[[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY] valueForKey:@"image"]] fileName:[[[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY] valueForKey:@"image"]];
+    }
+   
+    self.profileImageView.image = chosenImage;
+    [picker dismissViewControllerAnimated:YES completion:NULL];
     
     // start animating when choose image
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
@@ -182,20 +198,28 @@
             id value = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY] objectForKey:key];
             [dictionary setObject:value forKey:key];
         }
-        
+     
         // change value of temp dictionary
-        [dictionary setObject:[[dataDictionary valueForKey:@"IMAGE"] substringFromIndex:12] forKey:@"image"];
-        
+        [dictionary setObject:[[dataDictionary valueForKey:@"IMG"] substringFromIndex:28] forKey:@"image"];
+
         // set new value for user default
         [userDefault setObject:dictionary forKey:USER_DEFAULT_KEY];
         
-        NSLog(@"=========%@", [userDefault objectForKey:USER_DEFAULT_KEY]);
+        
+        [self updateButtonAction:nil];
         
         // clear cache
         SDImageCache *imageCache = [SDImageCache sharedImageCache];
         [imageCache clearMemory];
         [imageCache clearDisk];
-        [SVProgressHUD showSuccessWithStatus:UPLOAD_IMAGE_SUCCESS];
+    }
+    else if ([[dataDictionary valueForKey:R_KEY_MESSAGE] containsString:UPDATE_IMAGE_SUCCESS]){
+        // clear cache
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        [imageCache clearMemory];
+        [imageCache clearDisk];
+        
+        [SVProgressHUD showSuccessWithStatus:UPDATE_IMAGE_SUCCESS];
     }
     else{
        [SVProgressHUD showErrorWithStatus:[[dataDictionary valueForKey:R_KEY_MESSAGE] valueForKey:UPLOAD_IMAGE_UNSECCESS]];
