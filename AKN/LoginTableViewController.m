@@ -147,7 +147,6 @@
         for(NSString* key in tempDictionary)
               [[result valueForKey:R_KEY_DATA] setObject:@"N/A" forKey:key];
         
-        [[result valueForKey:R_KEY_DATA] setObject:@"default.jpg" forKey:@"image"];
         NSLog(@"%@", [result valueForKey:R_KEY_DATA] );
         // set userdefault
         [defaults setObject:[result valueForKey:R_KEY_DATA] forKey:USER_DEFAULT_KEY];

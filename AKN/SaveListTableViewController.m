@@ -61,7 +61,7 @@ id selfobject;
     
     // fetch news
 	if (savedNewsList.count == 0) {
-		[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/1/1", SAVE_LIST, _userId]]; // need to create pagination with this url
+		[manager requestDataWithURL:[NSString stringWithFormat:@"%@/%d/10/1/0", SAVE_LIST, _userId]]; // need to create pagination with this url
 		[SVProgressHUD showWithStatus:@"Loading..."];
 	}
 }
