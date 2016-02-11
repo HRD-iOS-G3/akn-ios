@@ -20,8 +20,10 @@ NSString * SIGNUP_URL           = @"/api/user/";
 NSString * UPDATE_USER          = @"/api/user/update";
 NSString * EDIT_USER_PROFILE_IMAGER   = @"/api/uploadfile/update";
 NSString * UPLOAD_USER_PROFILE_IMAGER = @"/api/uploadfile/upload";
-NSString * IMAGE_USER_URL       = @"/resources/upload/file/user";
 NSString * CHANGE_USER_PASSWORD_URL = @"/api/user/changepwd";
+
+NSString * IMAGE_USER_URL       = @"/resources/upload/file/user";
+NSString * SOURCE_URL           = @"/resources/images/logo";
 
 NSString * SEARCH_NEWS          = @"/api/article/search";
 

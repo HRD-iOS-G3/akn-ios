@@ -68,14 +68,11 @@
 
 
 -(void)viewDidAppear:(BOOL)animated{
-    // set user id
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
-        userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue];
-    }
     if (_newsList.count ==0) {
         [SVProgressHUD show];
     }
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -98,6 +95,12 @@
         cid = [[_categoryOrSource valueForKey:@"id"] intValue];
         sid = 0;
     }
+    
+    // set user id
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULT_KEY]) {
+        userId = [[[[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY] valueForKey:@"id"]intValue];
+    }
+    
     url = [NSString stringWithFormat:@"%@/1/10/%d/%d/%d/", GET_ARTICLE, cid, sid, userId];
     [manager requestDataWithURL:url];
     [self initializeRefreshControl];

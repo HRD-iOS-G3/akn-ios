@@ -63,9 +63,7 @@
     
     // set image
     self.profileImageView.image = [UIImage imageNamed:@"profile.png"];
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", @"http://api.khmeracademy.org", IMAGE_USER_URL, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];
-    NSLog(@"%@",[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", @"http://api.khmeracademy.org", IMAGE_USER_URL, [user valueForKey:@"image"]]]);
-    
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@", @"http://api.khmeracademy.org", IMAGE_USER_URL, [user valueForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"profile.png"] options:SDWebImageRefreshCached progress:nil completed:nil];    
 }
 
 -(void)viewDidDisappear:(BOOL)animated {

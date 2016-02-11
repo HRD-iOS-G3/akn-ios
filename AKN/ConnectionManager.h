@@ -21,8 +21,10 @@ extern NSString * SIGNUP_URL;
 extern NSString * UPDATE_USER;
 extern NSString * EDIT_USER_PROFILE_IMAGER;
 extern NSString * UPLOAD_USER_PROFILE_IMAGER;
-extern NSString * IMAGE_USER_URL;
 extern NSString * CHANGE_USER_PASSWORD_URL;
+
+extern NSString * IMAGE_USER_URL;
+extern NSString * SOURCE_URL;
 
 extern NSString * SEARCH_NEWS;
 
