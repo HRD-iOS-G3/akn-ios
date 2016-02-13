@@ -14,6 +14,13 @@
 		6FA307B71C592C7C00F885AB /* google116.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B31C592C7C00F885AB /* google116.png */; };
 		6FA307B81C592C7C00F885AB /* linkedin11.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B41C592C7C00F885AB /* linkedin11.png */; };
 		6FA307B91C592C7C00F885AB /* logo95.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B51C592C7C00F885AB /* logo95.png */; };
+		9AAD7ED81C6C752B0060B539 /* CustomSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAD7ED71C6C752B0060B539 /* CustomSourceTableViewCell.m */; };
+		9AAD7EDE1C6C75DD0060B539 /* bizkhmer.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD7ED91C6C75DD0060B539 /* bizkhmer.png */; };
+		9AAD7EDF1C6C75DD0060B539 /* businesscambodia.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD7EDA1C6C75DD0060B539 /* businesscambodia.jpg */; };
+		9AAD7EE01C6C75DD0060B539 /* ioskhmer.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD7EDB1C6C75DD0060B539 /* ioskhmer.png */; };
+		9AAD7EE11C6C75DD0060B539 /* khmernote.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD7EDC1C6C75DD0060B539 /* khmernote.png */; };
+		9AAD7EE21C6C75DD0060B539 /* rfa.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD7EDD1C6C75DD0060B539 /* rfa.png */; };
+		9AAD7EE41C6C8E3C0060B539 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAD7EE31C6C8E3C0060B539 /* more.png */; };
 		9AB9618B1C4634D400C3EE40 /* akn-logo white.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618A1C4634D400C3EE40 /* akn-logo white.png */; };
 		9AB961921C46358500C3EE40 /* aboutUsWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */; };
 		9AB961931C46358500C3EE40 /* add99White.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AB9618D1C46358500C3EE40 /* add99White.png */; };
@@ -124,6 +131,14 @@
 		6FA307B51C592C7C00F885AB /* logo95.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo95.png; sourceTree = "<group>"; };
 		6FFF2A141B3F0C438E69616E /* Pods-AKN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.release.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.release.xcconfig"; sourceTree = "<group>"; };
 		774C5044D6DBA11D52D3E913 /* Pods-AKN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AKN/Pods-AKN.debug.xcconfig"; sourceTree = "<group>"; };
+		9AAD7ED61C6C752B0060B539 /* CustomSourceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSourceTableViewCell.h; sourceTree = "<group>"; };
+		9AAD7ED71C6C752B0060B539 /* CustomSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSourceTableViewCell.m; sourceTree = "<group>"; };
+		9AAD7ED91C6C75DD0060B539 /* bizkhmer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bizkhmer.png; sourceTree = "<group>"; };
+		9AAD7EDA1C6C75DD0060B539 /* businesscambodia.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = businesscambodia.jpg; sourceTree = "<group>"; };
+		9AAD7EDB1C6C75DD0060B539 /* ioskhmer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ioskhmer.png; sourceTree = "<group>"; };
+		9AAD7EDC1C6C75DD0060B539 /* khmernote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = khmernote.png; sourceTree = "<group>"; };
+		9AAD7EDD1C6C75DD0060B539 /* rfa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rfa.png; sourceTree = "<group>"; };
+		9AAD7EE31C6C8E3C0060B539 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
 		9AB9618A1C4634D400C3EE40 /* akn-logo white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "akn-logo white.png"; sourceTree = "<group>"; };
 		9AB9618C1C46358500C3EE40 /* aboutUsWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutUsWhite.png; sourceTree = "<group>"; };
 		9AB9618D1C46358500C3EE40 /* add99White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add99White.png; sourceTree = "<group>"; };
@@ -337,7 +352,7 @@
 			name = "User Profile";
 			sourceTree = "<group>";
 		};
-		A5BE5FAF1C3D08F8007025AC /* Sidebar */ = {
+		A5BE5FAF1C3D08F8007025AC /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				A5BE5FB01C3D0906007025AC /* MainViewController.h */,
@@ -347,7 +362,7 @@
 				A5BE5FB41C3D0906007025AC /* SidebarMenuTableViewCell.h */,
 				A5BE5FB51C3D0906007025AC /* SidebarMenuTableViewCell.m */,
 			);
-			name = Sidebar;
+			name = Main;
 			sourceTree = "<group>";
 		};
 		A5BE5FB91C3D0917007025AC /* SWRevealViewController */ = {
@@ -362,6 +377,12 @@
 		A5BE5FBD1C3D0945007025AC /* images */ = {
 			isa = PBXGroup;
 			children = (
+				9AAD7EE31C6C8E3C0060B539 /* more.png */,
+				9AAD7ED91C6C75DD0060B539 /* bizkhmer.png */,
+				9AAD7EDA1C6C75DD0060B539 /* businesscambodia.jpg */,
+				9AAD7EDB1C6C75DD0060B539 /* ioskhmer.png */,
+				9AAD7EDC1C6C75DD0060B539 /* khmernote.png */,
+				9AAD7EDD1C6C75DD0060B539 /* rfa.png */,
 				6FA307B21C592C7C00F885AB /* facebook55.png */,
 				6FA307B31C592C7C00F885AB /* google116.png */,
 				6FA307B41C592C7C00F885AB /* linkedin11.png */,
@@ -427,6 +448,8 @@
 				A5BE5FFF1C3D0BAF007025AC /* TablePageViewController.m */,
 				A5BE60001C3D0BAF007025AC /* viewPageController.h */,
 				A5BE60011C3D0BAF007025AC /* viewPageController.m */,
+				9AAD7ED61C6C752B0060B539 /* CustomSourceTableViewCell.h */,
+				9AAD7ED71C6C752B0060B539 /* CustomSourceTableViewCell.m */,
 				A5BE60021C3D0BAF007025AC /* TableSourceViewController.h */,
 				A5BE60051C3D0BAF007025AC /* TableSourceViewController.m */,
 				A5BE60031C3D0BAF007025AC /* HomeViewCell.h */,
@@ -475,7 +498,7 @@
 				A5BE5FF71C3D0B77007025AC /* PageMenu */,
 				A5BE5FF31C3D0B57007025AC /* CAPAGEMenu */,
 				A5BE5FB91C3D0917007025AC /* SWRevealViewController */,
-				A5BE5FAF1C3D08F8007025AC /* Sidebar */,
+				A5BE5FAF1C3D08F8007025AC /* Main */,
 				A5BE5FA81C3D08E0007025AC /* User Profile */,
 				A5C6C3481C36B15D0003AA80 /* AppDelegate.h */,
 				A5C6C3491C36B15D0003AA80 /* AppDelegate.m */,
@@ -667,10 +690,12 @@
 				A5E3A20E1C51DAAB00481D2F /* delete.png in Resources */,
 				A5C6C3551C36B15D0003AA80 /* LaunchScreen.storyboard in Resources */,
 				A5CDB3C81C5002E700BC3273 /* Search.storyboard in Resources */,
+				9AAD7EE01C6C75DD0060B539 /* ioskhmer.png in Resources */,
 				A5E53B721C3EC8E400DD32FA /* LoginSignup.storyboard in Resources */,
 				9AB961931C46358500C3EE40 /* add99White.png in Resources */,
 				A5BE5FF11C3D0B47007025AC /* sabay.png in Resources */,
 				A5BE5FD01C3D094F007025AC /* login.png in Resources */,
+				9AAD7EE11C6C75DD0060B539 /* khmernote.png in Resources */,
 				A5BE5FDC1C3D094F007025AC /* menu.png in Resources */,
 				A55A981E1C5F022B00FEE8D2 /* GoogleService-Info.plist in Resources */,
 				A5C6C3521C36B15D0003AA80 /* Assets.xcassets in Resources */,
@@ -679,6 +704,7 @@
 				A578E55C1C43FD8D0053DC8B /* left.png in Resources */,
 				A5BE5FD41C3D094F007025AC /* add99.png in Resources */,
 				A55066B31C50C7480073CB63 /* Detail.storyboard in Resources */,
+				9AAD7EE41C6C8E3C0060B539 /* more.png in Resources */,
 				9AB961951C46358500C3EE40 /* logoutWhite.png in Resources */,
 				9AB961971C46358500C3EE40 /* settingWhite.png in Resources */,
 				A5BE5FDF1C3D094F007025AC /* password13.png in Resources */,
@@ -698,6 +724,7 @@
 				A5DE78B41C4C1C6C003DCE16 /* save-gray.png in Resources */,
 				A5BE5FA71C3D08C2007025AC /* Sidebar.storyboard in Resources */,
 				A5BE5FD61C3D094F007025AC /* email.png in Resources */,
+				9AAD7EDE1C6C75DD0060B539 /* bizkhmer.png in Resources */,
 				6FA307B91C592C7C00F885AB /* logo95.png in Resources */,
 				6FA307B61C592C7C00F885AB /* facebook55.png in Resources */,
 				A5BE5FD11C3D094F007025AC /* menuBackgroup.png in Resources */,
@@ -705,7 +732,9 @@
 				A5BE5FDB1C3D094F007025AC /* saveList.png in Resources */,
 				A5BE5FD21C3D094F007025AC /* profile.png in Resources */,
 				9AB961921C46358500C3EE40 /* aboutUsWhite.png in Resources */,
+				9AAD7EDF1C6C75DD0060B539 /* businesscambodia.jpg in Resources */,
 				A5BE5FD31C3D094F007025AC /* guestBackground.png in Resources */,
+				9AAD7EE21C6C75DD0060B539 /* rfa.png in Resources */,
 				A50231931C4828E0001F6407 /* search-icon.png in Resources */,
 				A5DE78B01C4C0891003DCE16 /* kohsontepheap.png in Resources */,
 				9AB961941C46358500C3EE40 /* homeWhite.png in Resources */,
@@ -783,6 +812,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AAD7ED81C6C752B0060B539 /* CustomSourceTableViewCell.m in Sources */,
 				A58E32141C5068A500D00C7C /* UIView+Toast.m in Sources */,
 				A5BE60071C3D0BAF007025AC /* viewPageController.m in Sources */,
 				A5BE60061C3D0BAF007025AC /* TablePageViewController.m in Sources */,
@@ -954,6 +984,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AKN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -970,6 +1001,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AKN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
