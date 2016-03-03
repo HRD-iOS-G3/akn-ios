@@ -55,8 +55,36 @@ static MainViewController *this;
 	// Previous V3 SDK versions
 	// [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 	
+    
+    
 	// New SDK versions
 	[tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
+    // Allocate a reachability object
+    Connectivity* reach = [Connectivity reachabilityWithHostname:@"http://akn.khmeracademy.org"];
+    
+    // Set the blocks
+    reach.reachableBlock = ^(Connectivity*reach)
+    {
+        // keep in mind this is called on a background thread
+        // and if you are updating the UI it needs to happen
+        // on the main thread, like this:
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"REACHABLE!");
+        });
+    };
+    
+    reach.unreachableBlock = ^(Connectivity*reach)
+    {
+        NSLog(@"UNREACHABLE!");
+    };
+    
+    // Start the notifier, which will cause the reachability object to retain itself!
+    [reach startNotifier];
+
+    
+   
 }
 
 - (void)viewDidLoad {
@@ -98,6 +126,11 @@ static MainViewController *this;
     // change SVProgressHUD background color
     [SVProgressHUD setForegroundColor:[UIColor colorWithRed:(200/255.0) green:(38/255.0) blue:(38/255.0) alpha:1.00]];
     [SVProgressHUD setBackgroundColor:[UIColor colorWithRed:(241/255.0) green:(241/255.0) blue:(241/255.0) alpha:1.00]];
+    
+}
+
+-(void)test{
+    
 }
 
 #pragma mark: - search bar tap event
