@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		145749FA1C434E0700D2FFC0 /* NewsByCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */; };
+		6F0670CF1C86F33E00C39755 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0670CE1C86F33E00C39755 /* SystemConfiguration.framework */; };
 		6F3FB19B1C4D6A9100D47ECB /* SaveListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FB19A1C4D6A9100D47ECB /* SaveListTableViewController.m */; };
 		6F87B32A1C59222100B5168E /* AboutUsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F87B3291C59222100B5168E /* AboutUsTableViewController.m */; };
 		6FA307B61C592C7C00F885AB /* facebook55.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA307B21C592C7C00F885AB /* facebook55.png */; };
@@ -121,6 +122,7 @@
 		145749F81C434E0700D2FFC0 /* NewsByCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsByCategoryTableViewController.h; sourceTree = "<group>"; };
 		145749F91C434E0700D2FFC0 /* NewsByCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsByCategoryTableViewController.m; sourceTree = "<group>"; };
 		689C3458E37E50E1642F30A8 /* libPods-AKN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AKN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F0670CE1C86F33E00C39755 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6F3FB1991C4D6A9100D47ECB /* SaveListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveListTableViewController.h; sourceTree = "<group>"; };
 		6F3FB19A1C4D6A9100D47ECB /* SaveListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveListTableViewController.m; sourceTree = "<group>"; };
 		6F87B3281C59222100B5168E /* AboutUsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsTableViewController.h; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F0670CF1C86F33E00C39755 /* SystemConfiguration.framework in Frameworks */,
 				A58E32151C5068B100D00C7C /* QuartzCore.framework in Frameworks */,
 				F9CC9D1D8607CBE082BC8B0E /* libPods-AKN.a in Frameworks */,
 			);
@@ -277,6 +280,7 @@
 		0B080615B51EB20F28F1D8E7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F0670CE1C86F33E00C39755 /* SystemConfiguration.framework */,
 				A5ED70061C500B8F0035B439 /* QuartzCore.framework */,
 				689C3458E37E50E1642F30A8 /* libPods-AKN.a */,
 			);
